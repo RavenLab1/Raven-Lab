@@ -173,14 +173,15 @@
     </div>
 
     <script>
-        // مصفوفة المنتجات - تأكد من رفع ملفات الصور بنفس هذه الأسماء تماماً
+        // مصفوفة المنتجات - تأكد من مطابقة هذه الأسماء لملفاتك على GitHub بدقة
         const items = [
             {
                 id: 1,
                 name: "ميدالية كوب القهوة التفاعلية",
                 price: "2,000 د.ع",
                 badge: "متوفر!",
-                images: ["p1_1.jpg", "p1_2.jpg", "p1_3.jpg"], // الصور التي رفعتها
+                // ملاحظة: تأكد هل الامتداد jpg أم JPG
+                images: ["image.jpg", "add.jpg", "afaf.jpg"], 
                 desc: "ميدالية إبداعية على شكل كوب قهوة مدمج بها سويتش كيبورد ميكانيكي حقيقي. توفر تجربة ضغط ممتعة (ASMR/Fidget) وتعتبر إكسسواراً مثالياً."
             }
         ];
@@ -192,7 +193,9 @@
             card.className = 'product-card glass';
             card.innerHTML = `
                 ${item.badge ? `<div class="badge">${item.badge}</div>` : ''}
-                <img src="${item.images[0]}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Raven+Lab'">
+                <img src="${item.images[0]}" 
+                     alt="${item.name}" 
+                     onerror="console.error('فشل تحميل الصورة:', this.src); this.src='https://placehold.co/400x300/1e293b/efd2b0?text=Image+Not+Found';">
                 <h3>${item.name}</h3>
                 <div class="price">${item.price}</div>
             `;
@@ -208,6 +211,9 @@
             
             const mainView = document.getElementById('mImg');
             mainView.src = item.images[0];
+            mainView.onerror = function() {
+                this.src = 'https://placehold.co/600x400/1e293b/efd2b0?text=Check+Filename+on+GitHub';
+            };
 
             const thumbs = document.getElementById('gThumbs');
             thumbs.innerHTML = '';
@@ -220,6 +226,7 @@
                     document.querySelectorAll('.gallery img').forEach(i => i.classList.remove('active'));
                     e.target.classList.add('active');
                 };
+                t.onerror = function() { this.style.display = 'none'; }; // إخفاء المصغرات المعطوبة
                 thumbs.appendChild(t);
             });
 
