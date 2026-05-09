@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&family=Baloo+Bhaijaan+2:wght@500;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
@@ -21,6 +24,11 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            scroll-behavior: smooth; /* انتقال سلس عند الضغط على الروابط */
+            scroll-padding-top: 90px; /* لعدم تغطية المحتوى بالشريط العلوي */
+        }
 
         body {
             font-family: 'Baloo Bhaijaan 2', 'Alexandria', sans-serif;
@@ -43,24 +51,75 @@
             border-radius: 24px;
         }
 
-        header {
-            padding: 80px 0 40px;
-            text-align: center;
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            border-radius: 0 0 24px 24px;
         }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            padding: 5px 15px;
+            border-radius: 50px;
+        }
+
+        .nav-links a:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: var(--accent-glow);
+        }
+
+        header {
+            padding: 140px 0 60px;
+            text-align: center;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
         header h1 {
-            font-size: clamp(3rem, 10vw, 5rem);
+            font-size: clamp(3.5rem, 10vw, 6rem);
             font-weight: 800;
             background: linear-gradient(45deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px rgba(255, 197, 112, 0.2));
+        }
+
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary);
         }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
-            padding: 40px 0 100px;
+            padding-bottom: 80px;
         }
 
         .product-card {
@@ -104,7 +163,6 @@
             margin-top: 10px;
         }
 
-        /* Modal */
         .modal {
             position: fixed; inset: 0;
             background: rgba(0,0,0,0.9);
@@ -144,21 +202,101 @@
             width: 100%; padding: 18px; background: var(--accent);
             color: #000; text-decoration: none; border-radius: 15px;
             font-weight: 800; font-size: 1.3rem; margin-top: 25px;
+            transition: 0.3s;
+        }
+        .btn-whatsapp:hover {
+            transform: scale(1.02);
+        }
+
+        footer {
+            padding: 60px 0 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .social-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--surface);
+            color: var(--accent);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .social-btn:hover {
+            background: var(--accent);
+            color: var(--bg-color);
+            transform: translateY(-8px);
+            box-shadow: var(--accent-glow);
+        }
+
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <header class="container">
+    <nav class="glass">
+        <ul class="nav-links">
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#products">المنتجات</a></li>
+            <li><a href="#contact">تواصل معنا</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="container">
         <h1>Raven Lab</h1>
-        <p>قطع فنية بدقة احترافية</p>
+        <p>نحول خيالك إلى قطع فنية ملموسة بدقة الطباعة ثلاثية الأبعاد الاحترافية</p>
+        <a href="#products" style="background: var(--surface); color: var(--primary); padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; border: 1px solid var(--primary); transition: 0.3s;">تصفح أعمالنا ↓</a>
     </header>
 
-    <main class="container">
+    <main id="products" class="container">
+        <h2 class="section-title">أحدث منتجاتنا</h2>
         <div class="grid" id="mainGrid">
-            <!-- سيتم توليد المنتج الأول هنا -->
+            <!-- سيتم توليد المنتجات هنا -->
         </div>
     </main>
+
+    <footer id="contact">
+        <div class="container">
+            <h2 class="section-title" style="margin-bottom: 10px; font-size: 2rem;">تواصل معنا</h2>
+            <p>تابعنا على منصات التواصل الاجتماعي ليصلك كل جديد ولطلب منتجاتك المخصصة.</p>
+            
+            <div class="social-links">
+                <!-- ضع روابط حساباتك بدلاً من علامة # -->
+                <a href="#" target="_blank" class="social-btn" title="إنستغرام">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" target="_blank" class="social-btn" title="تيك توك">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <!-- تم وضع رابط واتساب هنا كمثال -->
+                <a href="https://wa.me/9647XXXXXXXX" target="_blank" class="social-btn" title="واتساب">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+            
+            <p class="copyright">© 2024 Raven Lab. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
 
     <div class="modal" id="pModal">
         <div class="modal-content glass">
@@ -166,23 +304,62 @@
             <img id="mImg" class="main-view" src="">
             <div class="gallery" id="gThumbs"></div>
             <h2 id="mTitle"></h2>
-            <p id="mDesc" style="margin: 15px 0; opacity: 0.9;"></p>
+            <p id="mDesc" style="margin: 15px 0; opacity: 0.9; line-height: 1.6;"></p>
             <div class="price" id="mPrice"></div>
-            <a href="#" id="waLink" class="btn-whatsapp">اطلب الآن عبر واتساب 💬</a>
+            <a href="#" id="waLink" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> اطلب الآن عبر واتساب</a>
         </div>
     </div>
 
     <script>
-        // مصفوفة المنتجات - تأكد من مطابقة هذه الأسماء لملفاتك على GitHub بدقة
+        // مصفوفة المنتجات - أضفت منتجات إضافية لتملأ الموقع
         const items = [
             {
                 id: 1,
                 name: "ميدالية كوب القهوة التفاعلية",
                 price: "2,000 د.ع",
-                badge: "متوفر!",
-                // ملاحظة: تأكد هل الامتداد jpg أم JPG
-                images: ["p1_2.jpg", "p1_3.jpg", "p1_1.jpg"], 
+                badge: "منتجك الأصلي!",
+                images: ["p1_2.jpg", "p1_3.jpg", "p1_1.jpg"], // صورك الحقيقية
                 desc: "ميدالية إبداعية على شكل كوب قهوة مدمج بها سويتش كيبورد ميكانيكي حقيقي. توفر تجربة ضغط ممتعة (ASMR/Fidget) وتعتبر إكسسواراً مثالياً."
+            },
+            {
+                id: 2,
+                name: "ميدالة سكيليتون متحرك",
+                price: "2,000 د.ع",
+                badge: "متوفر للطلب!",
+                images: ["p3_2.jpg", "p3_1.jpg"], 
+                desc: "تصميمها مستوحى من شخصية السكيليتون داخل ماينكرافت، قطعة صغيرة لكن مليئة بالهوية، مثالية لتزيين المفاتيح أو حقيبتك وإظهار شغفك باللعبة."
+            },
+            {
+                id: 3,
+                name: "ميدالية cinnamon rolls",
+                price: "2,500 د.ع",
+                badge: "متوفر!",
+                images: ["p2_1.jpg", "p2_2.jpg"],
+                desc: "ميدالية إبداعية على شكل لفائف قرفة(cinnamon rolls) مدمج بها سويتش كيبورد ميكانيكي حقيقي. توفر تجربة ضغط ممتعة (ASMR/Fidget) وتعتبر إكسسواراً مثالياً."
+            },
+            {
+                id: 4,
+                name: "ميدالية GOLB",
+                price: "3,000 د.ع",
+                badge: "متوفر!",
+                images: ["p4_1.jpg", "p4_2.jpg"],
+                desc: "ميدالية GOLB من العمل المشهور وقت المغامرة."
+            }
+            {
+                id: 5,
+                name: "جمجمة النمر المنقرض",
+                price: "5,000 د.ع",
+                badge: "متوفر للطلب!",
+                images: ["p5_1.jpg", "p5_2.jpg", "p5_3.jpg"],
+                desc: "جمجمة النمر المنقرض بطول 7cm مناسب للديكور"
+            }
+        {
+                id: 6,
+                name: "صناديق صغيرة للتخزين",
+                price: "10,000 د.ع",
+                badge: "متوفر للطلب!",
+                images: ["p4_6.jpg", "p6_2.jpg"],
+                desc: "صناديق صغيرة للتخزين من لعبة ماريو بحجم8cm, قابلة للتركيب مع بعض"
             }
         ];
 
@@ -195,7 +372,7 @@
                 ${item.badge ? `<div class="badge">${item.badge}</div>` : ''}
                 <img src="${item.images[0]}" 
                      alt="${item.name}" 
-                     onerror="console.error('فشل تحميل الصورة:', this.src); this.src='https://placehold.co/400x300/1e293b/efd2b0?text=Image+Not+Found';">
+                     onerror="this.src='https://placehold.co/400x300/1e293b/efd2b0?text=صورة+قيد+التحديث';">
                 <h3>${item.name}</h3>
                 <div class="price">${item.price}</div>
             `;
@@ -212,7 +389,7 @@
             const mainView = document.getElementById('mImg');
             mainView.src = item.images[0];
             mainView.onerror = function() {
-                this.src = 'https://placehold.co/600x400/1e293b/efd2b0?text=Check+Filename+on+GitHub';
+                this.src = 'https://placehold.co/600x400/1e293b/efd2b0?text=صورة+غير+متوفرة';
             };
 
             const thumbs = document.getElementById('gThumbs');
@@ -226,11 +403,11 @@
                     document.querySelectorAll('.gallery img').forEach(i => i.classList.remove('active'));
                     e.target.classList.add('active');
                 };
-                t.onerror = function() { this.style.display = 'none'; }; // إخفاء المصغرات المعطوبة
+                t.onerror = function() { this.style.display = 'none'; };
                 thumbs.appendChild(t);
             });
 
-            // ضع رقمك هنا بدلاً من المربعات
+            // ضع رقمك هنا للواتساب
             const phone = "9647XXXXXXXX"; 
             const msg = encodeURIComponent(`مرحباً Raven Lab، أود طلب: ${item.name}`);
             document.getElementById('waLink').href = `https://wa.me/${phone}?text=${msg}`;
