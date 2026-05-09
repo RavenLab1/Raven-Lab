@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raven Lab | مختبر الطباعة ثلاثية الأبعاد</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&family=Baloo+Bhaijaan+2:wght@500;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --surface: rgba(30, 41, 59, 0.7);
+            --primary: #efd2b0;
+            --accent: #ffc570;
+            --text-main: #f8fafc;
+            --accent-glow: 0 0 15px rgba(255, 197, 112, 0.4);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Baloo Bhaijaan 2', 'Alexandria', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at top right, rgba(239, 210, 176, 0.1), transparent),
+                radial-gradient(circle at bottom left, rgba(255, 197, 112, 0.05), transparent);
+            background-attachment: fixed;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .container { width: 92%; max-width: 1200px; margin: auto; }
+
+        .glass {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+        }
+
+        header {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 40px 0 100px;
+        }
+
+        .product-card {
+            padding: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--accent-glow);
+            border-color: var(--accent);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            background: #1e293b;
+        }
+
+        .badge {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            z-index: 10;
+        }
+
+        .price {
+            color: var(--accent);
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-top: 10px;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(15px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        .modal.active { display: flex; }
+
+        .modal-content {
+            max-width: 800px;
+            width: 100%;
+            padding: 30px;
+            position: relative;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute; top: 15px; left: 15px;
+            font-size: 2rem; cursor: pointer; color: var(--accent);
+            z-index: 10;
+        }
+
+        .main-view { width: 100%; border-radius: 20px; margin-bottom: 15px; max-height: 450px; object-fit: cover; }
+        
+        .gallery { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
+        .gallery img { 
+            width: 70px; height: 70px; border-radius: 10px; 
+            cursor: pointer; border: 2px solid transparent; object-fit: cover; flex-shrink: 0;
+        }
+        .gallery img.active { border-color: var(--accent); }
+
+        .btn-whatsapp {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 18px; background: var(--accent);
+            color: #000; text-decoration: none; border-radius: 15px;
+            font-weight: 800; font-size: 1.3rem; margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="container">
+        <h1>Raven Lab</h1>
+        <p>مختبر الطباعة ثلاثية الأبعاد - قطع فنية بدقة احترافية</p>
+    </header>
+
+    <main class="container">
+        <div class="grid" id="mainGrid">
+            <!-- سيتم توليد المنتج الأول هنا -->
+        </div>
+    </main>
+
+    <div class="modal" id="pModal">
+        <div class="modal-content glass">
+            <span class="close" onclick="closeModal()">×</span>
+            <img id="mImg" class="main-view" src="">
+            <div class="gallery" id="gThumbs"></div>
+            <h2 id="mTitle"></h2>
+            <p id="mDesc" style="margin: 15px 0; opacity: 0.9;"></p>
+            <div class="price" id="mPrice"></div>
+            <a href="#" id="waLink" class="btn-whatsapp">اطلب الآن عبر واتساب 💬</a>
+        </div>
+    </div>
+
+    <script>
+        // مصفوفة المنتجات - تأكد من رفع ملفات الصور بنفس هذه الأسماء تماماً
+        const items = [
+            {
+                id: 1,
+                name: "ميدالية كوب القهوة التفاعلية",
+                price: "2,000 د.ع",
+                badge: "متوفر!",
+                images: ["image.jpg", "add.jpg", "afaf.jpg"], // الصور التي رفعتها
+                desc: "ميدالية إبداعية على شكل كوب قهوة مدمج بها سويتش كيبورد ميكانيكي حقيقي. توفر تجربة ضغط ممتعة (ASMR/Fidget) وتعتبر إكسسواراً مثالياً."
+            }
+        ];
+
+        const grid = document.getElementById('mainGrid');
+
+        items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'product-card glass';
+            card.innerHTML = `
+                ${item.badge ? `<div class="badge">${item.badge}</div>` : ''}
+                <img src="${item.images[0]}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Raven+Lab'">
+                <h3>${item.name}</h3>
+                <div class="price">${item.price}</div>
+            `;
+            card.onclick = () => openModal(item);
+            grid.appendChild(card);
+        });
+
+        function openModal(item) {
+            const modal = document.getElementById('pModal');
+            document.getElementById('mTitle').innerText = item.name;
+            document.getElementById('mDesc').innerText = item.desc;
+            document.getElementById('mPrice').innerText = item.price;
+            
+            const mainView = document.getElementById('mImg');
+            mainView.src = item.images[0];
+
+            const thumbs = document.getElementById('gThumbs');
+            thumbs.innerHTML = '';
+            item.images.forEach((img, idx) => {
+                const t = document.createElement('img');
+                t.src = img;
+                if(idx === 0) t.className = 'active';
+                t.onclick = (e) => {
+                    mainView.src = img;
+                    document.querySelectorAll('.gallery img').forEach(i => i.classList.remove('active'));
+                    e.target.classList.add('active');
+                };
+                thumbs.appendChild(t);
+            });
+
+            // ضع رقمك هنا بدلاً من المربعات
+            const phone = "9647XXXXXXXX"; 
+            const msg = encodeURIComponent(`مرحباً Raven Lab، أود طلب: ${item.name}`);
+            document.getElementById('waLink').href = `https://wa.me/${phone}?text=${msg}`;
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('pModal').classList.remove('active');
+        }
+
+        window.onclick = (e) => {
+            if (e.target.id === 'pModal') closeModal();
+        }
+    </script>
+</body>
+</html>
