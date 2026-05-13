@@ -156,11 +156,34 @@
             z-index: 10;
         }
 
+        .price-container {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .old-price {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            text-decoration: line-through;
+            font-weight: 500;
+        }
+
         .price {
             color: var(--accent);
             font-size: 1.6rem;
             font-weight: 800;
-            margin-top: 10px;
+        }
+
+        .discount-badge {
+            background-color: #ef4444; /* لون أحمر للتخفيض */
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: auto; /* لدفعه لليسار */
         }
 
         .modal {
@@ -305,83 +328,100 @@
             <div class="gallery" id="gThumbs"></div>
             <h2 id="mTitle"></h2>
             <p id="mDesc" style="margin: 15px 0; opacity: 0.9; line-height: 1.6;"></p>
-            <div class="price" id="mPrice"></div>
+            <div id="mPriceContainer" class="price-container"></div>
             <a href="#" id="waLink" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> اطلب الآن عبر واتساب</a>
         </div>
     </div>
 
     <script>
-        // مصفوفة المنتجات - منتجاتك الأصلية 
         const items = [
             {
                 id: 1,
                 name: "ميدالية كوب القهوة التفاعلية",
-                price: "2,500 د.ع",
-                badge: "منتجك الأصلي!",
-                images: ["p1_2.jpg", "p1_3.jpg", "p1_1.jpg"], // صورك الحقيقية
+                oldPrice: "2,500 د.ع",
+                price: "2,000 د.ع",
+                discount: "20%",
+                badge: "تخفيض!",
+                images: ["p1_2.jpg", "p1_3.jpg", "p1_1.jpg"],
                 desc: "ميدالية إبداعية على شكل كوب قهوة مدمج بها سويتش كيبورد ميكانيكي حقيقي. توفر تجربة ضغط ممتعة (ASMR/Fidget) وتعتبر إكسسواراً مثالياً."
             },
             {
                 id: 2,
                 name: "ميدالة سكيليتون متحرك",
-                price: "2,500 د.ع",
-                badge: "متوفر للطلب!",
+                oldPrice: "2,500 د.ع",
+                price: "2,000 د.ع",
+                discount: "20%",
+                badge: "تخفيض!",
                 images: ["p3_2.jpg", "p3_1.jpg"], 
                 desc: "تصميمها مستوحى من شخصية السكيليتون داخل ماينكرافت، قطعة صغيرة لكن مليئة بالهوية، مثالية لتزيين المفاتيح أو حقيبتك وإظهار شغفك باللعبة."
             },
             {
                 id: 3,
                 name: "ميدالية cinnamon rolls",
-                price: "3,000 د.ع",
-                badge: "متوفر!",
+                oldPrice: "3,000 د.ع",
+                price: "2,500 د.ع",
+                discount: "16.6%",
+                badge: "تخفيض!",
                 images: ["p2_1.jpg", "p2_2.jpg"],
                 desc: "ميدالية إبداعية على شكل لفائف قرفة(cinnamon rolls) مدمج بها سويتش كيبورد ميكانيكي حقيقي. توفر تجربة ضغط ممتعة (ASMR/Fidget) وتعتبر إكسسواراً مثالياً."
             },
             {
                 id: 4,
                 name: "ميدالية GOLB",
-                price: "5,000 د.ع",
-                badge: "متوفر!",
+                oldPrice: "5,000 د.ع",
+                price: "4,000 د.ع",
+                discount: "20%",
+                badge: "تخفيض!",
                 images: ["p4_1.jpg", "p4_2.jpg"],
                 desc: "ميدالية GOLB من العمل المشهور وقت المغامرة."
             },
             {
                 id: 5,
                 name: "جمجمة النمر المنقرض",
-                price: "7,500 د.ع",
-                badge: "متوفر للطلب!",
+                oldPrice: "7,500 د.ع",
+                price: "6,500 د.ع",
+                discount: "13.3%",
+                badge: "تخفيض!",
                 images: ["p5_2.jpg", "p5_3.jpg", "p5_1.jpg"],
                 desc: "جمجمة النمر المنقرض بطول 7cm مناسب للديكور"
             },
             {
                 id: 6,
                 name: "صناديق صغيرة للتخزين",
-                price: "9,750 د.ع",
-                badge: "متوفر للطلب!",
+                oldPrice: "9,750 د.ع",
+                price: "8,500 د.ع",
+                discount: "12.8%",
+                badge: "تخفيض!",
                 images: ["p6_1.jpg", "p6_2.jpg"],
                 desc: "صناديق صغيرة للتخزين من لعبة ماريو بحجم8cm, قابلة للتركيب مع بعض"
             },
             {
                 id: 7,
                 name: "مجسم دجاجة ماين كرافت",
-                price: "9,750 د.ع",
-                badge: "متوفر بأكثر من حجم للطلب",
+                oldPrice: "9,750 د.ع",
+                price: "8,500 د.ع",
+                discount: "12.8%",
+                badge: "تخفيض!",
                 images: ["p7_1.jpg"],
                 desc: "مجسم دجاجة ماين كرافت بأرتفاع 9cm."
             },
             {
                 id: 8,
                 name: "مشبك أوراق زهور",
-                price: "5,000 د.ع",
-                badge: "متوفر للطلب!",
+                oldPrice: "5,000 د.ع",
+                price: "4,000 د.ع",
+                discount: "20%",
+                badge: "تخفيض!",
                 images: ["p8_1.jpg", "p8_2.jpg"],
                 desc: "مشبك أوراق على شكل زهور جملية، 12 البكج يحتوي 12 قطعة"
             },
             {
                 id: 9,
                 name: "مقلمة ضفدع",
-                price: "14,750 د.ع",
-                badge: "متوفر للطلب!",
+                oldPrice: "14,750 د.ع",
+                price: "12,500 د.ع",
+                discount: "15.2%",
+                badge: "تخفيض!",
                 images: ["p9_1.jpg", "p9_2.jpg", "p9_3.jpg", "p9_4.jpg"],
                 desc: "مقلمة على شكل ضفدع بأرتفاع  15cm"
             }
@@ -398,7 +438,11 @@
                      alt="${item.name}" 
                      onerror="this.src='https://placehold.co/400x300/1e293b/efd2b0?text=صورة+قيد+التحديث';">
                 <h3>${item.name}</h3>
-                <div class="price">${item.price}</div>
+                <div class="price-container">
+                    <span class="price">${item.price}</span>
+                    <span class="old-price">${item.oldPrice}</span>
+                    <span class="discount-badge">-${item.discount}</span>
+                </div>
             `;
             card.onclick = () => openModal(item);
             grid.appendChild(card);
@@ -408,7 +452,12 @@
             const modal = document.getElementById('pModal');
             document.getElementById('mTitle').innerText = item.name;
             document.getElementById('mDesc').innerText = item.desc;
-            document.getElementById('mPrice').innerText = item.price;
+            
+            document.getElementById('mPriceContainer').innerHTML = `
+                <span class="price">${item.price}</span>
+                <span class="old-price">${item.oldPrice}</span>
+                <span class="discount-badge" style="margin-right: 15px;">-${item.discount}</span>
+            `;
             
             const mainView = document.getElementById('mImg');
             mainView.src = item.images[0];
@@ -433,7 +482,7 @@
 
             // ضع رقمك هنا للواتساب
             const phone = "9647XXXXXXXX"; 
-            const msg = encodeURIComponent(`مرحباً Raven Lab، أود طلب: ${item.name}`);
+            const msg = encodeURIComponent(`مرحباً Raven Lab، أود طلب: ${item.name} بالسعر المخفض (${item.price})`);
             document.getElementById('waLink').href = `https://wa.me/${phone}?text=${msg}`;
 
             modal.classList.add('active');
