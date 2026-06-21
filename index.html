@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Baloo+Bhaijaan+2:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Sans+Arabic:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -29,12 +29,16 @@
       --radius-md: 18px;
       --radius-lg: 28px;
       --nav-height: 76px;
+      --nav-bg: rgba(255,255,255,.92);
+      --footer-bg: #111827;
+      --footer-text: #ffffff;
+      --footer-muted: #9ca3af;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 24px); }
     body {
-      font-family: 'Baloo Bhaijaan 2', 'Alexandria', sans-serif;
+      font-family: 'Noto Sans Arabic', 'Baloo Bhaijaan 2', 'Alexandria', sans-serif;
       background: var(--bg-light);
       color: var(--text-dark);
       overflow-x: hidden;
@@ -47,13 +51,40 @@
     :focus-visible { outline: 3px solid var(--brand-green); outline-offset: 3px; }
     .container { width: min(92%, 1200px); margin-inline: auto; }
 
+    body.dark-theme {
+      --bg-white: #0f1117;
+      --bg-light: #171b23;
+      --text-dark: #f8fafc;
+      --text-muted: #a7b0bf;
+      --border-color: #2b3240;
+      --nav-bg: rgba(15,17,23,.9);
+      --footer-bg: #090b10;
+      --footer-text: #f8fafc;
+      --footer-muted: #9ca3af;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, .26);
+      --shadow-md: 0 12px 28px rgba(0, 0, 0, .34);
+      --shadow-lg: 0 24px 60px rgba(0, 0, 0, .5);
+    }
+    body.dark-theme .art-card::before { opacity: .82; }
+    body.dark-theme .brand-mark,
+    body.dark-theme .btn-primary,
+    body.dark-theme .btn-whatsapp,
+    body.dark-theme .nav-cta,
+    body.dark-theme .badge { box-shadow: 0 10px 24px rgba(156, 192, 61, .18); }
+    html[dir="ltr"] .search-box i { right: auto; left: 16px; }
+    html[dir="ltr"] .search-box input { padding: 0 16px 0 46px; }
+    html[dir="ltr"] .close { left: auto; right: 14px; }
+    html[dir="ltr"] .badge { right: auto; left: 14px; }
+    html[dir="ltr"] .discount-badge { margin-right: 0; margin-left: auto; }
+    html[dir="ltr"] .product-card:hover .card-action i { transform: translateX(3px); }
+
     /* Navigation */
     nav {
       position: fixed;
       inset: 0 0 auto;
       z-index: 1000;
       height: var(--nav-height);
-      background: rgba(255,255,255,.92);
+      background: var(--nav-bg);
       border-bottom: 1px solid rgba(226,232,240,.9);
       backdrop-filter: blur(16px);
       transition: box-shadow .25s ease;
@@ -68,6 +99,23 @@
     .nav-links a:hover { background: var(--bg-light); color: var(--brand-green-hover); }
     .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 11px; background: var(--brand-green); color: var(--text-dark); text-decoration: none; font-weight: 800; white-space: nowrap; transition: .2s ease; }
     .nav-cta:hover { background: var(--brand-green-hover); transform: translateY(-1px); }
+    .nav-controls { display: inline-flex; align-items: center; gap: 8px; }
+    .theme-toggle, .lang-btn {
+      min-height: 40px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-white);
+      color: var(--text-dark);
+      border-radius: 11px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px; white-space: nowrap; }
+    .theme-toggle:hover, .lang-btn:hover { border-color: var(--brand-green); background: var(--bg-light); }
+    .theme-toggle i { color: var(--brand-green-hover); }
+    .language-switcher { display: inline-flex; align-items: center; gap: 4px; padding: 4px; border: 1px solid var(--border-color); border-radius: 13px; background: var(--bg-light); }
+    .lang-btn { min-width: 48px; padding: 6px 10px; font-size: .9rem; background: transparent; border-color: transparent; }
+    .lang-btn.active { background: var(--brand-green); color: #111827; border-color: var(--brand-green); }
     .menu-toggle { display: none; width: 42px; height: 42px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-white); color: var(--text-dark); cursor: pointer; }
 
     /* Hero */
@@ -163,10 +211,10 @@
     .order-note { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: .9rem; margin-top: 11px; justify-content: center; }
 
     /* Footer */
-    footer { background: var(--text-dark); color: var(--bg-white); padding: 70px 0 30px; text-align: center; }
+    footer { background: var(--footer-bg); color: var(--footer-text); padding: 70px 0 30px; text-align: center; }
     .footer-brand { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
     .footer-brand span { color: var(--brand-green); }
-    footer p { color: #9ca3af; max-width: 570px; margin-inline: auto; }
+    footer p { color: var(--footer-muted); max-width: 570px; margin-inline: auto; }
     .social-links { display: flex; justify-content: center; gap: 12px; margin: 27px 0 35px; }
     .social-btn { width: 52px; height: 52px; border-radius: 15px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1); color: var(--brand-green); font-size: 1.35rem; display: grid; place-items: center; text-decoration: none; transition: .25s ease; }
     .social-btn:hover { background: var(--brand-green); color: var(--text-dark); transform: translateY(-4px); }
@@ -186,6 +234,12 @@
       :root { --nav-height: 68px; }
       .menu-toggle { display: grid; place-items: center; }
       .nav-cta { display: none; }
+      .nav-content { gap: 10px; }
+      .nav-controls { margin-inline-start: auto; gap: 6px; }
+      .theme-toggle { width: 42px; padding: 0; }
+      .theme-toggle span { display: none; }
+      .language-switcher { gap: 2px; padding: 3px; }
+      .lang-btn { min-width: 39px; padding: 5px 7px; font-size: .76rem; }
       .nav-links { position: absolute; top: calc(100% + 8px); right: 4%; left: 4%; display: grid; gap: 3px; padding: 10px; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: var(--shadow-md); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: .2s ease; }
       .nav-links.open { opacity: 1; visibility: visible; transform: translateY(0); }
       .nav-links a { display: block; padding: 11px 13px; }
@@ -226,25 +280,36 @@
   </style>
 </head>
 <body>
-  <nav id="navbar" aria-label="التنقل الرئيسي">
+  <nav id="navbar" aria-label="التنقل الرئيسي" data-i18n-aria-label="navAria">
     <div class="container nav-content">
-      <a class="brand" href="#home" aria-label="Raven Lab - الرئيسية">
+      <a class="brand" href="#home" aria-label="Raven Lab - الرئيسية" data-i18n-aria-label="brandAria">
         <span class="brand-mark"><i class="fa-solid fa-cube"></i></span>
         <span>Raven <span>Lab</span></span>
       </a>
 
-      <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+      <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" data-i18n-aria-label="menuOpen" aria-expanded="false" aria-controls="navLinks">
         <i class="fa-solid fa-bars"></i>
       </button>
 
       <ul class="nav-links" id="navLinks">
-        <li><a href="#home">الرئيسية</a></li>
-        <li><a href="#products">المنتجات</a></li>
-        <li><a href="#contact">تواصل معنا</a></li>
+        <li><a href="#home" data-i18n="navHome">الرئيسية</a></li>
+        <li><a href="#products" data-i18n="navProducts">المنتجات</a></li>
+        <li><a href="#contact" data-i18n="navContact">تواصل معنا</a></li>
       </ul>
 
+      <div class="nav-controls" aria-label="إعدادات الموقع" data-i18n-aria-label="siteSettings">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+          <i class="fa-solid fa-moon"></i><span data-i18n="themeDark">الوضع الليلي</span>
+        </button>
+        <div class="language-switcher" role="group" aria-label="اختيار اللغة" data-i18n-aria-label="languageLabel">
+          <button class="lang-btn active" type="button" data-lang="ar">عربي</button>
+          <button class="lang-btn" type="button" data-lang="ckb">کوردی</button>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+        </div>
+      </div>
+
       <a class="nav-cta" href="https://wa.me/9647885817890" target="_blank" rel="noopener">
-        <i class="fab fa-whatsapp"></i> اطلب منتجاً مخصصاً
+        <i class="fab fa-whatsapp"></i> <span data-i18n="ctaCustomOrder">اطلب منتجاً مخصصاً</span>
       </a>
     </div>
   </nav>
@@ -252,25 +317,25 @@
   <header id="home">
     <div class="container hero-layout">
       <div class="hero-copy">
-        <div class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> أفكارك، مطبوعة بإتقان</div>
+        <div class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="eyebrow">أفكارك، مطبوعة بإتقان</span></div>
         <h1>Raven <span>Lab</span></h1>
-        <p>نحوّل أفكارك إلى قطع فنية ملموسة بدقة الطباعة ثلاثية الأبعاد الاحترافية، بتفاصيل جميلة وجودة تستحق الاقتناء.</p>
+        <p data-i18n="heroText">نحوّل أفكارك إلى قطع فنية ملموسة بدقة الطباعة ثلاثية الأبعاد الاحترافية، بتفاصيل جميلة وجودة تستحق الاقتناء.</p>
         <div class="hero-actions">
-          <a href="#products" class="btn-primary">تصفح المنتجات <i class="fa-solid fa-arrow-down"></i></a>
-          <a href="https://wa.me/9647885817890" target="_blank" rel="noopener" class="btn-secondary"><i class="fab fa-whatsapp"></i> لديك فكرة خاصة؟</a>
+          <a href="#products" class="btn-primary"><span data-i18n="browseProducts">تصفح المنتجات</span> <i class="fa-solid fa-arrow-down"></i></a>
+          <a href="https://wa.me/9647885817890" target="_blank" rel="noopener" class="btn-secondary"><i class="fab fa-whatsapp"></i> <span data-i18n="customIdea">لديك فكرة خاصة؟</span></a>
         </div>
         <div class="hero-trust" aria-label="مميزات المتجر">
-          <span><i class="fa-solid fa-circle-check"></i> طباعة عالية الدقة</span>
-          <span><i class="fa-solid fa-circle-check"></i> تصاميم مميزة</span>
-          <span><i class="fa-solid fa-circle-check"></i> طلب سريع عبر واتساب</span>
+          <span><i class="fa-solid fa-circle-check"></i> <span data-i18n="trustPrint">طباعة عالية الدقة</span></span>
+          <span><i class="fa-solid fa-circle-check"></i> <span data-i18n="trustDesigns">تصاميم مميزة</span></span>
+          <span><i class="fa-solid fa-circle-check"></i> <span data-i18n="trustWhatsapp">طلب سريع عبر واتساب</span></span>
         </div>
       </div>
 
       <div class="hero-art" aria-hidden="true">
         <div class="art-card">
           <div class="cube"><i class="fa-solid fa-cubes-stacked"></i></div>
-          <div class="floating-pill pill-one"><i class="fa-solid fa-layer-group"></i> طبقة بعد طبقة</div>
-          <div class="floating-pill pill-two"><i class="fa-solid fa-ruler-combined"></i> تفاصيل دقيقة</div>
+          <div class="floating-pill pill-one"><i class="fa-solid fa-layer-group"></i> <span data-i18n="pillLayer">طبقة بعد طبقة</span></div>
+          <div class="floating-pill pill-two"><i class="fa-solid fa-ruler-combined"></i> <span data-i18n="pillDetails">تفاصيل دقيقة</span></div>
         </div>
       </div>
     </div>
@@ -279,28 +344,28 @@
   <main id="products" class="products-section">
     <div class="container">
       <div class="section-heading">
-        <div class="section-kicker">استكشف المجموعة</div>
-        <h2 class="section-title">أحدث منتجاتنا</h2>
-        <p class="section-subtitle">اختر القطعة التي تعجبك، شاهد تفاصيلها وصورها، ثم اطلبها مباشرة عبر واتساب.</p>
+        <div class="section-kicker" data-i18n="sectionKicker">استكشف المجموعة</div>
+        <h2 class="section-title" data-i18n="sectionTitle">أحدث منتجاتنا</h2>
+        <p class="section-subtitle" data-i18n="sectionSubtitle">اختر القطعة التي تعجبك، شاهد تفاصيلها وصورها، ثم اطلبها مباشرة عبر واتساب.</p>
       </div>
 
       <div class="catalog-toolbar" aria-label="أدوات البحث والترتيب">
         <label class="search-box">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input id="searchInput" type="search" placeholder="ابحث عن منتج..." autocomplete="off" aria-label="البحث عن منتج">
+          <input id="searchInput" type="search" placeholder="ابحث عن منتج..." data-i18n-placeholder="searchPlaceholder" autocomplete="off" aria-label="البحث عن منتج" data-i18n-aria-label="searchAria">
         </label>
-        <select class="sort-select" id="sortSelect" aria-label="ترتيب المنتجات">
-          <option value="default">الترتيب الافتراضي</option>
-          <option value="available">المتوفر أولاً</option>
-          <option value="discount">أعلى تخفيض</option>
-          <option value="priceLow">السعر: من الأقل للأعلى</option>
-          <option value="priceHigh">السعر: من الأعلى للأقل</option>
+        <select class="sort-select" id="sortSelect" aria-label="ترتيب المنتجات" data-i18n-aria-label="sortAria">
+          <option value="default" data-i18n="sortDefault">الترتيب الافتراضي</option>
+          <option value="available" data-i18n="sortAvailable">المتوفر أولاً</option>
+          <option value="discount" data-i18n="sortDiscount">أعلى تخفيض</option>
+          <option value="priceLow" data-i18n="sortPriceLow">السعر: من الأقل للأعلى</option>
+          <option value="priceHigh" data-i18n="sortPriceHigh">السعر: من الأعلى للأقل</option>
         </select>
       </div>
 
       <div class="results-row" aria-live="polite">
-        <span>تم العثور على <strong id="resultCount">0</strong> منتج</span>
-        <span>اضغط على أي منتج للتفاصيل</span>
+        <span><span data-i18n="foundBefore">تم العثور على</span> <strong id="resultCount">0</strong> <span data-i18n="foundAfter">منتج</span></span>
+        <span data-i18n="clickDetails">اضغط على أي منتج للتفاصيل</span>
       </div>
       <div class="grid" id="mainGrid"></div>
     </div>
@@ -309,53 +374,434 @@
   <footer id="contact">
     <div class="container">
       <div class="footer-brand">Raven <span>Lab</span></div>
-      <p>تابعنا على منصات التواصل ليصلك كل جديد، أو راسلنا لطلب منتجك المخصص.</p>
+      <p data-i18n="footerDesc">تابعنا على منصات التواصل ليصلك كل جديد، أو راسلنا لطلب منتجك المخصص.</p>
       <div class="social-links">
-        <a href="https://www.instagram.com/raven_lab1?igsh=MXI1anQ0cGpydWFsbg%3D%3D&utm_source=qr" target="_blank" rel="noopener" class="social-btn" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@raven.lab3?_r=1&_t=ZS-96Kw152p7qs" target="_blank" rel="noopener" class="social-btn" aria-label="تيك توك"><i class="fab fa-tiktok"></i></a>
-        <a href="https://wa.me/9647885817890" target="_blank" rel="noopener" class="social-btn" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/raven_lab1?igsh=MXI1anQ0cGpydWFsbg%3D%3D&utm_source=qr" target="_blank" rel="noopener" class="social-btn" aria-label="إنستغرام" data-i18n-aria-label="instagramLabel"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@raven.lab3?_r=1&_t=ZS-96Kw152p7qs" target="_blank" rel="noopener" class="social-btn" aria-label="تيك توك" data-i18n-aria-label="tiktokLabel"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/9647885817890" target="_blank" rel="noopener" class="social-btn" aria-label="واتساب" data-i18n-aria-label="whatsappLabel"><i class="fab fa-whatsapp"></i></a>
       </div>
-      <p class="copyright">© <span id="year"></span> Raven Lab. جميع الحقوق محفوظة.</p>
+      <p class="copyright">© <span id="year"></span> Raven Lab. <span data-i18n="copyright">جميع الحقوق محفوظة.</span></p>
     </div>
   </footer>
 
   <div class="modal" id="pModal" role="dialog" aria-modal="true" aria-labelledby="mTitle" aria-hidden="true">
     <div class="modal-content">
-      <button class="close" id="closeModalBtn" aria-label="إغلاق نافذة المنتج"><i class="fas fa-times"></i></button>
+      <button class="close" id="closeModalBtn" aria-label="إغلاق نافذة المنتج" data-i18n-aria-label="closeModal"><i class="fas fa-times"></i></button>
       <div class="modal-grid">
         <div class="modal-media">
-          <img id="mImg" class="main-view" src="" alt="صورة المنتج">
-          <div class="gallery" id="gThumbs" aria-label="صور المنتج"></div>
+          <img id="mImg" class="main-view" src="" alt="صورة المنتج" data-i18n-alt="productImageAlt">
+          <div class="gallery" id="gThumbs" aria-label="صور المنتج" data-i18n-aria-label="galleryLabel"></div>
         </div>
         <div class="modal-info">
-          <div class="modal-label">تفاصيل المنتج</div>
+          <div class="modal-label" data-i18n="modalLabel">تفاصيل المنتج</div>
           <h2 id="mTitle"></h2>
           <p id="mDesc"></p>
           <div id="mPriceContainer" class="price-container modal-price"></div>
-          <a href="#" id="waLink" class="btn-whatsapp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span>اطلب الآن عبر واتساب</span></a>
-          <div class="order-note"><i class="fa-solid fa-shield-halved"></i> سيتم فتح محادثة جاهزة باسم المنتج وسعره</div>
+          <a href="#" id="waLink" class="btn-whatsapp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span data-i18n="orderNow">اطلب الآن عبر واتساب</span></a>
+          <div class="order-note"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="orderNote">سيتم فتح محادثة جاهزة باسم المنتج وسعره</span></div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
+    const languageSettings = {
+      ar: { htmlLang: 'ar', dir: 'rtl' },
+      ckb: { htmlLang: 'ckb', dir: 'rtl' },
+      en: { htmlLang: 'en', dir: 'ltr' }
+    };
+
+    const translations = {
+      ar: {
+        documentTitle: 'Raven Lab | مختبر الطباعة ثلاثية الأبعاد',
+        metaDescription: 'Raven Lab — منتجات ومجسمات مطبوعة ثلاثية الأبعاد بدقة وجودة عالية.',
+        navAria: 'التنقل الرئيسي',
+        brandAria: 'Raven Lab - الرئيسية',
+        menuOpen: 'فتح القائمة',
+        menuClose: 'إغلاق القائمة',
+        siteSettings: 'إعدادات الموقع',
+        languageLabel: 'اختيار اللغة',
+        navHome: 'الرئيسية',
+        navProducts: 'المنتجات',
+        navContact: 'تواصل معنا',
+        ctaCustomOrder: 'اطلب منتجاً مخصصاً',
+        themeDark: 'الوضع الليلي',
+        themeLight: 'الوضع النهاري',
+        eyebrow: 'أفكارك، مطبوعة بإتقان',
+        heroText: 'نحوّل أفكارك إلى قطع فنية ملموسة بدقة الطباعة ثلاثية الأبعاد الاحترافية، بتفاصيل جميلة وجودة تستحق الاقتناء.',
+        browseProducts: 'تصفح المنتجات',
+        customIdea: 'لديك فكرة خاصة؟',
+        trustPrint: 'طباعة عالية الدقة',
+        trustDesigns: 'تصاميم مميزة',
+        trustWhatsapp: 'طلب سريع عبر واتساب',
+        pillLayer: 'طبقة بعد طبقة',
+        pillDetails: 'تفاصيل دقيقة',
+        sectionKicker: 'استكشف المجموعة',
+        sectionTitle: 'أحدث منتجاتنا',
+        sectionSubtitle: 'اختر القطعة التي تعجبك، شاهد تفاصيلها وصورها، ثم اطلبها مباشرة عبر واتساب.',
+        searchPlaceholder: 'ابحث عن منتج...',
+        searchAria: 'البحث عن منتج',
+        sortAria: 'ترتيب المنتجات',
+        sortDefault: 'الترتيب الافتراضي',
+        sortAvailable: 'المتوفر أولاً',
+        sortDiscount: 'أعلى تخفيض',
+        sortPriceLow: 'السعر: من الأقل للأعلى',
+        sortPriceHigh: 'السعر: من الأعلى للأقل',
+        foundBefore: 'تم العثور على',
+        foundAfter: 'منتج',
+        clickDetails: 'اضغط على أي منتج للتفاصيل',
+        emptyTitle: 'لم نجد منتجاً بهذا الاسم',
+        emptyText: 'جرّب كتابة كلمة أقصر أو امسح البحث لعرض جميع المنتجات.',
+        viewDetails: 'عرض التفاصيل',
+        detailsAriaPrefix: 'عرض تفاصيل',
+        footerDesc: 'تابعنا على منصات التواصل ليصلك كل جديد، أو راسلنا لطلب منتجك المخصص.',
+        instagramLabel: 'إنستغرام',
+        tiktokLabel: 'تيك توك',
+        whatsappLabel: 'واتساب',
+        copyright: 'جميع الحقوق محفوظة.',
+        closeModal: 'إغلاق نافذة المنتج',
+        productImageAlt: 'صورة المنتج',
+        galleryLabel: 'صور المنتج',
+        modalLabel: 'تفاصيل المنتج',
+        orderNow: 'اطلب الآن عبر واتساب',
+        unavailable: 'هذا المنتج غير متوفر حالياً',
+        orderNote: 'سيتم فتح محادثة جاهزة باسم المنتج وسعره',
+        galleryImagePrefix: 'صورة',
+        galleryImageOf: 'من',
+        fallbackImageText: 'صورة+قيد+التحديث',
+        whatsappMsg: (name, price) => `مرحباً Raven Lab، أود طلب: ${name} بسعر (${price})`,
+        priceSuffix: 'د.ع',
+        badgeSoldOut: 'نفذت الكمية',
+        badgeDiscount: 'تخفيض!',
+        badgeFewLeft3: 'متبقي 3 قطع!',
+        badgeMinecraft: 'Minecraft!'
+      },
+      ckb: {
+        documentTitle: 'Raven Lab | تاقیگەی چاپی سێ ڕەهەندی',
+        metaDescription: 'Raven Lab — بەرهەم و مۆدێلی چاپکراوی سێ ڕەهەندی بە وردی و کوالیتی بەرز.',
+        navAria: 'ڕێنمایی سەرەکی',
+        brandAria: 'Raven Lab - سەرەکی',
+        menuOpen: 'کردنەوەی لیست',
+        menuClose: 'داخستنی لیست',
+        siteSettings: 'ڕێکخستنەکانی ماڵپەڕ',
+        languageLabel: 'هەڵبژاردنی زمان',
+        navHome: 'سەرەکی',
+        navProducts: 'بەرهەمەکان',
+        navContact: 'پەیوەندی',
+        ctaCustomOrder: 'داواکاری بەرهەمی تایبەت',
+        themeDark: 'دۆخی شەو',
+        themeLight: 'دۆخی ڕۆژ',
+        eyebrow: 'بیرۆکەکانت، بە جوانی چاپ دەکرێن',
+        heroText: 'بیرۆکەکانت دەگۆڕین بۆ پارچەی هونەری بە چاپی سێ ڕەهەندی پیشەیی، بە وردەکاری جوان و کوالیتییەک کە شایەنی هەڵگرتنە.',
+        browseProducts: 'بینینی بەرهەمەکان',
+        customIdea: 'بیرۆکەیەکی تایبەتت هەیە؟',
+        trustPrint: 'چاپی وردی بەرز',
+        trustDesigns: 'دیزاینی جیاواز',
+        trustWhatsapp: 'داواکاری خێرا لە واتساپ',
+        pillLayer: 'چین بە چین',
+        pillDetails: 'وردەکاری ورد',
+        sectionKicker: 'کۆمەڵەکە ببینە',
+        sectionTitle: 'نوێترین بەرهەمەکانمان',
+        sectionSubtitle: 'ئەو پارچەیە هەڵبژێرە کە پێت باشە، وردەکاری و وێنەکانی ببینە، پاشان راستەوخۆ لە واتساپ داوای بکە.',
+        searchPlaceholder: 'بگەڕێ بۆ بەرهەم...',
+        searchAria: 'گەڕان بۆ بەرهەم',
+        sortAria: 'ڕیزکردنی بەرهەمەکان',
+        sortDefault: 'ڕیزکردنی بنەڕەتی',
+        sortAvailable: 'بەردەستەکان یەکەم',
+        sortDiscount: 'زۆرترین داشکاندن',
+        sortPriceLow: 'نرخ: لە کەمەوە بۆ زۆر',
+        sortPriceHigh: 'نرخ: لە زۆرەوە بۆ کەم',
+        foundBefore: 'دۆزرایەوە',
+        foundAfter: 'بەرهەم',
+        clickDetails: 'کرتە لەسەر هەر بەرهەمێک بکە بۆ وردەکاری',
+        emptyTitle: 'هیچ بەرهەمێک بەو ناوە نەدۆزرایەوە',
+        emptyText: 'وشەیەکی کورت‌تر بنووسە یان گەڕانەکە بسڕەوە بۆ پیشاندانی هەموو بەرهەمەکان.',
+        viewDetails: 'بینینی وردەکاری',
+        detailsAriaPrefix: 'بینینی وردەکاری',
+        footerDesc: 'لە سۆشیال میدیا شوێنمان بکەوە بۆ نوێترین شت، یان پەیوەندیمان پێوە بکە بۆ داواکاری بەرهەمی تایبەت.',
+        instagramLabel: 'ئینستاگرام',
+        tiktokLabel: 'تیکتۆک',
+        whatsappLabel: 'واتساپ',
+        copyright: 'هەموو مافەکان پارێزراون.',
+        closeModal: 'داخستنی پەنجەرەی بەرهەم',
+        productImageAlt: 'وێنەی بەرهەم',
+        galleryLabel: 'وێنەکانی بەرهەم',
+        modalLabel: 'وردەکاری بەرهەم',
+        orderNow: 'ئێستا لە واتساپ داوای بکە',
+        unavailable: 'ئەم بەرهەمە لە ئێستادا بەردەست نییە',
+        orderNote: 'گفتوگۆیەکی ئامادە بە ناوی بەرهەم و نرخەکەی دەکرێتەوە',
+        galleryImagePrefix: 'وێنەی',
+        galleryImageOf: 'لە',
+        fallbackImageText: 'وێنە+نوێ+دەکرێتەوە',
+        whatsappMsg: (name, price) => `سڵاو Raven Lab، دەمەوێت ئەم بەرهەمە داوا بکەم: ${name} بە نرخی (${price})`,
+        priceSuffix: 'د.ع',
+        badgeSoldOut: 'تەواو بووە',
+        badgeDiscount: 'داشکاندن!',
+        badgeFewLeft3: 'تەنها ٣ پارچە ماوە!',
+        badgeMinecraft: 'Minecraft!'
+      },
+      en: {
+        documentTitle: 'Raven Lab | 3D Printing Lab',
+        metaDescription: 'Raven Lab — high-quality 3D printed products and models made with precision.',
+        navAria: 'Main navigation',
+        brandAria: 'Raven Lab - Home',
+        menuOpen: 'Open menu',
+        menuClose: 'Close menu',
+        siteSettings: 'Site settings',
+        languageLabel: 'Choose language',
+        navHome: 'Home',
+        navProducts: 'Products',
+        navContact: 'Contact',
+        ctaCustomOrder: 'Order a custom product',
+        themeDark: 'Night mode',
+        themeLight: 'Light mode',
+        eyebrow: 'Your ideas, printed with care',
+        heroText: 'We turn your ideas into tangible art pieces using professional 3D printing, beautiful details, and quality worth keeping.',
+        browseProducts: 'Browse products',
+        customIdea: 'Have a custom idea?',
+        trustPrint: 'High-precision printing',
+        trustDesigns: 'Unique designs',
+        trustWhatsapp: 'Fast ordering on WhatsApp',
+        pillLayer: 'Layer by layer',
+        pillDetails: 'Fine details',
+        sectionKicker: 'Explore the collection',
+        sectionTitle: 'Our latest products',
+        sectionSubtitle: 'Choose the piece you like, view its details and photos, then order directly through WhatsApp.',
+        searchPlaceholder: 'Search for a product...',
+        searchAria: 'Search for a product',
+        sortAria: 'Sort products',
+        sortDefault: 'Default order',
+        sortAvailable: 'Available first',
+        sortDiscount: 'Highest discount',
+        sortPriceLow: 'Price: low to high',
+        sortPriceHigh: 'Price: high to low',
+        foundBefore: 'Found',
+        foundAfter: 'product(s)',
+        clickDetails: 'Click any product for details',
+        emptyTitle: 'No product found with this name',
+        emptyText: 'Try a shorter keyword or clear the search to show all products.',
+        viewDetails: 'View details',
+        detailsAriaPrefix: 'View details for',
+        footerDesc: 'Follow us on social media for updates, or message us to order your custom product.',
+        instagramLabel: 'Instagram',
+        tiktokLabel: 'TikTok',
+        whatsappLabel: 'WhatsApp',
+        copyright: 'All rights reserved.',
+        closeModal: 'Close product window',
+        productImageAlt: 'Product image',
+        galleryLabel: 'Product images',
+        modalLabel: 'Product details',
+        orderNow: 'Order now on WhatsApp',
+        unavailable: 'This product is currently unavailable',
+        orderNote: 'A ready WhatsApp message will open with the product name and price',
+        galleryImagePrefix: 'Image',
+        galleryImageOf: 'of',
+        fallbackImageText: 'Image+being+updated',
+        whatsappMsg: (name, price) => `Hello Raven Lab, I would like to order: ${name} for (${price})`,
+        priceSuffix: 'IQD',
+        badgeSoldOut: 'Sold out',
+        badgeDiscount: 'Sale!',
+        badgeFewLeft3: 'Only 3 left!',
+        badgeMinecraft: 'Minecraft!'
+      }
+    };
+
     const items = [
-      { id: 1, name: "ميدالية كوب القهوة التفاعلية", oldPrice: "3,000 د.ع", price: "2,500 د.ع", discount: "20%", badge: "نفذت الكمية", images: ["p1_2.jpg", "p1_3.jpg", "p1_1.jpg"], desc: "ميدالية إبداعية على شكل كوب قهوة مدمج بها سويتش كيبورد ميكانيكي حقيقي. توفر تجربة ضغط ممتعة (ASMR/Fidget) وتعتبر إكسسواراً مثالياً." },
-      { id: 2, name: "ميدالية سكيليتون متحرك", oldPrice: "2,500 د.ع", price: "2,000 د.ع", discount: "20%", badge: "تخفيض!", images: ["p3_2.jpg", "p3_1.jpg"], desc: "تصميم مستوحى من شخصية السكيليتون داخل ماينكرافت. قطعة صغيرة مليئة بالهوية، مثالية لتزيين المفاتيح أو حقيبتك وإظهار شغفك باللعبة." },
-      { id: 3, name: "ميدالية Cinnamon Rolls", oldPrice: "3,000 د.ع", price: "2,500 د.ع", discount: "16.6%", badge: "متبقي 3 قطع!", images: ["p2_1.jpg", "p2_2.jpg"], desc: "ميدالية إبداعية على شكل لفائف القرفة مدمج بها سويتش كيبورد ميكانيكي حقيقي، وتوفر تجربة ضغط ممتعة (ASMR/Fidget)." },
-      { id: 4, name: "ميدالية GOLB", oldPrice: "3,000 د.ع", price: "1,500 د.ع", discount: "50%", badge: "تخفيض!", images: ["p4_1.jpg", "p4_2.jpg"], desc: "ميدالية GOLB من العمل الشهير وقت المغامرة." },
-      { id: 5, name: "جمجمة النمر المنقرض", oldPrice: "7,500 د.ع", price: "6,500 د.ع", discount: "13.3%", badge: "تخفيض!", images: ["p5_2.jpg", "p5_3.jpg", "p5_1.jpg"], desc: "مجسم جمجمة النمر المنقرض بطول 7 سم، مناسب للديكور." },
-      { id: 6, name: "صناديق صغيرة للتخزين", oldPrice: "9,750 د.ع", price: "8,500 د.ع", discount: "12.8%", badge: "تخفيض!", images: ["p6_1.jpg", "p6_2.jpg"], desc: "صناديق تخزين صغيرة مستوحاة من لعبة ماريو بحجم 8 سم، وقابلة للتركيب مع بعضها." },
-      { id: 7, name: "مجسم دجاجة ماين كرافت", oldPrice: "9,750 د.ع", price: "8,500 د.ع", discount: "12.8%", badge: "تخفيض!", images: ["p7_1.jpg"], desc: "مجسم دجاجة ماين كرافت بارتفاع 9 سم." },
-      { id: 8, name: "مشبك أوراق زهور", oldPrice: "5,000 د.ع", price: "4,000 د.ع", discount: "20%", badge: "تخفيض!", images: ["p8_1.jpg", "p8_2.jpg"], desc: "مشابك أوراق على شكل زهور جميلة، يحتوي البكج على 12 قطعة." },
-      { id: 9, name: "مقلمة ضفدع", oldPrice: "14,750 د.ع", price: "12,500 د.ع", discount: "15.2%", badge: "تخفيض!", images: ["p9_1.jpg", "p9_2.jpg", "p9_3.jpg", "p9_4.jpg"], desc: "مقلمة لطيفة على شكل ضفدع بارتفاع 15 سم." },
-      { id: 10, name: "ميدالية كوب", price: "5,000 د.ع", badge: "نفذت الكمية", images: ["p10_1.jpg", "p10_2.jpg"], desc: "ميدالية على شكل كوب لطيف مع كليكر وصوت ممتع." },
-      { id: 11, name: "ميدالية TNT", price: "1,500 د.ع", badge: "Minecraft!", images: ["p11_1.jpg", "p11_2.jpg"], desc: "ميدالية TNT مستوحاة من لعبة ماين كرافت." },
-      { id: 12, name: "ميدالية كريبر", price: "1,500 د.ع", badge: "Minecraft!", images: ["p12_1.jpg", "p12_2.jpg", "p12_3.jpg"], desc: "ميدالية كريبر مستوحاة من لعبة ماين كرافت." },
-      { id: 13, name: "ميدالية بطريق", price: "1,500 د.ع", images: ["p13_1.jpg", "p13_2.jpg", "p13_3.jpg"], desc: "ميدالية بطريق مستوحاة من وقت المغامرة." },
-      { id: 14, name: "ميدالية دجاجة", price: "2,000 د.ع", images: ["p14_1.jpg", "p14_2.jpg", "p14_3.jpg", "p14_4.jpg"], desc: "ميدالية دجاجة مستوحاة من لعبة ماين كرافت." },
-      { id: 15, name: "ميدالية غيمة", price: "1,500 د.ع", images: ["p15_1.jpg", "p15_2.jpg", "p15_3.jpg", "p15_4.jpg"], desc: "ميدالية غيمة مستوحاة من لعبة ماين كرافت." }
+      {
+        id: 1,
+        name: { ar: 'ميدالية كوب القهوة التفاعلية', ckb: 'کلیل ئاڵقەی کوپی قاوەی کارلێکەر', en: 'Interactive Coffee Cup Keychain' },
+        oldPriceValue: 3000,
+        priceValue: 2500,
+        discountValue: 20,
+        badgeKey: 'soldOut',
+        images: ['p1_2.jpg', 'p1_3.jpg', 'p1_1.jpg'],
+        desc: {
+          ar: 'ميدالية إبداعية على شكل كوب قهوة مدمج بها سويتش كيبورد ميكانيكي حقيقي. توفر تجربة ضغط ممتعة (ASMR/Fidget) وتعتبر إكسسواراً مثالياً.',
+          ckb: 'کلیل ئاڵقەیەکی داهێنەرانە بە شێوەی کوپی قاوە کە سویچی ڕاستەقینەی کیبۆردی میکانیکی تێدایە. هەستێکی خۆشی کرتەکردن دەدات و وەک ئەکسسوارییەکی جوان دەگونجێت.',
+          en: 'A creative coffee-cup keychain with a real mechanical keyboard switch inside. It gives a satisfying ASMR/fidget press and works as a fun everyday accessory.'
+        }
+      },
+      {
+        id: 2,
+        name: { ar: 'ميدالية سكيليتون متحرك', ckb: 'کلیل ئاڵقەی سکێلیتۆنی جوڵاو', en: 'Moving Skeleton Keychain' },
+        oldPriceValue: 2500,
+        priceValue: 2000,
+        discountValue: 20,
+        badgeKey: 'discount',
+        images: ['p3_2.jpg', 'p3_1.jpg'],
+        desc: {
+          ar: 'تصميم مستوحى من شخصية السكيليتون داخل ماينكرافت. قطعة صغيرة مليئة بالهوية، مثالية لتزيين المفاتيح أو حقيبتك وإظهار شغفك باللعبة.',
+          ckb: 'دیزاینێک کە لە کاراکتەری سکێلیتۆنی ماینکرافت وەرگیراوە. پارچەیەکی بچووک و پڕ ناسنامەیە، گونجاوە بۆ جوانکردنی کلیل یان جانتاکەت.',
+          en: 'Inspired by the Skeleton character from Minecraft. A small piece with personality, perfect for keys, bags, and showing your love for the game.'
+        }
+      },
+      {
+        id: 3,
+        name: { ar: 'ميدالية Cinnamon Rolls', ckb: 'کلیل ئاڵقەی Cinnamon Rolls', en: 'Cinnamon Rolls Keychain' },
+        oldPriceValue: 3000,
+        priceValue: 2500,
+        discountValue: 16.6,
+        badgeKey: 'fewLeft3',
+        images: ['p2_1.jpg', 'p2_2.jpg'],
+        desc: {
+          ar: 'ميدالية إبداعية على شكل لفائف القرفة مدمج بها سويتش كيبورد ميكانيكي حقيقي، وتوفر تجربة ضغط ممتعة (ASMR/Fidget).',
+          ckb: 'کلیل ئاڵقەیەکی داهێنەرانە بە شێوەی سینەمۆن ڕۆڵز، کە سویچی ڕاستەقینەی کیبۆردی میکانیکی تێدایە و هەستێکی خۆشی کرتەکردن دەدات.',
+          en: 'A creative cinnamon-roll keychain with a real mechanical keyboard switch inside, made for a satisfying ASMR/fidget pressing experience.'
+        }
+      },
+      {
+        id: 4,
+        name: { ar: 'ميدالية GOLB', ckb: 'کلیل ئاڵقەی GOLB', en: 'GOLB Keychain' },
+        oldPriceValue: 3000,
+        priceValue: 1500,
+        discountValue: 50,
+        badgeKey: 'discount',
+        images: ['p4_1.jpg', 'p4_2.jpg'],
+        desc: {
+          ar: 'ميدالية GOLB من العمل الشهير وقت المغامرة.',
+          ckb: 'کلیل ئاڵقەی GOLB لە کاری بەناوبانگی Adventure Time.',
+          en: 'A GOLB keychain inspired by the famous Adventure Time character.'
+        }
+      },
+      {
+        id: 5,
+        name: { ar: 'جمجمة النمر المنقرض', ckb: 'کەلەسەری پڵنگی نەماو', en: 'Extinct Tiger Skull' },
+        oldPriceValue: 7500,
+        priceValue: 6500,
+        discountValue: 13.3,
+        badgeKey: 'discount',
+        images: ['p5_2.jpg', 'p5_3.jpg', 'p5_1.jpg'],
+        desc: {
+          ar: 'مجسم جمجمة النمر المنقرض بطول 7 سم، مناسب للديكور.',
+          ckb: 'مۆدێلی کەلەسەری پڵنگی نەماو بە درێژی ٧ سم، گونجاوە بۆ دیکۆر.',
+          en: 'A 7 cm extinct tiger skull model, suitable for decoration.'
+        }
+      },
+      {
+        id: 6,
+        name: { ar: 'صناديق صغيرة للتخزين', ckb: 'سندوقی بچووک بۆ هەڵگرتن', en: 'Small Storage Boxes' },
+        oldPriceValue: 9750,
+        priceValue: 8500,
+        discountValue: 12.8,
+        badgeKey: 'discount',
+        images: ['p6_1.jpg', 'p6_2.jpg'],
+        desc: {
+          ar: 'صناديق تخزين صغيرة مستوحاة من لعبة ماريو بحجم 8 سم، وقابلة للتركيب مع بعضها.',
+          ckb: 'سندوقی بچووک بۆ هەڵگرتن، وەرگیراو لە یاری مارێۆ، بە قەبارەی ٨ سم و دەتوانرێت لەگەڵ یەکتر دابنرێن.',
+          en: 'Small 8 cm storage boxes inspired by Mario, designed to connect and stack together.'
+        }
+      },
+      {
+        id: 7,
+        name: { ar: 'مجسم دجاجة ماين كرافت', ckb: 'مۆدێلی مریشکی ماینکرافت', en: 'Minecraft Chicken Model' },
+        oldPriceValue: 9750,
+        priceValue: 8500,
+        discountValue: 12.8,
+        badgeKey: 'discount',
+        images: ['p7_1.jpg'],
+        desc: {
+          ar: 'مجسم دجاجة ماين كرافت بارتفاع 9 سم.',
+          ckb: 'مۆدێلی مریشکی ماینکرافت بە بەرزی ٩ سم.',
+          en: 'A 9 cm Minecraft chicken model.'
+        }
+      },
+      {
+        id: 8,
+        name: { ar: 'مشبك أوراق زهور', ckb: 'کلێپسی کاغەز بە شێوەی گوڵ', en: 'Flower Paper Clips' },
+        oldPriceValue: 5000,
+        priceValue: 4000,
+        discountValue: 20,
+        badgeKey: 'discount',
+        images: ['p8_1.jpg', 'p8_2.jpg'],
+        desc: {
+          ar: 'مشابك أوراق على شكل زهور جميلة، يحتوي البكج على 12 قطعة.',
+          ckb: 'کلێپسی کاغەز بە شێوەی گوڵی جوان، پاکێجەکە ١٢ پارچەی تێدایە.',
+          en: 'Beautiful flower-shaped paper clips. The package includes 12 pieces.'
+        }
+      },
+      {
+        id: 9,
+        name: { ar: 'مقلمة ضفدع', ckb: 'جامەدانی قەڵەمی بۆق', en: 'Frog Pencil Holder' },
+        oldPriceValue: 14750,
+        priceValue: 12500,
+        discountValue: 15.2,
+        badgeKey: 'discount',
+        images: ['p9_1.jpg', 'p9_2.jpg', 'p9_3.jpg', 'p9_4.jpg'],
+        desc: {
+          ar: 'مقلمة لطيفة على شكل ضفدع بارتفاع 15 سم.',
+          ckb: 'جامەدانی قەڵەمێکی خۆش بە شێوەی بۆق، بە بەرزی ١٥ سم.',
+          en: 'A cute frog-shaped pencil holder, 15 cm tall.'
+        }
+      },
+      {
+        id: 10,
+        name: { ar: 'ميدالية كوب', ckb: 'کلیل ئاڵقەی کوپ', en: 'Cup Keychain' },
+        priceValue: 5000,
+        badgeKey: 'soldOut',
+        images: ['p10_1.jpg', 'p10_2.jpg'],
+        desc: {
+          ar: 'ميدالية على شكل كوب لطيف مع كليكر وصوت ممتع.',
+          ckb: 'کلیل ئاڵقەیەک بە شێوەی کوپێکی جوان لەگەڵ کلیکەر و دەنگێکی خۆش.',
+          en: 'A cute cup-shaped keychain with a clicker and a satisfying sound.'
+        }
+      },
+      {
+        id: 11,
+        name: { ar: 'ميدالية TNT', ckb: 'کلیل ئاڵقەی TNT', en: 'TNT Keychain' },
+        priceValue: 1500,
+        badgeKey: 'minecraft',
+        images: ['p11_1.jpg', 'p11_2.jpg'],
+        desc: {
+          ar: 'ميدالية TNT مستوحاة من لعبة ماين كرافت.',
+          ckb: 'کلیل ئاڵقەی TNT وەرگیراو لە یاری ماینکرافت.',
+          en: 'A TNT keychain inspired by Minecraft.'
+        }
+      },
+      {
+        id: 12,
+        name: { ar: 'ميدالية كريبر', ckb: 'کلیل ئاڵقەی کریپەر', en: 'Creeper Keychain' },
+        priceValue: 1500,
+        badgeKey: 'minecraft',
+        images: ['p12_1.jpg', 'p12_2.jpg', 'p12_3.jpg'],
+        desc: {
+          ar: 'ميدالية كريبر مستوحاة من لعبة ماين كرافت.',
+          ckb: 'کلیل ئاڵقەی کریپەر وەرگیراو لە یاری ماینکرافت.',
+          en: 'A Creeper keychain inspired by Minecraft.'
+        }
+      },
+      {
+        id: 13,
+        name: { ar: 'ميدالية بطريق', ckb: 'کلیل ئاڵقەی پەنگوین', en: 'Penguin Keychain' },
+        priceValue: 1500,
+        images: ['p13_1.jpg', 'p13_2.jpg', 'p13_3.jpg'],
+        desc: {
+          ar: 'ميدالية بطريق مستوحاة من وقت المغامرة.',
+          ckb: 'کلیل ئاڵقەی پەنگوین وەرگیراو لە Adventure Time.',
+          en: 'A penguin keychain inspired by Adventure Time.'
+        }
+      },
+      {
+        id: 14,
+        name: { ar: 'ميدالية دجاجة', ckb: 'کلیل ئاڵقەی مریشک', en: 'Chicken Keychain' },
+        priceValue: 2000,
+        images: ['p14_1.jpg', 'p14_2.jpg', 'p14_3.jpg', 'p14_4.jpg'],
+        desc: {
+          ar: 'ميدالية دجاجة مستوحاة من لعبة ماين كرافت.',
+          ckb: 'کلیل ئاڵقەی مریشک وەرگیراو لە یاری ماینکرافت.',
+          en: 'A chicken keychain inspired by Minecraft.'
+        }
+      },
+      {
+        id: 15,
+        name: { ar: 'ميدالية غيمة', ckb: 'کلیل ئاڵقەی ھەور', en: 'Cloud Keychain' },
+        priceValue: 1500,
+        images: ['p15_1.jpg', 'p15_2.jpg', 'p15_3.jpg', 'p15_4.jpg'],
+        desc: {
+          ar: 'ميدالية غيمة مستوحاة من لعبة ماين كرافت.',
+          ckb: 'کلیل ئاڵقەی ھەور وەرگیراو لە یاری ماینکرافت.',
+          en: 'A cloud keychain inspired by Minecraft.'
+        }
+      }
     ];
 
     const grid = document.getElementById('mainGrid');
@@ -364,69 +810,141 @@
     const sortSelect = document.getElementById('sortSelect');
     const resultCount = document.getElementById('resultCount');
     const closeModalBtn = document.getElementById('closeModalBtn');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const themeToggle = document.getElementById('themeToggle');
+    const langButtons = document.querySelectorAll('.lang-btn');
     let lastFocusedElement = null;
+    let currentLang = localStorage.getItem('raven-language') || 'ar';
 
-    const isSoldOut = item => item.badge === 'نفذت الكمية';
-    const numberFrom = value => Number(String(value || '0').replace(/[^0-9.]/g, ''));
-    const discountFrom = item => Number(String(item.discount || '0').replace('%', ''));
-    const fallbackImage = 'https://placehold.co/700x600/e2e8f0/64748b?text=صورة+قيد+التحديث';
+    const isSoldOut = item => item.badgeKey === 'soldOut';
+    const discountFrom = item => Number(item.discountValue || 0);
+    const fallbackImage = () => `https://placehold.co/700x600/e2e8f0/64748b?text=${t('fallbackImageText')}`;
+
+    function t(key) {
+      return (translations[currentLang] && translations[currentLang][key]) || translations.ar[key] || key;
+    }
+
+    function localized(value) {
+      if (!value || typeof value !== 'object') return value || '';
+      return value[currentLang] || value.ar || '';
+    }
+
+    function formatPrice(value) {
+      if (!value) return '';
+      const locale = currentLang === 'en' ? 'en-US' : 'ar-IQ';
+      return `${Number(value).toLocaleString(locale)} ${t('priceSuffix')}`;
+    }
+
+    function formatDiscount(value) {
+      return Number(value).toLocaleString(currentLang === 'en' ? 'en-US' : 'ar-IQ', { maximumFractionDigits: 1 }) + '%';
+    }
+
+    function badgeText(item) {
+      if (!item.badgeKey) return '';
+      const map = {
+        soldOut: 'badgeSoldOut',
+        discount: 'badgeDiscount',
+        fewLeft3: 'badgeFewLeft3',
+        minecraft: 'badgeMinecraft'
+      };
+      return t(map[item.badgeKey]);
+    }
 
     function priceMarkup(item) {
-      return item.oldPrice && item.discount
-        ? `<span class="price">${item.price}</span><span class="old-price">${item.oldPrice}</span><span class="discount-badge">-${item.discount}</span>`
-        : `<span class="price">${item.price}</span>`;
+      const currentPrice = formatPrice(item.priceValue);
+      if (item.oldPriceValue && item.discountValue) {
+        return `<span class="price">${currentPrice}</span><span class="old-price">${formatPrice(item.oldPriceValue)}</span><span class="discount-badge">-${formatDiscount(item.discountValue)}</span>`;
+      }
+      return `<span class="price">${currentPrice}</span>`;
+    }
+
+    function updateStaticText() {
+      const settings = languageSettings[currentLang] || languageSettings.ar;
+      document.documentElement.lang = settings.htmlLang;
+      document.documentElement.dir = settings.dir;
+      document.title = t('documentTitle');
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) metaDescription.setAttribute('content', t('metaDescription'));
+
+      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
+      document.querySelectorAll('[data-i18n-aria-label]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel)); });
+      document.querySelectorAll('[data-i18n-alt]').forEach(el => { el.alt = t(el.dataset.i18nAlt); });
+
+      langButtons.forEach(button => button.classList.toggle('active', button.dataset.lang === currentLang));
+      updateThemeButton();
+      updateMenuButton();
     }
 
     function renderProducts() {
-      const query = searchInput.value.trim().toLocaleLowerCase('ar');
-      let filtered = items.filter(item => `${item.name} ${item.desc}`.toLocaleLowerCase('ar').includes(query));
+      const query = searchInput.value.trim().toLocaleLowerCase();
+      let filtered = items.filter(item => {
+        const haystack = [
+          localized(item.name),
+          localized(item.desc),
+          item.name.ar,
+          item.desc.ar,
+          item.name.ckb,
+          item.desc.ckb,
+          item.name.en,
+          item.desc.en
+        ].join(' ').toLocaleLowerCase();
+        return haystack.includes(query);
+      });
 
       const sorters = {
         available: (a, b) => Number(isSoldOut(a)) - Number(isSoldOut(b)),
         discount: (a, b) => discountFrom(b) - discountFrom(a),
-        priceLow: (a, b) => numberFrom(a.price) - numberFrom(b.price),
-        priceHigh: (a, b) => numberFrom(b.price) - numberFrom(a.price)
+        priceLow: (a, b) => Number(a.priceValue) - Number(b.priceValue),
+        priceHigh: (a, b) => Number(b.priceValue) - Number(a.priceValue)
       };
       if (sorters[sortSelect.value]) filtered = [...filtered].sort(sorters[sortSelect.value]);
 
-      resultCount.textContent = filtered.length;
+      resultCount.textContent = filtered.length.toLocaleString(currentLang === 'en' ? 'en-US' : 'ar-IQ');
       if (!filtered.length) {
-        grid.innerHTML = `<div class="empty-state"><i class="fa-solid fa-box-open"></i><h3>لم نجد منتجاً بهذا الاسم</h3><p>جرّب كتابة كلمة أقصر أو امسح البحث لعرض جميع المنتجات.</p></div>`;
+        grid.innerHTML = `<div class="empty-state"><i class="fa-solid fa-box-open"></i><h3>${t('emptyTitle')}</h3><p>${t('emptyText')}</p></div>`;
         return;
       }
 
-      grid.innerHTML = filtered.map(item => `
-        <article class="product-card" tabindex="0" role="button" aria-label="عرض تفاصيل ${item.name}" data-id="${item.id}">
-          <div class="product-image-wrap">
-            ${item.badge ? `<div class="badge ${isSoldOut(item) ? 'sold-out' : ''}">${item.badge}</div>` : ''}
-            <img src="${item.images[0]}" alt="${item.name}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}'">
-          </div>
-          <div class="card-body">
-            <h3>${item.name}</h3>
-            <div class="price-container">${priceMarkup(item)}</div>
-            <div class="card-action"><span>عرض التفاصيل</span><i class="fa-solid fa-arrow-left"></i></div>
-          </div>
-        </article>
-      `).join('');
+      const arrowClass = currentLang === 'en' ? 'fa-arrow-right' : 'fa-arrow-left';
+      grid.innerHTML = filtered.map(item => {
+        const name = localized(item.name);
+        const badge = badgeText(item);
+        return `
+          <article class="product-card" tabindex="0" role="button" aria-label="${t('detailsAriaPrefix')} ${name}" data-id="${item.id}">
+            <div class="product-image-wrap">
+              ${badge ? `<div class="badge ${isSoldOut(item) ? 'sold-out' : ''}">${badge}</div>` : ''}
+              <img src="${item.images[0]}" alt="${name}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage()}'">
+            </div>
+            <div class="card-body">
+              <h3>${name}</h3>
+              <div class="price-container">${priceMarkup(item)}</div>
+              <div class="card-action"><span>${t('viewDetails')}</span><i class="fa-solid ${arrowClass}"></i></div>
+            </div>
+          </article>
+        `;
+      }).join('');
     }
 
     function openModal(item, trigger) {
+      const name = localized(item.name);
       lastFocusedElement = trigger || document.activeElement;
-      document.getElementById('mTitle').textContent = item.name;
-      document.getElementById('mDesc').textContent = item.desc;
+      document.getElementById('mTitle').textContent = name;
+      document.getElementById('mDesc').textContent = localized(item.desc);
       document.getElementById('mPriceContainer').innerHTML = priceMarkup(item);
 
       const mainView = document.getElementById('mImg');
       mainView.src = item.images[0];
-      mainView.alt = item.name;
-      mainView.onerror = function () { this.onerror = null; this.src = fallbackImage; };
+      mainView.alt = name;
+      mainView.onerror = function () { this.onerror = null; this.src = fallbackImage(); };
 
       const thumbs = document.getElementById('gThumbs');
       thumbs.innerHTML = '';
       item.images.forEach((img, index) => {
         const thumb = document.createElement('img');
         thumb.src = img;
-        thumb.alt = `صورة ${index + 1} من ${item.name}`;
+        thumb.alt = `${t('galleryImagePrefix')} ${index + 1} ${t('galleryImageOf')} ${name}`;
         thumb.className = index === 0 ? 'active' : '';
         thumb.tabIndex = 0;
         thumb.onerror = function () { this.style.display = 'none'; };
@@ -448,13 +966,13 @@
         waLink.href = '#';
         waLink.classList.add('disabled');
         waLink.setAttribute('aria-disabled', 'true');
-        waText.textContent = 'هذا المنتج غير متوفر حالياً';
+        waText.textContent = t('unavailable');
       } else {
-        const msg = encodeURIComponent(`مرحباً Raven Lab، أود طلب: ${item.name} بسعر (${item.price})`);
+        const msg = encodeURIComponent(t('whatsappMsg')(name, formatPrice(item.priceValue)));
         waLink.href = `https://wa.me/9647885817890?text=${msg}`;
         waLink.classList.remove('disabled');
         waLink.removeAttribute('aria-disabled');
-        waText.textContent = 'اطلب الآن عبر واتساب';
+        waText.textContent = t('orderNow');
       }
 
       modal.classList.add('active');
@@ -468,6 +986,34 @@
       modal.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('modal-open');
       if (lastFocusedElement) lastFocusedElement.focus();
+    }
+
+    function updateMenuButton() {
+      const open = navLinks.classList.contains('open');
+      menuToggle.setAttribute('aria-label', t(open ? 'menuClose' : 'menuOpen'));
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.innerHTML = `<i class="fa-solid fa-${open ? 'xmark' : 'bars'}"></i>`;
+    }
+
+    function applyLanguage(lang) {
+      currentLang = translations[lang] ? lang : 'ar';
+      localStorage.setItem('raven-language', currentLang);
+      updateStaticText();
+      renderProducts();
+    }
+
+    function updateThemeButton() {
+      const isDark = document.body.classList.contains('dark-theme');
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.innerHTML = `<i class="fa-solid fa-${isDark ? 'sun' : 'moon'}"></i><span>${t(isDark ? 'themeLight' : 'themeDark')}</span>`;
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#0f1117' : '#aed349');
+    }
+
+    function applyTheme(theme) {
+      const isDark = theme === 'dark';
+      document.body.classList.toggle('dark-theme', isDark);
+      localStorage.setItem('raven-theme', isDark ? 'dark' : 'light');
+      updateThemeButton();
     }
 
     grid.addEventListener('click', event => {
@@ -488,24 +1034,28 @@
     modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
     document.addEventListener('keydown', event => { if (event.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
 
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
     menuToggle.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('open');
-      menuToggle.setAttribute('aria-expanded', String(open));
-      menuToggle.innerHTML = `<i class="fa-solid fa-${open ? 'xmark' : 'bars'}"></i>`;
+      navLinks.classList.toggle('open');
+      updateMenuButton();
     });
     navLinks.addEventListener('click', event => {
       if (event.target.matches('a')) {
         navLinks.classList.remove('open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        updateMenuButton();
       }
     });
 
+    themeToggle.addEventListener('click', () => {
+      applyTheme(document.body.classList.contains('dark-theme') ? 'light' : 'dark');
+    });
+    langButtons.forEach(button => button.addEventListener('click', () => applyLanguage(button.dataset.lang)));
+
     window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 12), { passive: true });
     document.getElementById('year').textContent = new Date().getFullYear();
-    renderProducts();
+
+    const savedTheme = localStorage.getItem('raven-theme') || 'light';
+    applyTheme(savedTheme);
+    applyLanguage(currentLang);
   </script>
 </body>
 </html>
