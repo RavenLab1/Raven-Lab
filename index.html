@@ -149,6 +149,47 @@
     .pill-two { bottom: 12%; left: -3%; animation-delay: -2s; }
     @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
 
+
+
+    /* Promo Ads */
+    .promo-section { padding: 36px 0 0; background: var(--bg-light); }
+    .promo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .promo-card {
+      min-height: 260px;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      background: var(--bg-white);
+      color: var(--text-dark);
+      text-decoration: none;
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      align-items: stretch;
+      isolation: isolate;
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+    }
+    .promo-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--brand-green); }
+    .promo-card::after { content: ''; position: absolute; inset: auto -40px -80px auto; width: 210px; height: 210px; border-radius: 50%; background: rgba(174,211,73,.18); z-index: -1; }
+    .promo-media { position: relative; min-height: 260px; background: var(--bg-light); overflow: hidden; }
+    .promo-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); animation: promoImageSwap 9s infinite; }
+    .promo-media img:nth-child(2) { animation-delay: 3s; }
+    .promo-media img:nth-child(3) { animation-delay: 6s; }
+    @keyframes promoImageSwap {
+      0% { opacity: 0; transform: scale(1.04); }
+      8% { opacity: 1; }
+      33% { opacity: 1; transform: scale(1); }
+      41% { opacity: 0; transform: scale(1.02); }
+      100% { opacity: 0; transform: scale(1.04); }
+    }
+    .promo-copy { padding: 26px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+    .promo-kicker { width: max-content; max-width: 100%; display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 999px; background: var(--bg-light); color: var(--brand-green-hover); font-weight: 800; font-size: .9rem; }
+    .promo-card h2 { font-size: clamp(1.55rem, 3vw, 2rem); line-height: 1.25; font-weight: 800; }
+    .promo-card p { color: var(--text-muted); margin: 0; }
+    .promo-button { margin-top: 6px; display: inline-flex; align-items: center; gap: 8px; width: max-content; padding: 10px 15px; border-radius: 12px; background: var(--brand-green); color: var(--text-dark); font-weight: 800; }
+    .anchor-target { display: block; position: relative; top: calc(-1 * (var(--nav-height) + 20px)); visibility: hidden; }
+
     /* Products */
     .products-section { padding: 74px 0 90px; }
     .section-heading { text-align: center; margin-bottom: 34px; }
@@ -228,6 +269,8 @@
       .art-card { width: min(82vw, 370px); }
       .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .modal-grid { grid-template-columns: 1fr 1fr; }
+      .promo-card { grid-template-columns: 1fr; }
+      .promo-media { min-height: 220px; }
     }
 
     @media (max-width: 700px) {
@@ -246,6 +289,11 @@
       header { padding-top: calc(var(--nav-height) + 52px); min-height: auto; }
       header h1 { font-size: clamp(3rem, 18vw, 4.2rem); }
       .hero-art { display: none; }
+      .promo-section { padding-top: 22px; }
+      .promo-grid { grid-template-columns: 1fr; }
+      .promo-card { min-height: 0; }
+      .promo-copy { padding: 20px; text-align: start; }
+      .promo-media { min-height: 200px; }
       .products-section { padding-top: 58px; }
       .catalog-toolbar { grid-template-columns: 1fr; position: static; }
       .sort-select { min-width: 0; }
@@ -272,6 +320,7 @@
       .product-image-wrap { aspect-ratio: 1.35/1; }
       .hero-actions { width: 100%; }
       .btn-primary, .btn-secondary { width: 100%; }
+      .promo-media { min-height: 175px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -341,7 +390,43 @@
     </div>
   </header>
 
+
+  <section class="promo-section" aria-label="الإعلانات المميزة" data-i18n-aria-label="promoAria">
+    <div class="container">
+      <div class="promo-grid">
+        <a class="promo-card" id="clickerBuilderAd" href="#" aria-label="موقع صناعة الكلكر" data-i18n-aria-label="promoClickerAria">
+          <div class="promo-media" aria-hidden="true">
+            <img src="tea_clicker_1.jpg" alt="">
+            <img src="tea_clicker_2.jpg" alt="">
+            <img src="coffee_clicker_1.jpg" alt="">
+          </div>
+          <div class="promo-copy">
+            <span class="promo-kicker"><i class="fa-solid fa-sparkles"></i> <span data-i18n="promoClickerKicker">قريباً</span></span>
+            <h2 data-i18n="promoClickerTitle">صمّم الكلكر الخاص بك</h2>
+            <p data-i18n="promoClickerText">موقع خاص لاختيار شكل الكلكر وألوانه وتجربة التصميم قبل الطلب.</p>
+            <span class="promo-button"><span data-i18n="promoClickerButton">افتح المصمم</span> <i class="fa-solid fa-arrow-left"></i></span>
+          </div>
+        </a>
+
+        <a class="promo-card" href="#new-products" aria-label="المنتجات الجديدة" data-i18n-aria-label="promoNewAria">
+          <div class="promo-media" aria-hidden="true">
+            <img src="headphone_stand_1.jpg" alt="">
+            <img src="cup_holder_1.jpg" alt="">
+            <img src="berserk_keychain_1.jpg" alt="">
+          </div>
+          <div class="promo-copy">
+            <span class="promo-kicker"><i class="fa-solid fa-bolt"></i> <span data-i18n="promoNewKicker">وصل حديثاً</span></span>
+            <h2 data-i18n="promoNewTitle">منتجات جديدة توفرت</h2>
+            <p data-i18n="promoNewText">شاهد أحدث الكلكرات والستاندات والميداليات المتوفرة الآن للطلب.</p>
+            <span class="promo-button"><span data-i18n="promoNewButton">شاهد الجديد</span> <i class="fa-solid fa-arrow-left"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <main id="products" class="products-section">
+    <span id="new-products" class="anchor-target" aria-hidden="true"></span>
     <div class="container">
       <div class="section-heading">
         <div class="section-kicker" data-i18n="sectionKicker">استكشف المجموعة</div>
@@ -464,17 +549,31 @@
         galleryLabel: 'صور المنتج',
         modalLabel: 'تفاصيل المنتج',
         orderNow: 'اطلب الآن عبر واتساب',
-        unavailable: 'هذا المنتج غير متوفر حالياً',
+        unavailable: 'هذا المنتج قابل للطلب',
         orderNote: 'سيتم فتح محادثة جاهزة باسم المنتج وسعره',
         galleryImagePrefix: 'صورة',
         galleryImageOf: 'من',
         fallbackImageText: 'صورة+قيد+التحديث',
         whatsappMsg: (name, price) => `مرحباً Raven Lab، أود طلب: ${name} بسعر (${price})`,
         priceSuffix: 'د.ع',
-        badgeSoldOut: 'نفذت الكمية',
+        badgeSoldOut: 'قابل للطلب',
         badgeDiscount: 'تخفيض!',
         badgeFewLeft3: 'متبقي 3 قطع!',
-        badgeMinecraft: 'Minecraft!'
+        badgeMinecraft: 'Minecraft!',
+        badgeNew: 'جديد',
+        badgeOrderable: 'قابل للطلب',
+        promoAria: 'الإعلانات المميزة',
+        promoClickerAria: 'موقع صناعة الكلكر',
+        promoNewAria: 'المنتجات الجديدة',
+        promoClickerKicker: 'قريباً',
+        promoClickerTitle: 'صمّم الكلكر الخاص بك',
+        promoClickerText: 'موقع خاص لاختيار شكل الكلكر وألوانه وتجربة التصميم قبل الطلب.',
+        promoClickerButton: 'افتح المصمم',
+        promoNewKicker: 'وصل حديثاً',
+        promoNewTitle: 'منتجات جديدة توفرت',
+        promoNewText: 'شاهد أحدث الكلكرات والستاندات والميداليات المتوفرة الآن للطلب.',
+        promoNewButton: 'شاهد الجديد',
+        comingSoon: 'يتوفر قريباً'
       },
       ckb: {
         documentTitle: 'Raven Lab | تاقیگەی چاپی سێ ڕەهەندی',
@@ -528,17 +627,31 @@
         galleryLabel: 'وێنەکانی بەرهەم',
         modalLabel: 'وردەکاری بەرهەم',
         orderNow: 'ئێستا لە واتساپ داوای بکە',
-        unavailable: 'ئەم بەرهەمە لە ئێستادا بەردەست نییە',
+        unavailable: 'ئەم بەرهەمە دەتوانرێت داوا بکرێت',
         orderNote: 'گفتوگۆیەکی ئامادە بە ناوی بەرهەم و نرخەکەی دەکرێتەوە',
         galleryImagePrefix: 'وێنەی',
         galleryImageOf: 'لە',
         fallbackImageText: 'وێنە+نوێ+دەکرێتەوە',
         whatsappMsg: (name, price) => `سڵاو Raven Lab، دەمەوێت ئەم بەرهەمە داوا بکەم: ${name} بە نرخی (${price})`,
         priceSuffix: 'د.ع',
-        badgeSoldOut: 'تەواو بووە',
+        badgeSoldOut: 'دەتوانرێت داوا بکرێت',
         badgeDiscount: 'داشکاندن!',
         badgeFewLeft3: 'تەنها ٣ پارچە ماوە!',
-        badgeMinecraft: 'Minecraft!'
+        badgeMinecraft: 'Minecraft!',
+        badgeNew: 'نوێ',
+        badgeOrderable: 'دەتوانرێت داوا بکرێت',
+        promoAria: 'ڕیکلامە تایبەتەکان',
+        promoClickerAria: 'ماڵپەڕی دروستکردنی کلیکەر',
+        promoNewAria: 'بەرهەمە نوێکان',
+        promoClickerKicker: 'بەم زووانە',
+        promoClickerTitle: 'کلیکەری تایبەتی خۆت دیزاین بکە',
+        promoClickerText: 'ماڵپەڕێکی تایبەت بۆ هەڵبژاردنی شێوە و ڕەنگی کلیکەر پێش داواکردن.',
+        promoClickerButton: 'کردنەوەی دیزاینەر',
+        promoNewKicker: 'نوێ گەیشتووە',
+        promoNewTitle: 'بەرهەمە نوێکان بەردەستن',
+        promoNewText: 'نوێترین کلیکەر و ستاند و کلیل ئاڵقەکان ببینە کە ئێستا دەتوانرێت داوا بکرێن.',
+        promoNewButton: 'نوێکان ببینە',
+        comingSoon: 'بەم زووانە بەردەست دەبێت'
       },
       en: {
         documentTitle: 'Raven Lab | 3D Printing Lab',
@@ -592,21 +705,119 @@
         galleryLabel: 'Product images',
         modalLabel: 'Product details',
         orderNow: 'Order now on WhatsApp',
-        unavailable: 'This product is currently unavailable',
+        unavailable: 'This product is available to order',
         orderNote: 'A ready WhatsApp message will open with the product name and price',
         galleryImagePrefix: 'Image',
         galleryImageOf: 'of',
         fallbackImageText: 'Image+being+updated',
         whatsappMsg: (name, price) => `Hello Raven Lab, I would like to order: ${name} for (${price})`,
         priceSuffix: 'IQD',
-        badgeSoldOut: 'Sold out',
+        badgeSoldOut: 'Orderable',
         badgeDiscount: 'Sale!',
         badgeFewLeft3: 'Only 3 left!',
-        badgeMinecraft: 'Minecraft!'
+        badgeMinecraft: 'Minecraft!',
+        badgeNew: 'New',
+        badgeOrderable: 'Orderable',
+        promoAria: 'Featured ads',
+        promoClickerAria: 'Clicker builder website',
+        promoNewAria: 'New products',
+        promoClickerKicker: 'Coming soon',
+        promoClickerTitle: 'Design your own clicker',
+        promoClickerText: 'A dedicated builder to choose the clicker shape and colors before ordering.',
+        promoClickerButton: 'Open builder',
+        promoNewKicker: 'Just arrived',
+        promoNewTitle: 'New products are available',
+        promoNewText: 'Browse the latest clickers, stands, and keychains available for order now.',
+        promoNewButton: 'View new items',
+        comingSoon: 'Coming soon'
       }
     };
 
     const items = [
+      {
+        id: 16,
+        name: { ar: 'كلكر كوب شاي', ckb: 'کلیکەری کوپی چای', en: 'Tea Cup Clicker' },
+        priceValue: 4500,
+        badgeKey: 'new',
+        images: ['tea_clicker_1.jpg', 'tea_clicker_2.jpg', 'tea_clicker_3.jpg'],
+        desc: {
+          ar: 'كلكر لطيف على شكل كوب شاي مع ضغط ممتع وصوت مرضي، مناسب كميدالية أو قطعة فدجت صغيرة.',
+          ckb: 'کلیکەرێکی جوان بە شێوەی کوپی چای، کرتەیەکی خۆش و دەنگێکی ئارامبەخش هەیە، گونجاوە وەک کلیل ئاڵقە یان فیدجت.',
+          en: 'A cute tea-cup clicker with a satisfying press, perfect as a keychain or a small fidget piece.'
+        }
+      },
+      {
+        id: 17,
+        name: { ar: 'كلكر كعكة ماين كرافت', ckb: 'کلیکەری کێکی ماینکرافت', en: 'Minecraft Cake Clicker' },
+        priceValue: 5000,
+        badgeKey: 'new',
+        images: ['minecraft_cake_clicker_1.jpg', 'minecraft_cake_clicker_2.jpg'],
+        desc: {
+          ar: 'كلكر صغير مستوحى من كعكة ماين كرافت، بتفاصيل لطيفة وضغطة ممتعة.',
+          ckb: 'کلیکەرێکی بچووک وەرگیراو لە کێکی ماینکرافت، بە وردەکاری جوان و کرتەیەکی خۆش.',
+          en: 'A small clicker inspired by the Minecraft cake, with cute details and a satisfying press.'
+        }
+      },
+      {
+        id: 18,
+        name: { ar: 'كلكر قهوة', ckb: 'کلیکەری قاوە', en: 'Coffee Clicker' },
+        priceValue: 3000,
+        badgeKey: 'new',
+        images: ['coffee_clicker_1.jpg', 'coffee_clicker_2.jpg', 'coffee_clicker_3.jpg'],
+        desc: {
+          ar: 'كلكر قهوة صغير بشكل مميز، خفيف ومناسب للمفاتيح أو للاستخدام اليومي كفدجت.',
+          ckb: 'کلیکەری قاوەی بچووک بە شێوەیەکی تایبەت، سووکە و گونجاوە بۆ کلیل یان بەکارهێنانی ڕۆژانە وەک فیدجت.',
+          en: 'A small coffee-themed clicker with a unique look, light enough for keys or everyday fidget use.'
+        }
+      },
+      {
+        id: 19,
+        name: { ar: 'ستاند سماعات', ckb: 'ستاندی سماعە', en: 'Headphone Stand' },
+        priceValue: 25000,
+        badgeKey: 'new',
+        images: ['headphone_stand_1.jpg', 'headphone_stand_2.jpg'],
+        desc: {
+          ar: 'ستاند أنيق للسماعات بتصميم زهور وردية، يضيف لمسة جميلة للمكتب ويحافظ على السماعة مرتبة.',
+          ckb: 'ستاندێکی جوان بۆ سماعە بە دیزاینی گوڵی پەمەیی، مێزەکەت جوان دەکات و سماعەکەت ڕێک دەهێڵێتەوە.',
+          en: 'An elegant headphone stand with pink flower details, made to decorate your desk and keep your headset tidy.'
+        }
+      },
+      {
+        id: 20,
+        name: { ar: 'حامل كوب', ckb: 'هەڵگری کوپ', en: 'Cup Holder' },
+        priceValue: 5000,
+        badgeKey: 'new',
+        images: ['cup_holder_1.jpg', 'cup_holder_2.jpg'],
+        desc: {
+          ar: 'حامل كوب لطيف بشكل أكسولوتل وردي، مناسب للأكواب الصغيرة ويضيف شكل مميز للمكتب.',
+          ckb: 'هەڵگری کوپێکی خۆش بە شێوەی ئەکسۆلۆتڵی پەمەیی، گونجاوە بۆ کوپی بچووک و مێزەکەت جیاواز دەکات.',
+          en: 'A cute pink axolotl cup holder for small cups, adding a playful touch to your desk.'
+        }
+      },
+      {
+        id: 21,
+        name: { ar: 'ستاند جوال', ckb: 'ستاندی مۆبایل', en: 'Phone Stand' },
+        priceValue: 4000,
+        badgeKey: 'new',
+        images: ['phone_stand_1.jpg', 'phone_stand_2.jpg', 'phone_stand_3.jpg'],
+        desc: {
+          ar: 'ستاند جوال صغير بتصميم أكسولوتل لطيف، مناسب لوضع الهاتف على المكتب بشكل بسيط وجميل.',
+          ckb: 'ستاندی مۆبایلێکی بچووک بە دیزاینی ئەکسۆلۆتڵی خۆش، بۆ دانانی مۆبایل لەسەر مێز بە شێوەیەکی سادە و جوان.',
+          en: 'A small axolotl phone stand, perfect for keeping your phone on the desk in a cute and simple way.'
+        }
+      },
+      {
+        id: 22,
+        name: { ar: 'ميدالية بيرسيرك', ckb: 'کلیل ئاڵقەی Berserk', en: 'Berserk Keychain' },
+        priceValue: 1000,
+        badgeKey: 'new',
+        images: ['berserk_keychain_1.jpg', 'berserk_keychain_2.jpg'],
+        desc: {
+          ar: 'ميدالية صغيرة بتصميم بيرسيرك باللونين الأسود والأحمر، خفيفة ومناسبة للمفاتيح أو الحقيبة.',
+          ckb: 'کلیل ئاڵقەیەکی بچووک بە دیزاینی Berserk بە ڕەنگی ڕەش و سوور، سووکە و گونجاوە بۆ کلیل یان جانتا.',
+          en: 'A small Berserk-inspired black and red keychain, light and suitable for keys or bags.'
+        }
+      },
       {
         id: 1,
         name: { ar: 'ميدالية كوب القهوة التفاعلية', ckb: 'کلیل ئاڵقەی کوپی قاوەی کارلێکەر', en: 'Interactive Coffee Cup Keychain' },
@@ -817,8 +1028,9 @@
     let lastFocusedElement = null;
     let currentLang = localStorage.getItem('raven-language') || 'ar';
 
-    const isSoldOut = item => item.badgeKey === 'soldOut';
+    const isSoldOut = item => item.badgeKey === 'unavailable';
     const discountFrom = item => Number(item.discountValue || 0);
+    const clickerBuilderUrl = ''; // ضع رابط موقع صناعة الكلكر هنا لاحقاً
     const fallbackImage = () => `https://placehold.co/700x600/e2e8f0/64748b?text=${t('fallbackImageText')}`;
 
     function t(key) {
@@ -843,7 +1055,10 @@
     function badgeText(item) {
       if (!item.badgeKey) return '';
       const map = {
-        soldOut: 'badgeSoldOut',
+        soldOut: 'badgeOrderable',
+        orderable: 'badgeOrderable',
+        unavailable: 'unavailable',
+        new: 'badgeNew',
         discount: 'badgeDiscount',
         fewLeft3: 'badgeFewLeft3',
         minecraft: 'badgeMinecraft'
@@ -1049,6 +1264,17 @@
       applyTheme(document.body.classList.contains('dark-theme') ? 'light' : 'dark');
     });
     langButtons.forEach(button => button.addEventListener('click', () => applyLanguage(button.dataset.lang)));
+
+    const clickerBuilderAd = document.getElementById('clickerBuilderAd');
+    if (clickerBuilderAd) {
+      clickerBuilderAd.addEventListener('click', event => {
+        if (!clickerBuilderUrl) {
+          event.preventDefault();
+          alert(t('comingSoon'));
+        }
+      });
+    }
+
 
     window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 12), { passive: true });
     document.getElementById('year').textContent = new Date().getFullYear();
