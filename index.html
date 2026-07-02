@@ -251,6 +251,159 @@
     .btn-whatsapp.disabled { background: var(--border-color); color: var(--text-muted); pointer-events: none; box-shadow: none; }
     .order-note { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: .9rem; margin-top: 11px; justify-content: center; }
 
+
+    /* Cart */
+    .add-to-cart-card, .btn-cart-modal, .cart-clear {
+      border: 0;
+      cursor: pointer;
+      transition: .22s ease;
+    }
+    .add-to-cart-card {
+      width: 100%;
+      margin-top: 12px;
+      min-height: 44px;
+      border-radius: 12px;
+      background: var(--brand-green);
+      color: var(--text-dark);
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .add-to-cart-card:hover { background: var(--brand-green-hover); transform: translateY(-1px); }
+    .btn-cart-modal {
+      margin-top: 16px;
+      width: 100%;
+      min-height: 54px;
+      border-radius: 12px;
+      background: var(--text-dark);
+      color: var(--bg-white);
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-cart-modal:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .btn-cart-modal:disabled { background: var(--border-color); color: var(--text-muted); cursor: not-allowed; box-shadow: none; transform: none; }
+    .cart-float {
+      position: fixed;
+      inset-inline-end: 24px;
+      bottom: 24px;
+      z-index: 1400;
+      width: 62px;
+      height: 62px;
+      border: 0;
+      border-radius: 21px;
+      background: var(--brand-green);
+      color: var(--text-dark);
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 1.45rem;
+      transition: .25s ease;
+    }
+    .cart-float:hover { transform: translateY(-4px); background: var(--brand-green-hover); }
+    .cart-float-count {
+      position: absolute;
+      top: -8px;
+      inset-inline-start: -8px;
+      min-width: 27px;
+      height: 27px;
+      padding: 0 7px;
+      border-radius: 999px;
+      background: var(--discount-red);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: .82rem;
+      font-weight: 800;
+      border: 3px solid var(--bg-white);
+    }
+    .cart-toast {
+      position: fixed;
+      inset-inline: 50% auto;
+      bottom: 96px;
+      transform: translateX(50%) translateY(20px);
+      z-index: 2300;
+      background: var(--text-dark);
+      color: var(--bg-white);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 800;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      pointer-events: none;
+      transition: .22s ease;
+      white-space: nowrap;
+    }
+    html[dir="ltr"] .cart-toast { transform: translateX(-50%) translateY(20px); }
+    .cart-toast.show { opacity: 1; transform: translateX(50%) translateY(0); }
+    html[dir="ltr"] .cart-toast.show { transform: translateX(-50%) translateY(0); }
+    .cart-content { max-width: 980px; }
+    .cart-header { padding: 30px 30px 16px; border-bottom: 1px solid var(--border-color); }
+    .cart-header h2 { margin: 4px 0 4px; }
+    .cart-header p { color: var(--text-muted); margin: 0; }
+    .cart-body { display: grid; grid-template-columns: 1fr 340px; gap: 0; min-height: 430px; }
+    .cart-items { padding: 22px; overflow-y: auto; max-height: 62vh; }
+    .cart-item {
+      display: grid;
+      grid-template-columns: 78px 1fr auto;
+      gap: 13px;
+      align-items: center;
+      padding: 13px;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      background: var(--bg-light);
+      margin-bottom: 11px;
+    }
+    .cart-item img { width: 78px; height: 78px; border-radius: 12px; object-fit: cover; background: var(--bg-white); }
+    .cart-item h3 { font-size: 1rem; line-height: 1.35; margin-bottom: 4px; }
+    .cart-item p { color: var(--text-muted); margin: 0; font-size: .9rem; }
+    .cart-controls { display: grid; gap: 8px; justify-items: end; }
+    .qty-control { display: inline-flex; align-items: center; gap: 7px; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 999px; padding: 4px; }
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      cursor: pointer;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+    }
+    .qty-btn:hover { background: var(--brand-green); }
+    .qty-number { min-width: 24px; text-align: center; font-weight: 800; }
+    .cart-remove { border: 0; background: transparent; color: var(--discount-red); cursor: pointer; font-weight: 800; font-size: .86rem; }
+    .cart-summary { background: var(--bg-light); border-inline-start: 1px solid var(--border-color); padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+    .delivery-control { display: grid; gap: 8px; font-weight: 800; }
+    .delivery-control input {
+      width: 100%;
+      height: 46px;
+      border: 1px solid var(--border-color);
+      border-radius: 11px;
+      background: var(--bg-white);
+      color: var(--text-dark);
+      padding: 0 12px;
+      outline: none;
+    }
+    .delivery-control input:focus { border-color: var(--brand-green); box-shadow: 0 0 0 4px rgba(174,211,73,.15); }
+    .cart-hint { color: var(--text-muted); font-size: .88rem; margin-top: -8px; }
+    .summary-line { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--border-color); color: var(--text-muted); }
+    .summary-line strong { color: var(--text-dark); font-size: 1.05rem; }
+    .summary-line.total { border-bottom: 0; color: var(--text-dark); font-weight: 800; font-size: 1.15rem; }
+    .summary-line.total strong { font-size: 1.35rem; color: var(--brand-green-hover); }
+    .cart-clear { min-height: 44px; border-radius: 11px; background: transparent; color: var(--discount-red); font-weight: 800; border: 1px solid rgba(239,68,68,.35); }
+    .cart-clear:hover { background: rgba(239,68,68,.08); }
+    .cart-empty { text-align: center; padding: 70px 18px; color: var(--text-muted); }
+    .cart-empty i { font-size: 2.4rem; color: var(--brand-green-hover); margin-bottom: 12px; }
+    .cart-empty h3 { color: var(--text-dark); margin-bottom: 5px; }
+
     /* Footer */
     footer { background: var(--footer-bg); color: var(--footer-text); padding: 70px 0 30px; text-align: center; }
     .footer-brand { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
@@ -313,6 +466,16 @@
       .modal h2 { font-size: 1.55rem; }
       .btn-whatsapp { margin-top: 15px; }
       .close { position: fixed; top: calc(6vh + 12px); }
+
+      .cart-float { width: 56px; height: 56px; inset-inline-end: 16px; bottom: 16px; border-radius: 18px; }
+      .cart-body { grid-template-columns: 1fr; }
+      .cart-content { max-height: 94vh; border-radius: 24px 24px 0 0; overflow-y: auto; }
+      .cart-header { padding: 22px 20px 14px; }
+      .cart-items { max-height: none; padding: 16px; }
+      .cart-summary { border-inline-start: 0; border-top: 1px solid var(--border-color); padding: 18px; }
+      .cart-item { grid-template-columns: 64px 1fr; }
+      .cart-item img { width: 64px; height: 64px; }
+      .cart-controls { grid-column: 1/-1; grid-template-columns: auto auto; justify-content: space-between; align-items: center; }
     }
 
     @media (max-width: 420px) {
@@ -482,9 +645,42 @@
           <h2 id="mTitle"></h2>
           <p id="mDesc"></p>
           <div id="mPriceContainer" class="price-container modal-price"></div>
+          <button id="mAddCart" class="btn-cart-modal" type="button"><i class="fa-solid fa-cart-plus"></i> <span data-i18n="addToCart">أضف إلى السلة</span></button>
           <a href="#" id="waLink" class="btn-whatsapp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span data-i18n="orderNow">اطلب الآن عبر واتساب</span></a>
           <div class="order-note"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="orderNote">سيتم فتح محادثة جاهزة باسم المنتج وسعره</span></div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="cart-float" id="cartFloat" type="button" aria-label="فتح السلة" data-i18n-aria-label="cartOpen">
+    <i class="fa-solid fa-basket-shopping"></i>
+    <span class="cart-float-count" id="cartCount">0</span>
+  </button>
+  <div class="cart-toast" id="cartToast" aria-live="polite"></div>
+
+  <div class="modal cart-modal" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true">
+    <div class="modal-content cart-content">
+      <button class="close" id="closeCartBtn" aria-label="إغلاق السلة" data-i18n-aria-label="closeCart"><i class="fas fa-times"></i></button>
+      <div class="cart-header">
+        <div class="modal-label"><i class="fa-solid fa-receipt"></i> <span data-i18n="cartInvoice">فاتورة الطلب</span></div>
+        <h2 id="cartTitle" data-i18n="cartTitle">سلة المشتريات</h2>
+        <p data-i18n="cartSubtitle">راجع المنتجات وعدّل الكميات قبل إرسال الطلب.</p>
+      </div>
+      <div class="cart-body">
+        <div class="cart-items" id="cartItems"></div>
+        <aside class="cart-summary" aria-label="ملخص الفاتورة" data-i18n-aria-label="cartSummaryAria">
+          <label class="delivery-control">
+            <span data-i18n="cartDelivery">التوصيل</span>
+            <input id="deliveryInput" type="number" min="0" step="500" inputmode="numeric" aria-label="سعر التوصيل" data-i18n-aria-label="cartDelivery">
+          </label>
+          <div class="cart-hint" data-i18n="cartDeliveryHint">اكتب قيمة التوصيل حسب المنطقة، ويمكن تغييرها لاحقاً من هذا الحقل.</div>
+          <div class="summary-line"><span data-i18n="cartSubtotal">مجموع المنتجات</span><strong id="cartSubtotal">0 د.ع</strong></div>
+          <div class="summary-line"><span data-i18n="cartDelivery">التوصيل</span><strong id="cartDeliveryTotal">0 د.ع</strong></div>
+          <div class="summary-line total"><span data-i18n="cartTotal">الإجمالي مع التوصيل</span><strong id="cartTotal">0 د.ع</strong></div>
+          <a href="#" id="cartWhatsapp" class="btn-whatsapp disabled" target="_blank" rel="noopener" aria-disabled="true"><i class="fab fa-whatsapp"></i> <span data-i18n="cartCheckout">إرسال الفاتورة عبر واتساب</span></a>
+          <button id="clearCartBtn" class="cart-clear" type="button"><i class="fa-solid fa-trash-can"></i> <span data-i18n="cartClear">تفريغ السلة</span></button>
+        </aside>
       </div>
     </div>
   </div>
@@ -573,6 +769,28 @@
         promoNewTitle: 'منتجات جديدة توفرت',
         promoNewText: 'شاهد أحدث الكلكرات والستاندات والميداليات المتوفرة الآن للطلب.',
         promoNewButton: 'شاهد الجديد',
+        addToCart: 'أضف إلى السلة',
+        addedToCart: 'تمت الإضافة إلى السلة',
+        cartOpen: 'فتح السلة',
+        closeCart: 'إغلاق السلة',
+        cartInvoice: 'فاتورة الطلب',
+        cartTitle: 'سلة المشتريات',
+        cartSubtitle: 'راجع المنتجات وعدّل الكميات قبل إرسال الطلب.',
+        cartSummaryAria: 'ملخص الفاتورة',
+        cartEmpty: 'السلة فارغة حالياً',
+        cartEmptyText: 'أضف منتجات إلى السلة وستظهر الفاتورة هنا.',
+        cartSubtotal: 'مجموع المنتجات',
+        cartDelivery: 'التوصيل',
+        cartDeliveryHint: 'اكتب قيمة التوصيل حسب المنطقة، ويمكن تغييرها لاحقاً من هذا الحقل.',
+        cartTotal: 'الإجمالي مع التوصيل',
+        cartCheckout: 'إرسال الفاتورة عبر واتساب',
+        cartClear: 'تفريغ السلة',
+        cartRemove: 'حذف',
+        cartQty: 'الكمية',
+        invoiceHeader: 'مرحباً Raven Lab، أريد طلب المنتجات التالية:',
+        invoiceSubtotal: 'مجموع المنتجات',
+        invoiceDelivery: 'التوصيل',
+        invoiceTotal: 'الإجمالي مع التوصيل',
         comingSoon: 'يتوفر قريباً'
       },
       ckb: {
@@ -651,6 +869,28 @@
         promoNewTitle: 'بەرهەمە نوێکان بەردەستن',
         promoNewText: 'نوێترین کلیکەر و ستاند و کلیل ئاڵقەکان ببینە کە ئێستا دەتوانرێت داوا بکرێن.',
         promoNewButton: 'نوێکان ببینە',
+        addToCart: 'زیادکردن بۆ سەبەتە',
+        addedToCart: 'زیاد کرا بۆ سەبەتە',
+        cartOpen: 'کردنەوەی سەبەتە',
+        closeCart: 'داخستنی سەبەتە',
+        cartInvoice: 'پسووڵەی داواکاری',
+        cartTitle: 'سەبەتەی کڕین',
+        cartSubtitle: 'بەرهەمەکان ببینە و ژمارەیان بگۆڕە پێش ناردنی داواکاری.',
+        cartSummaryAria: 'پوختەی پسووڵە',
+        cartEmpty: 'سەبەتەکە بەتاڵە',
+        cartEmptyText: 'بەرهەم زیاد بکە بۆ ئەوەی پسووڵەکە لێرە دەرکەوێت.',
+        cartSubtotal: 'کۆی بەرهەمەکان',
+        cartDelivery: 'گەیاندن',
+        cartDeliveryHint: 'نرخی گەیاندن بنووسە بەپێی ناوچەکە، دەتوانیت دواتر بیگۆڕیت.',
+        cartTotal: 'کۆی گشتی لەگەڵ گەیاندن',
+        cartCheckout: 'ناردنی پسووڵە لە واتساپ',
+        cartClear: 'بەتاڵکردنی سەبەتە',
+        cartRemove: 'سڕینەوە',
+        cartQty: 'ژمارە',
+        invoiceHeader: 'سڵاو Raven Lab، دەمەوێت ئەم بەرهەمانە داوا بکەم:',
+        invoiceSubtotal: 'کۆی بەرهەمەکان',
+        invoiceDelivery: 'گەیاندن',
+        invoiceTotal: 'کۆی گشتی لەگەڵ گەیاندن',
         comingSoon: 'بەم زووانە بەردەست دەبێت'
       },
       en: {
@@ -729,6 +969,28 @@
         promoNewTitle: 'New products are available',
         promoNewText: 'Browse the latest clickers, stands, and keychains available for order now.',
         promoNewButton: 'View new items',
+        addToCart: 'Add to cart',
+        addedToCart: 'Added to cart',
+        cartOpen: 'Open cart',
+        closeCart: 'Close cart',
+        cartInvoice: 'Order invoice',
+        cartTitle: 'Shopping cart',
+        cartSubtitle: 'Review items and adjust quantities before sending your order.',
+        cartSummaryAria: 'Invoice summary',
+        cartEmpty: 'Your cart is empty',
+        cartEmptyText: 'Add products to the cart and the invoice will appear here.',
+        cartSubtotal: 'Products total',
+        cartDelivery: 'Delivery',
+        cartDeliveryHint: 'Enter the delivery cost based on the area. You can change it anytime.',
+        cartTotal: 'Total with delivery',
+        cartCheckout: 'Send invoice on WhatsApp',
+        cartClear: 'Clear cart',
+        cartRemove: 'Remove',
+        cartQty: 'Qty',
+        invoiceHeader: 'Hello Raven Lab, I would like to order these products:',
+        invoiceSubtotal: 'Products total',
+        invoiceDelivery: 'Delivery',
+        invoiceTotal: 'Total with delivery',
         comingSoon: 'Coming soon'
       }
     };
@@ -1025,8 +1287,25 @@
     const navLinks = document.getElementById('navLinks');
     const themeToggle = document.getElementById('themeToggle');
     const langButtons = document.querySelectorAll('.lang-btn');
+
+    const mAddCart = document.getElementById('mAddCart');
+    const cartModal = document.getElementById('cartModal');
+    const cartFloat = document.getElementById('cartFloat');
+    const cartCount = document.getElementById('cartCount');
+    const cartToast = document.getElementById('cartToast');
+    const cartItemsEl = document.getElementById('cartItems');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const deliveryInput = document.getElementById('deliveryInput');
+    const cartSubtotalEl = document.getElementById('cartSubtotal');
+    const cartDeliveryTotalEl = document.getElementById('cartDeliveryTotal');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const cartWhatsapp = document.getElementById('cartWhatsapp');
+    const clearCartBtn = document.getElementById('clearCartBtn');
     let lastFocusedElement = null;
     let currentLang = localStorage.getItem('raven-language') || 'ar';
+
+    let cart = JSON.parse(localStorage.getItem('raven-cart') || '[]');
+    let deliveryFee = Number(localStorage.getItem('raven-delivery-fee') || '0');
 
     const isSoldOut = item => item.badgeKey === 'unavailable';
     const discountFrom = item => Number(item.discountValue || 0);
@@ -1043,7 +1322,7 @@
     }
 
     function formatPrice(value) {
-      if (!value) return '';
+      if (value === undefined || value === null || value === '') return '';
       const locale = currentLang === 'en' ? 'en-US' : 'ar-IQ';
       return `${Number(value).toLocaleString(locale)} ${t('priceSuffix')}`;
     }
@@ -1072,6 +1351,142 @@
         return `<span class="price">${currentPrice}</span><span class="old-price">${formatPrice(item.oldPriceValue)}</span><span class="discount-badge">-${formatDiscount(item.discountValue)}</span>`;
       }
       return `<span class="price">${currentPrice}</span>`;
+    }
+
+
+    function getItemById(id) {
+      return items.find(item => item.id === Number(id));
+    }
+
+    function saveCart() {
+      cart = cart.filter(line => getItemById(line.id) && Number(line.qty) > 0);
+      localStorage.setItem('raven-cart', JSON.stringify(cart));
+      localStorage.setItem('raven-delivery-fee', String(deliveryFee));
+    }
+
+    function cartQuantity() {
+      return cart.reduce((sum, line) => sum + Number(line.qty || 0), 0);
+    }
+
+    function cartSubtotal() {
+      return cart.reduce((sum, line) => {
+        const item = getItemById(line.id);
+        return sum + (item ? Number(item.priceValue) * Number(line.qty || 0) : 0);
+      }, 0);
+    }
+
+    function buildInvoiceText() {
+      const lines = cart
+        .map((line, index) => {
+          const item = getItemById(line.id);
+          if (!item) return '';
+          const name = localized(item.name);
+          const qty = Number(line.qty || 0);
+          const lineTotal = Number(item.priceValue) * qty;
+          return `${index + 1}. ${name} × ${qty} — ${formatPrice(lineTotal)}`;
+        })
+        .filter(Boolean)
+        .join('\n');
+
+      const subtotal = cartSubtotal();
+      const total = subtotal + Number(deliveryFee || 0);
+      return `${t('invoiceHeader')}\n\n${lines}\n\n${t('invoiceSubtotal')}: ${formatPrice(subtotal)}\n${t('invoiceDelivery')}: ${formatPrice(deliveryFee)}\n${t('invoiceTotal')}: ${formatPrice(total)}`;
+    }
+
+    function renderCart() {
+      const count = cartQuantity();
+      cartCount.textContent = count.toLocaleString(currentLang === 'en' ? 'en-US' : 'ar-IQ');
+
+      if (deliveryInput && Number(deliveryInput.value || 0) !== deliveryFee) {
+        deliveryInput.value = deliveryFee;
+      }
+
+      if (!cart.length) {
+        cartItemsEl.innerHTML = `<div class="cart-empty"><i class="fa-solid fa-basket-shopping"></i><h3>${t('cartEmpty')}</h3><p>${t('cartEmptyText')}</p></div>`;
+      } else {
+        cartItemsEl.innerHTML = cart.map(line => {
+          const item = getItemById(line.id);
+          if (!item) return '';
+          const name = localized(item.name);
+          const qty = Number(line.qty || 1);
+          return `
+            <div class="cart-item" data-id="${item.id}">
+              <img src="${item.images[0]}" alt="${name}" onerror="this.onerror=null;this.src='${fallbackImage()}'">
+              <div>
+                <h3>${name}</h3>
+                <p>${formatPrice(item.priceValue)} × ${qty} = ${formatPrice(Number(item.priceValue) * qty)}</p>
+              </div>
+              <div class="cart-controls">
+                <div class="qty-control" aria-label="${t('cartQty')}">
+                  <button class="qty-btn" type="button" data-cart-action="dec" aria-label="-">−</button>
+                  <span class="qty-number">${qty.toLocaleString(currentLang === 'en' ? 'en-US' : 'ar-IQ')}</span>
+                  <button class="qty-btn" type="button" data-cart-action="inc" aria-label="+">+</button>
+                </div>
+                <button class="cart-remove" type="button" data-cart-action="remove">${t('cartRemove')}</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const subtotal = cartSubtotal();
+      const total = subtotal + Number(deliveryFee || 0);
+      cartSubtotalEl.textContent = formatPrice(subtotal);
+      cartDeliveryTotalEl.textContent = formatPrice(deliveryFee);
+      cartTotalEl.textContent = formatPrice(total);
+
+      if (cart.length) {
+        cartWhatsapp.href = `https://wa.me/9647885817890?text=${encodeURIComponent(buildInvoiceText())}`;
+        cartWhatsapp.classList.remove('disabled');
+        cartWhatsapp.removeAttribute('aria-disabled');
+      } else {
+        cartWhatsapp.href = '#';
+        cartWhatsapp.classList.add('disabled');
+        cartWhatsapp.setAttribute('aria-disabled', 'true');
+      }
+      saveCart();
+    }
+
+    function showCartToast() {
+      cartToast.textContent = t('addedToCart');
+      cartToast.classList.add('show');
+      clearTimeout(showCartToast.timer);
+      showCartToast.timer = setTimeout(() => cartToast.classList.remove('show'), 1300);
+    }
+
+    function addToCart(id, qty = 1) {
+      const item = getItemById(id);
+      if (!item || isSoldOut(item)) return;
+      const line = cart.find(entry => entry.id === item.id);
+      if (line) line.qty = Number(line.qty || 0) + qty;
+      else cart.push({ id: item.id, qty });
+      renderCart();
+      showCartToast();
+    }
+
+    function updateCartItem(id, action) {
+      const line = cart.find(entry => entry.id === Number(id));
+      if (!line) return;
+      if (action === 'inc') line.qty = Number(line.qty || 1) + 1;
+      if (action === 'dec') line.qty = Math.max(1, Number(line.qty || 1) - 1);
+      if (action === 'remove') cart = cart.filter(entry => entry.id !== Number(id));
+      renderCart();
+    }
+
+    function openCart() {
+      lastFocusedElement = document.activeElement;
+      renderCart();
+      cartModal.classList.add('active');
+      cartModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      closeCartBtn.focus();
+    }
+
+    function closeCart() {
+      cartModal.classList.remove('active');
+      cartModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      if (lastFocusedElement) lastFocusedElement.focus();
     }
 
     function updateStaticText() {
@@ -1135,6 +1550,7 @@
             <div class="card-body">
               <h3>${name}</h3>
               <div class="price-container">${priceMarkup(item)}</div>
+              <button class="add-to-cart-card" type="button" data-add-cart="${item.id}"><i class="fa-solid fa-cart-plus"></i> ${t('addToCart')}</button>
               <div class="card-action"><span>${t('viewDetails')}</span><i class="fa-solid ${arrowClass}"></i></div>
             </div>
           </article>
@@ -1190,6 +1606,11 @@
         waText.textContent = t('orderNow');
       }
 
+
+      mAddCart.dataset.id = item.id;
+      mAddCart.disabled = isSoldOut(item);
+      mAddCart.querySelector('span').textContent = t('addToCart');
+
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
@@ -1215,6 +1636,7 @@
       localStorage.setItem('raven-language', currentLang);
       updateStaticText();
       renderProducts();
+      renderCart();
     }
 
     function updateThemeButton() {
@@ -1232,10 +1654,18 @@
     }
 
     grid.addEventListener('click', event => {
+      const addButton = event.target.closest('[data-add-cart]');
+      if (addButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        addToCart(Number(addButton.dataset.addCart));
+        return;
+      }
       const card = event.target.closest('.product-card');
       if (card) openModal(items.find(item => item.id === Number(card.dataset.id)), card);
     });
     grid.addEventListener('keydown', event => {
+      if (event.target.closest('[data-add-cart]')) return;
       const card = event.target.closest('.product-card');
       if (card && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault();
@@ -1247,7 +1677,29 @@
     sortSelect.addEventListener('change', renderProducts);
     closeModalBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
-    document.addEventListener('keydown', event => { if (event.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && modal.classList.contains('active')) closeModal();
+      if (event.key === 'Escape' && cartModal.classList.contains('active')) closeCart();
+    });
+
+    mAddCart.addEventListener('click', () => addToCart(Number(mAddCart.dataset.id)));
+    cartFloat.addEventListener('click', openCart);
+    closeCartBtn.addEventListener('click', closeCart);
+    cartModal.addEventListener('click', event => { if (event.target === cartModal) closeCart(); });
+    cartItemsEl.addEventListener('click', event => {
+      const button = event.target.closest('[data-cart-action]');
+      const row = event.target.closest('.cart-item');
+      if (!button || !row) return;
+      updateCartItem(Number(row.dataset.id), button.dataset.cartAction);
+    });
+    deliveryInput.addEventListener('input', () => {
+      deliveryFee = Math.max(0, Number(deliveryInput.value || 0));
+      renderCart();
+    });
+    clearCartBtn.addEventListener('click', () => {
+      cart = [];
+      renderCart();
+    });
 
     menuToggle.addEventListener('click', () => {
       navLinks.classList.toggle('open');
@@ -1278,6 +1730,10 @@
 
     window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 12), { passive: true });
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* Initial cart render */
+    deliveryInput.value = deliveryFee;
+    renderCart();
 
     const savedTheme = localStorage.getItem('raven-theme') || 'light';
     applyTheme(savedTheme);
