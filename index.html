@@ -153,7 +153,7 @@
 
     /* Promo Ads */
     .promo-section { padding: 36px 0 0; background: var(--bg-light); }
-    .promo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .promo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
     .promo-card {
       min-height: 260px;
       position: relative;
@@ -557,6 +557,20 @@
   <section class="promo-section" aria-label="الإعلانات المميزة" data-i18n-aria-label="promoAria">
     <div class="container">
       <div class="promo-grid">
+        <a class="promo-card" href="#products" aria-label="احنا ما نستورد احنا نصنع" data-i18n-aria-label="promoMadeAria">
+          <div class="promo-media" aria-hidden="true">
+            <img src="meccha_chameleon_set_1.png" alt="">
+            <img src="tea_clicker_1.jpg" alt="">
+            <img src="headphone_stand_1.jpg" alt="">
+          </div>
+          <div class="promo-copy">
+            <span class="promo-kicker"><i class="fa-solid fa-industry"></i> <span data-i18n="promoMadeKicker">صناعة محلية</span></span>
+            <h2 data-i18n="promoMadeTitle">احنا ما نستورد، احنا نصنع</h2>
+            <p data-i18n="promoMadeText">كل قطعة نجهزها ونطبعها داخل Raven Lab بجودة وتفاصيل نحبها.</p>
+            <span class="promo-button"><span data-i18n="promoMadeButton">شاهد منتجاتنا</span> <i class="fa-solid fa-arrow-left"></i></span>
+          </div>
+        </a>
+
         <a class="promo-card" id="clickerBuilderAd" href="#" aria-label="موقع صناعة الكلكر" data-i18n-aria-label="promoClickerAria">
           <div class="promo-media" aria-hidden="true">
             <img src="tea_clicker_1.jpg" alt="">
@@ -573,8 +587,8 @@
 
         <a class="promo-card" href="#new-products" aria-label="المنتجات الجديدة" data-i18n-aria-label="promoNewAria">
           <div class="promo-media" aria-hidden="true">
+            <img src="meccha_chameleon_set_1.png" alt="">
             <img src="headphone_stand_1.jpg" alt="">
-            <img src="cup_holder_1.jpg" alt="">
             <img src="berserk_keychain_1.jpg" alt="">
           </div>
           <div class="promo-copy">
@@ -769,6 +783,11 @@
         promoNewTitle: 'منتجات جديدة توفرت',
         promoNewText: 'شاهد أحدث الكلكرات والستاندات والميداليات المتوفرة الآن للطلب.',
         promoNewButton: 'شاهد الجديد',
+        promoMadeAria: 'نحن نصنع ولا نستورد',
+        promoMadeKicker: 'صناعة محلية',
+        promoMadeTitle: 'احنا ما نستورد، احنا نصنع',
+        promoMadeText: 'كل قطعة نجهزها ونطبعها داخل Raven Lab بجودة وتفاصيل نحبها.',
+        promoMadeButton: 'شاهد منتجاتنا',
         addToCart: 'أضف إلى السلة',
         addedToCart: 'تمت الإضافة إلى السلة',
         cartOpen: 'فتح السلة',
@@ -869,6 +888,11 @@
         promoNewTitle: 'بەرهەمە نوێکان بەردەستن',
         promoNewText: 'نوێترین کلیکەر و ستاند و کلیل ئاڵقەکان ببینە کە ئێستا دەتوانرێت داوا بکرێن.',
         promoNewButton: 'نوێکان ببینە',
+        promoMadeAria: 'ئێمە هاوردە ناکەین، دروستی دەکەین',
+        promoMadeKicker: 'دروستکراوی ناوخۆ',
+        promoMadeTitle: 'ئێمە هاوردە ناکەین، دروستی دەکەین',
+        promoMadeText: 'هەموو پارچەیەک لە Raven Lab ئامادە و چاپ دەکەین، بە کوالیتی و وردەکاری.',
+        promoMadeButton: 'بەرهەمەکان ببینە',
         addToCart: 'زیادکردن بۆ سەبەتە',
         addedToCart: 'زیاد کرا بۆ سەبەتە',
         cartOpen: 'کردنەوەی سەبەتە',
@@ -969,6 +993,11 @@
         promoNewTitle: 'New products are available',
         promoNewText: 'Browse the latest clickers, stands, and keychains available for order now.',
         promoNewButton: 'View new items',
+        promoMadeAria: 'We make, not import',
+        promoMadeKicker: 'Locally made',
+        promoMadeTitle: 'We do not import — we make',
+        promoMadeText: 'Every piece is prepared and 3D printed in Raven Lab with care, quality, and detail.',
+        promoMadeButton: 'View products',
         addToCart: 'Add to cart',
         addedToCart: 'Added to cart',
         cartOpen: 'Open cart',
@@ -996,6 +1025,20 @@
     };
 
     const items = [
+      {
+        id: 23,
+        name: { ar: 'مجموعة شخصيات MECCHA CHAMELEON', ckb: 'کۆمەڵە کاراکتەری MECCHA CHAMELEON', en: 'MECCHA CHAMELEON Character Set' },
+        oldPriceValue: 25000,
+        priceValue: 22000,
+        discountValue: 12,
+        badgeKey: 'new',
+        images: ['meccha_chameleon_set_1.png', 'meccha_chameleon_set_2.png'],
+        desc: {
+          ar: 'مجموعة من 11 شخصية صغيرة من لعبة MECCHA CHAMELEON، مناسبة للتجميع أو تزيين المكتب.',
+          ckb: 'کۆمەڵەی ١١ کاراکتەری بچووک لە یاری MECCHA CHAMELEON، گونجاوە بۆ کۆکردنەوە یان جوانکردنی مێز.',
+          en: 'A set of 11 small characters from MECCHA CHAMELEON, great for collecting or decorating your desk.'
+        }
+      },
       {
         id: 16,
         name: { ar: 'كلكر كوب شاي', ckb: 'کلیکەری کوپی چای', en: 'Tea Cup Clicker' },
@@ -1114,7 +1157,7 @@
         oldPriceValue: 3000,
         priceValue: 2500,
         discountValue: 16.6,
-        badgeKey: 'fewLeft3',
+        badgeKey: 'orderable',
         images: ['p2_1.jpg', 'p2_2.jpg'],
         desc: {
           ar: 'ميدالية إبداعية على شكل لفائف القرفة مدمج بها سويتش كيبورد ميكانيكي حقيقي، وتوفر تجربة ضغط ممتعة (ASMR/Fidget).',
