@@ -577,7 +577,7 @@
             <img src="clicker_builder_ad.gif" alt="">
           </div>
           <div class="promo-copy">
-            <span class="promo-kicker"><i class="fa-solid fa-sparkles"></i> <span data-i18n="promoClickerKicker">قريباً</span></span>
+            <span class="promo-kicker"><i class="fa-solid fa-sparkles"></i> <span data-i18n="promoClickerKicker">متوفر الآن</span></span>
             <h2 data-i18n="promoClickerTitle">صمّم الكلكر الخاص بك</h2>
             <p data-i18n="promoClickerText">موقع خاص لاختيار شكل الكلكر وألوانه وتجربة التصميم قبل الطلب.</p>
             <span class="promo-button"><span data-i18n="promoClickerButton">افتح المصمم</span> <i class="fa-solid fa-arrow-left"></i></span>
@@ -774,7 +774,7 @@
         promoAria: 'الإعلانات المميزة',
         promoClickerAria: 'موقع صناعة الكلكر',
         promoNewAria: 'المنتجات الجديدة',
-        promoClickerKicker: 'قريباً',
+        promoClickerKicker: 'متوفر الآن',
         promoClickerTitle: 'صمّم الكلكر الخاص بك',
         promoClickerText: 'موقع خاص لاختيار شكل الكلكر وألوانه وتجربة التصميم قبل الطلب.',
         promoClickerButton: 'افتح المصمم',
@@ -879,7 +879,7 @@
         promoAria: 'ڕیکلامە تایبەتەکان',
         promoClickerAria: 'ماڵپەڕی دروستکردنی کلیکەر',
         promoNewAria: 'بەرهەمە نوێکان',
-        promoClickerKicker: 'بەم زووانە',
+        promoClickerKicker: 'ئێستا بەردەستە',
         promoClickerTitle: 'کلیکەری تایبەتی خۆت دیزاین بکە',
         promoClickerText: 'ماڵپەڕێکی تایبەت بۆ هەڵبژاردنی شێوە و ڕەنگی کلیکەر پێش داواکردن.',
         promoClickerButton: 'کردنەوەی دیزاینەر',
@@ -984,7 +984,7 @@
         promoAria: 'Featured ads',
         promoClickerAria: 'Clicker builder website',
         promoNewAria: 'New products',
-        promoClickerKicker: 'Coming soon',
+        promoClickerKicker: 'Available now',
         promoClickerTitle: 'Design your own clicker',
         promoClickerText: 'A dedicated builder to choose the clicker shape and colors before ordering.',
         promoClickerButton: 'Open builder',
@@ -1363,7 +1363,7 @@
 
     const isSoldOut = item => item.badgeKey === 'unavailable';
     const discountFrom = item => Number(item.discountValue || 0);
-    const clickerBuilderUrl = ''; // ضع رابط موقع صانع الكلكر هنا، مثال: https://example.com
+    const clickerBuilderUrl = 'https://ravenlab1.github.io/ClickerMakerRavenLab/'; // رابط موقع صانع الكلكر
     const fallbackImage = () => `https://placehold.co/700x600/e2e8f0/64748b?text=${t('fallbackImageText')}`;
 
     function t(key) {
