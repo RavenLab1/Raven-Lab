@@ -176,6 +176,7 @@
     .promo-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); animation: promoImageSwap 9s infinite; }
     .promo-media img:nth-child(2) { animation-delay: 3s; }
     .promo-media img:nth-child(3) { animation-delay: 6s; }
+    .promo-media.single-gif img { opacity: 1; animation: none; transform: none; }
     @keyframes promoImageSwap {
       0% { opacity: 0; transform: scale(1.04); }
       8% { opacity: 1; }
@@ -572,10 +573,8 @@
         </a>
 
         <a class="promo-card" id="clickerBuilderAd" href="#" aria-label="موقع صناعة الكلكر" data-i18n-aria-label="promoClickerAria">
-          <div class="promo-media" aria-hidden="true">
-            <img src="tea_clicker_1.jpg" alt="">
-            <img src="tea_clicker_2.jpg" alt="">
-            <img src="coffee_clicker_1.jpg" alt="">
+          <div class="promo-media single-gif" aria-hidden="true">
+            <img src="clicker_builder_ad.gif" alt="">
           </div>
           <div class="promo-copy">
             <span class="promo-kicker"><i class="fa-solid fa-sparkles"></i> <span data-i18n="promoClickerKicker">قريباً</span></span>
@@ -1364,7 +1363,7 @@
 
     const isSoldOut = item => item.badgeKey === 'unavailable';
     const discountFrom = item => Number(item.discountValue || 0);
-    const clickerBuilderUrl = ''; // ضع رابط موقع صناعة الكلكر هنا لاحقاً
+    const clickerBuilderUrl = ''; // ضع رابط موقع صانع الكلكر هنا، مثال: https://example.com
     const fallbackImage = () => `https://placehold.co/700x600/e2e8f0/64748b?text=${t('fallbackImageText')}`;
 
     function t(key) {
@@ -1774,12 +1773,16 @@
 
     const clickerBuilderAd = document.getElementById('clickerBuilderAd');
     if (clickerBuilderAd) {
-      clickerBuilderAd.addEventListener('click', event => {
-        if (!clickerBuilderUrl) {
+      if (clickerBuilderUrl) {
+        clickerBuilderAd.href = clickerBuilderUrl;
+        clickerBuilderAd.target = '_blank';
+        clickerBuilderAd.rel = 'noopener';
+      } else {
+        clickerBuilderAd.addEventListener('click', event => {
           event.preventDefault();
           alert(t('comingSoon'));
-        }
-      });
+        });
+      }
     }
 
 
