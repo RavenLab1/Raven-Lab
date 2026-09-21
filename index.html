@@ -389,7 +389,7 @@
     .cart-remove { border: 0; background: transparent; color: var(--discount-red); cursor: pointer; font-weight: 800; font-size: .86rem; }
     .cart-summary { background: var(--bg-light); border-inline-start: 1px solid var(--border-color); padding: 22px; display: flex; flex-direction: column; gap: 14px; }
     .delivery-control { display: grid; gap: 8px; font-weight: 800; }
-    .delivery-control input {
+    .delivery-control input, .delivery-control select {
       width: 100%;
       height: 46px;
       border: 1px solid var(--border-color);
@@ -399,7 +399,7 @@
       padding: 0 12px;
       outline: none;
     }
-    .delivery-control input:focus { border-color: var(--brand-green); box-shadow: 0 0 0 4px rgba(174,211,73,.15); }
+    .delivery-control input:focus, .delivery-control select:focus { border-color: var(--brand-green); box-shadow: 0 0 0 4px rgba(174,211,73,.15); }
     .cart-hint { color: var(--text-muted); font-size: .88rem; margin-top: -8px; }
     .summary-line { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--border-color); color: var(--text-muted); }
     .summary-line strong { color: var(--text-dark); font-size: 1.05rem; }
@@ -545,7 +545,7 @@
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
 
-    .admin-fab{position:fixed;left:22px;bottom:22px;z-index:1200;border:1px solid var(--border-color);background:var(--bg-white);color:var(--text-dark);border-radius:999px;padding:11px 16px;box-shadow:var(--shadow-md);cursor:pointer;font-weight:800}.admin-panel{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.48);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px}.admin-panel.active{display:flex}.admin-card{width:min(920px,96vw);max-height:92vh;overflow:auto;background:var(--bg-white);color:var(--text-dark);border:1px solid var(--border-color);border-radius:24px;padding:24px;box-shadow:var(--shadow-lg)}.admin-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.admin-grid .full{grid-column:1/-1}.admin-card input,.admin-card textarea,.admin-card select{width:100%;padding:12px;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-light);color:var(--text-dark)}.admin-card textarea{min-height:90px;resize:vertical}.admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.admin-btn{border:0;border-radius:12px;padding:11px 16px;font-weight:800;cursor:pointer}.admin-primary{background:var(--brand-green);color:#111}.admin-secondary{background:var(--bg-light);color:var(--text-dark);border:1px solid var(--border-color)}.admin-danger{background:#ef4444;color:white}.admin-products{display:grid;gap:8px;margin-top:18px}.admin-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--border-color);border-radius:12px}.admin-status{font-size:.9rem;color:var(--text-muted)}.admin-list-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px;padding-bottom:14px;border-bottom:1px solid var(--border-color)}.admin-list-head h3{margin:0;font-size:1.15rem}.admin-list-tools{display:flex;gap:8px;align-items:center}.admin-icon-btn{width:42px;height:42px;display:inline-grid;place-items:center;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-light);color:var(--text-dark);cursor:pointer;font-size:1rem;transition:.2s ease}.admin-icon-btn:hover{transform:translateY(-1px)}.admin-icon-btn.add{background:var(--brand-green);color:#111;border-color:transparent}.admin-icon-btn.delete{background:#ef4444;color:#fff;border-color:transparent}.admin-icon-btn.visibility.off{opacity:.62}.admin-products{display:grid;gap:10px}.admin-row{background:var(--bg-light)}.admin-row-main{display:flex;align-items:center;gap:12px;min-width:0}.admin-thumb{width:58px;height:58px;border-radius:12px;object-fit:cover;background:var(--bg-white);border:1px solid var(--border-color)}.admin-row-actions{display:flex;gap:7px;flex-wrap:wrap}.admin-editor{display:none}.admin-editor.active{display:block}.admin-list-view.hidden{display:none}.admin-editor-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.admin-editor-title h3{margin:0}.admin-back{display:inline-flex;align-items:center;gap:7px}.admin-card{scrollbar-width:thin}.admin-dropzone{grid-column:1/-1;border:2px dashed var(--border-color);border-radius:18px;padding:22px;text-align:center;background:var(--bg-light);cursor:pointer;transition:.22s ease;outline:none}.admin-dropzone:hover,.admin-dropzone.dragover,.admin-dropzone:focus-visible{border-color:var(--brand-green);background:color-mix(in srgb,var(--brand-green) 10%,var(--bg-light));transform:translateY(-1px)}.admin-dropzone i{font-size:1.8rem;color:var(--brand-green);margin-bottom:8px}.admin-dropzone strong{display:block;margin-bottom:4px}.admin-image-preview{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:10px}.admin-preview-item{position:relative;aspect-ratio:1;border:1px solid var(--border-color);border-radius:14px;overflow:hidden;background:var(--bg-light)}.admin-preview-item img{width:100%;height:100%;object-fit:cover}.admin-preview-remove{position:absolute;top:6px;left:6px;width:28px;height:28px;border:0;border-radius:999px;background:rgba(15,17,23,.82);color:white;cursor:pointer}.admin-preview-badge{position:absolute;right:6px;bottom:6px;font-size:.68rem;padding:3px 6px;border-radius:999px;background:rgba(15,17,23,.76);color:white}.admin-auto-note{font-size:.82rem;color:var(--text-muted);margin-top:5px}.admin-price-box{position:relative}.admin-price-result{font-weight:800;color:var(--brand-green)}.admin-card input[readonly]{opacity:.82;cursor:not-allowed}.admin-seed-note{font-size:.78rem;color:var(--text-muted);margin-top:4px}@media(max-width:700px){.admin-grid{grid-template-columns:1fr}.admin-fab{left:12px;bottom:12px}.admin-row{align-items:flex-start}.admin-row-actions{justify-content:flex-end}.admin-icon-btn{width:38px;height:38px}.admin-image-preview{grid-template-columns:repeat(3,1fr)}}
+    .admin-fab{position:fixed;inset-inline-start:22px;left:auto;right:auto;bottom:22px;z-index:1200;border:1px solid var(--border-color);background:var(--bg-white);color:var(--text-dark);border-radius:999px;padding:11px 16px;box-shadow:var(--shadow-md);cursor:pointer;font-weight:800}.admin-panel{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.48);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px}.admin-panel.active{display:flex}.admin-card{width:min(920px,96vw);max-height:92vh;overflow:auto;background:var(--bg-white);color:var(--text-dark);border:1px solid var(--border-color);border-radius:24px;padding:24px;box-shadow:var(--shadow-lg)}.admin-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.admin-grid .full{grid-column:1/-1}.admin-card input,.admin-card textarea,.admin-card select{width:100%;padding:12px;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-light);color:var(--text-dark)}.admin-card textarea{min-height:90px;resize:vertical}.admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.admin-btn{border:0;border-radius:12px;padding:11px 16px;font-weight:800;cursor:pointer}.admin-primary{background:var(--brand-green);color:#111}.admin-secondary{background:var(--bg-light);color:var(--text-dark);border:1px solid var(--border-color)}.admin-danger{background:#ef4444;color:white}.admin-products{display:grid;gap:8px;margin-top:18px}.admin-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--border-color);border-radius:12px}.admin-status{font-size:.9rem;color:var(--text-muted)}.admin-list-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px;padding-bottom:14px;border-bottom:1px solid var(--border-color)}.admin-list-head h3{margin:0;font-size:1.15rem}.admin-list-tools{display:flex;gap:8px;align-items:center}.admin-icon-btn{width:42px;height:42px;display:inline-grid;place-items:center;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-light);color:var(--text-dark);cursor:pointer;font-size:1rem;transition:.2s ease}.admin-icon-btn:hover{transform:translateY(-1px)}.admin-icon-btn.add{background:var(--brand-green);color:#111;border-color:transparent}.admin-icon-btn.delete{background:#ef4444;color:#fff;border-color:transparent}.admin-icon-btn.visibility.off{opacity:.62}.admin-products{display:grid;gap:10px}.admin-row{background:var(--bg-light)}.admin-row-main{display:flex;align-items:center;gap:12px;min-width:0}.admin-thumb{width:58px;height:58px;border-radius:12px;object-fit:cover;background:var(--bg-white);border:1px solid var(--border-color)}.admin-row-actions{display:flex;gap:7px;flex-wrap:wrap}.admin-editor{display:none}.admin-editor.active{display:block}.admin-list-view.hidden{display:none}.admin-editor-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.admin-editor-title h3{margin:0}.admin-back{display:inline-flex;align-items:center;gap:7px}.admin-card{scrollbar-width:thin}.admin-dropzone{grid-column:1/-1;border:2px dashed var(--border-color);border-radius:18px;padding:22px;text-align:center;background:var(--bg-light);cursor:pointer;transition:.22s ease;outline:none}.admin-dropzone:hover,.admin-dropzone.dragover,.admin-dropzone:focus-visible{border-color:var(--brand-green);background:color-mix(in srgb,var(--brand-green) 10%,var(--bg-light));transform:translateY(-1px)}.admin-dropzone i{font-size:1.8rem;color:var(--brand-green);margin-bottom:8px}.admin-dropzone strong{display:block;margin-bottom:4px}.admin-image-preview{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:10px}.admin-preview-item{position:relative;aspect-ratio:1;border:1px solid var(--border-color);border-radius:14px;overflow:hidden;background:var(--bg-light)}.admin-preview-item img{width:100%;height:100%;object-fit:cover}.admin-preview-remove{position:absolute;top:6px;left:6px;width:28px;height:28px;border:0;border-radius:999px;background:rgba(15,17,23,.82);color:white;cursor:pointer}.admin-preview-badge{position:absolute;right:6px;bottom:6px;font-size:.68rem;padding:3px 6px;border-radius:999px;background:rgba(15,17,23,.76);color:white}.admin-auto-note{font-size:.82rem;color:var(--text-muted);margin-top:5px}.admin-price-box{position:relative}.admin-price-result{font-weight:800;color:var(--brand-green)}.admin-card input[readonly]{opacity:.82;cursor:not-allowed}.admin-seed-note{font-size:.78rem;color:var(--text-muted);margin-top:4px}@media(max-width:700px){.admin-grid{grid-template-columns:1fr}.admin-fab{inset-inline-start:12px;left:auto;right:auto;bottom:12px}.admin-row{align-items:flex-start}.admin-row-actions{justify-content:flex-end}.admin-icon-btn{width:38px;height:38px}.admin-image-preview{grid-template-columns:repeat(3,1fr)}}
   </style>
 </head>
 <body>
@@ -694,10 +694,34 @@
         <div class="cart-items" id="cartItems"></div>
         <aside class="cart-summary" aria-label="ملخص الفاتورة" data-i18n-aria-label="cartSummaryAria">
           <label class="delivery-control">
-            <span data-i18n="cartDelivery">التوصيل</span>
-            <input id="deliveryInput" type="number" min="0" step="500" inputmode="numeric" aria-label="سعر التوصيل" data-i18n-aria-label="cartDelivery">
+            <span>المحافظة</span>
+            <select id="deliveryInput" aria-label="اختر المحافظة">
+              <option value="">اختر المحافظة لتحديد سعر التوصيل</option>
+              <optgroup label="التوصيل 6,000 د.ع">
+                <option value="نينوى" data-fee="6000">نينوى</option>
+                <option value="دهوك" data-fee="6000">دهوك</option>
+                <option value="أربيل" data-fee="6000">أربيل</option>
+                <option value="السليمانية" data-fee="6000">السليمانية</option>
+                <option value="كركوك" data-fee="6000">كركوك</option>
+              </optgroup>
+              <optgroup label="التوصيل 5,000 د.ع">
+                <option value="بغداد - بغداد" data-fee="5000">بغداد (بغداد)</option>
+                <option value="البصرة - البصرة" data-fee="5000">البصرة (البصرة)</option>
+                <option value="صلاح الدين - تكريت" data-fee="5000">صلاح الدين (تكريت)</option>
+                <option value="ديالى - بعقوبة" data-fee="5000">ديالى (بعقوبة)</option>
+                <option value="واسط - الكوت" data-fee="5000">واسط (الكوت)</option>
+                <option value="ميسان - العمارة" data-fee="5000">ميسان (العمارة)</option>
+                <option value="ذي قار - الناصرية" data-fee="5000">ذي قار (الناصرية)</option>
+                <option value="المثنى - السماوة" data-fee="5000">المثنى (السماوة)</option>
+                <option value="بابل - الحلة" data-fee="5000">بابل (الحلة)</option>
+                <option value="كربلاء - كربلاء" data-fee="5000">كربلاء (كربلاء)</option>
+                <option value="النجف - النجف" data-fee="5000">النجف (النجف)</option>
+                <option value="الأنبار - الرمادي" data-fee="5000">الأنبار (الرمادي)</option>
+                <option value="الديوانية - الديوانية" data-fee="5000">الديوانية (الديوانية)</option>
+              </optgroup>
+            </select>
           </label>
-          <div class="cart-hint" data-i18n="cartDeliveryHint">اكتب قيمة التوصيل حسب المنطقة، ويمكن تغييرها لاحقاً من هذا الحقل.</div>
+          <div class="cart-hint" id="deliveryHint">اختر المحافظة وسيُحسب سعر التوصيل تلقائياً.</div>
           <div class="summary-line"><span data-i18n="cartSubtotal">مجموع المنتجات</span><strong id="cartSubtotal">0 د.ع</strong></div>
           <div class="summary-line"><span data-i18n="cartDelivery">التوصيل</span><strong id="cartDeliveryTotal">0 د.ع</strong></div>
           <div class="summary-line total"><span data-i18n="cartTotal">الإجمالي مع التوصيل</span><strong id="cartTotal">0 د.ع</strong></div>
@@ -712,7 +736,7 @@
   <button class="admin-fab" id="adminFab" type="button"><i class="fa-solid fa-lock"></i> إدارة</button>
   <div class="admin-panel" id="adminPanel" aria-hidden="true">
     <div class="admin-card">
-      <div class="admin-head"><div><h2>إدارة Raven Lab <span style="font-size:.72rem;background:#aed349;color:#111;padding:4px 8px;border-radius:999px;vertical-align:middle">V5</span></h2><div class="admin-status" id="adminStatus">سجّل الدخول لإدارة المنتجات</div></div><button class="admin-btn admin-secondary" id="adminClose">إغلاق</button></div>
+      <div class="admin-head"><div><h2>إدارة Raven Lab <span style="font-size:.72rem;background:#aed349;color:#111;padding:4px 8px;border-radius:999px;vertical-align:middle">V6</span></h2><div class="admin-status" id="adminStatus">سجّل الدخول لإدارة المنتجات</div></div><button class="admin-btn admin-secondary" id="adminClose">إغلاق</button></div>
       <div id="adminLogin">
         <div class="admin-grid"><label>البريد الإلكتروني<input id="adminEmail" type="email" autocomplete="username"></label><label>كلمة المرور<input id="adminPassword" type="password" autocomplete="current-password"></label></div>
         <div class="admin-actions"><button class="admin-btn admin-primary" id="adminLoginBtn">تسجيل الدخول</button></div>
@@ -723,6 +747,7 @@
             <div><h3>كل المنتجات</h3><div class="admin-status">أضف أو عدّل أو أخفِ المنتجات من هنا.</div></div>
             <div class="admin-list-tools">
               <button class="admin-icon-btn add" id="pAddTop" type="button" title="إضافة منتج" aria-label="إضافة منتج"><i class="fa-solid fa-plus"></i></button>
+              <button class="admin-icon-btn" id="importLegacyBtn" type="button" title="استيراد المنتجات السابقة" aria-label="استيراد المنتجات السابقة"><i class="fa-solid fa-database"></i></button>
               <button class="admin-icon-btn" id="adminLogout" type="button" title="تسجيل الخروج" aria-label="تسجيل الخروج"><i class="fa-solid fa-right-from-bracket"></i></button>
             </div>
           </div>
@@ -1460,6 +1485,11 @@
 
     let cart = JSON.parse(localStorage.getItem('raven-cart') || '[]');
     let deliveryFee = Number(localStorage.getItem('raven-delivery-fee') || '0');
+    let selectedProvince = localStorage.getItem('raven-delivery-province') || '';
+    const provinceFeeMap = {
+      'نينوى':6000,'دهوك':6000,'أربيل':6000,'السليمانية':6000,'كركوك':6000,
+      'بغداد - بغداد':5000,'البصرة - البصرة':5000,'صلاح الدين - تكريت':5000,'ديالى - بعقوبة':5000,'واسط - الكوت':5000,'ميسان - العمارة':5000,'ذي قار - الناصرية':5000,'المثنى - السماوة':5000,'بابل - الحلة':5000,'كربلاء - كربلاء':5000,'النجف - النجف':5000,'الأنبار - الرمادي':5000,'الديوانية - الديوانية':5000
+    };
 
     const isSoldOut = item => item.badgeKey === 'unavailable';
     const discountFrom = item => Number(item.discountValue || 0);
@@ -1516,6 +1546,7 @@
       cart = cart.filter(line => getItemById(line.id) && Number(line.qty) > 0);
       localStorage.setItem('raven-cart', JSON.stringify(cart));
       localStorage.setItem('raven-delivery-fee', String(deliveryFee));
+      localStorage.setItem('raven-delivery-province', selectedProvince);
     }
 
     function cartQuantity() {
@@ -1544,16 +1575,20 @@
 
       const subtotal = cartSubtotal();
       const total = subtotal + Number(deliveryFee || 0);
-      return `${t('invoiceHeader')}\n\n${lines}\n\n${t('invoiceSubtotal')}: ${formatPrice(subtotal)}\n${t('invoiceDelivery')}: ${formatPrice(deliveryFee)}\n${t('invoiceTotal')}: ${formatPrice(total)}`;
+      return `${t('invoiceHeader')}\n\n${lines}\n\nالمحافظة: ${selectedProvince || 'غير محددة'}\n${t('invoiceSubtotal')}: ${formatPrice(subtotal)}\n${t('invoiceDelivery')}: ${formatPrice(deliveryFee)}\n${t('invoiceTotal')}: ${formatPrice(total)}`;
     }
 
     function renderCart() {
       const count = cartQuantity();
       cartCount.textContent = count.toLocaleString(currentLang === 'en' ? 'en-US' : 'ar-IQ');
 
-      if (deliveryInput && Number(deliveryInput.value || 0) !== deliveryFee) {
-        deliveryInput.value = deliveryFee;
+      if (deliveryInput && deliveryInput.value !== selectedProvince) {
+        deliveryInput.value = selectedProvince;
       }
+      const deliveryHint = document.getElementById('deliveryHint');
+      if (deliveryHint) deliveryHint.textContent = selectedProvince
+        ? `سعر التوصيل إلى ${selectedProvince}: ${formatPrice(deliveryFee)}`
+        : 'اختر المحافظة وسيُحسب سعر التوصيل تلقائياً.';
 
       if (!cart.length) {
         cartItemsEl.innerHTML = `<div class="cart-empty"><i class="fa-solid fa-basket-shopping"></i><h3>${t('cartEmpty')}</h3><p>${t('cartEmptyText')}</p></div>`;
@@ -1589,7 +1624,7 @@
       cartDeliveryTotalEl.textContent = formatPrice(deliveryFee);
       cartTotalEl.textContent = formatPrice(total);
 
-      if (cart.length) {
+      if (cart.length && selectedProvince) {
         cartWhatsapp.href = `https://wa.me/9647885817890?text=${encodeURIComponent(buildInvoiceText())}`;
         cartWhatsapp.classList.remove('disabled');
         cartWhatsapp.removeAttribute('aria-disabled');
@@ -1878,8 +1913,9 @@
       if (!button || !row) return;
       updateCartItem(Number(row.dataset.id), button.dataset.cartAction);
     });
-    deliveryInput.addEventListener('input', () => {
-      deliveryFee = Math.max(0, Number(deliveryInput.value || 0));
+    deliveryInput.addEventListener('change', () => {
+      selectedProvince = deliveryInput.value || '';
+      deliveryFee = selectedProvince ? (provinceFeeMap[selectedProvince] || 0) : 0;
       renderCart();
     });
     clearCartBtn.addEventListener('click', () => {
@@ -1976,15 +2012,25 @@
         images:Array.isArray(item.images)?item.images:[],display_order:index
       };
     }
-    async function ensureLegacyProductsInDatabase(){
-      const {data,error}=await sb.from('products').select('name_ar');
+    async function ensureLegacyProductsInDatabase(forceMessage=false){
+      const {data,error}=await sb.from('products').select('id,name_ar');
       if(error)throw error;
-      const names=new Set((data||[]).map(x=>(x.name_ar||'').trim()));
+      const names=new Set((data||[]).map(x=>(x.name_ar||'').trim()).filter(Boolean));
       const missing=legacyItems.map(legacyRow).filter(x=>x.name_ar&&!names.has(x.name_ar.trim()));
-      if(!missing.length)return 0;
-      const {error:insertError}=await sb.from('products').insert(missing);
-      if(insertError)throw insertError;
-      return missing.length;
+      if(!missing.length){
+        if(forceMessage) adminStatus.textContent=`كل المنتجات السابقة (${legacyItems.length}) مسجلة بالفعل.`;
+        return {added:0, failed:0, total:legacyItems.length};
+      }
+      let added=0; const failures=[];
+      for(const row of missing){
+        const {error:insertError}=await sb.from('products').insert(row);
+        if(insertError) failures.push(`${row.name_ar}: ${insertError.message}`);
+        else added++;
+      }
+      const msg=`تم استيراد ${added} منتج سابق من أصل ${legacyItems.length}${failures.length?`، وفشل ${failures.length}`:''}.`;
+      adminStatus.textContent=msg;
+      if(failures.length) console.warn('Legacy import failures:', failures);
+      return {added,failed:failures.length,total:legacyItems.length,failures};
     }
 
     async function refreshAdminSession(){
@@ -1992,12 +2038,13 @@
       adminLogin.hidden=logged;adminDashboard.hidden=!logged;adminStatus.textContent=logged?'مسجل الدخول كمدير':'سجّل الدخول لإدارة المنتجات';
       if(logged){
         field('adminEditor')?.classList.remove('active');field('adminListView')?.classList.remove('hidden');
-        try{const added=await ensureLegacyProductsInDatabase();if(added)adminStatus.textContent=`تم تسجيل ${added} من المنتجات السابقة تلقائياً.`;}catch(e){adminStatus.textContent='تم تسجيل الدخول، لكن تعذر استيراد المنتجات السابقة: '+e.message;}
+        try{await ensureLegacyProductsInDatabase(false);}catch(e){adminStatus.textContent='تم تسجيل الدخول، لكن تعذر استيراد المنتجات السابقة: '+e.message;}
         await loadAdminProducts();await loadSupabaseProducts();
       }
     }
     field('adminLoginBtn').onclick=async()=>{adminStatus.textContent='جاري تسجيل الدخول...';const {error}=await sb.auth.signInWithPassword({email:field('adminEmail').value.trim(),password:field('adminPassword').value});if(error){adminStatus.textContent='تعذر تسجيل الدخول: '+error.message;return;}field('adminPassword').value='';refreshAdminSession();};
     field('adminLogout').onclick=async()=>{await sb.auth.signOut();refreshAdminSession();};
+    field('importLegacyBtn').onclick=async()=>{adminStatus.textContent='جاري استيراد المنتجات السابقة...';try{await ensureLegacyProductsInDatabase(true);await loadAdminProducts();await loadSupabaseProducts();}catch(e){adminStatus.textContent='تعذر الاستيراد: '+e.message;}};
 
     function resetAdminForm(){
       ['adminProductId','pNameAr','pNameEn','pNameCkb','pPrice','pOldPrice','pDiscount','pDescAr','pDescEn','pDescCkb'].forEach(id=>field(id).value='');
@@ -2076,7 +2123,9 @@
     loadSupabaseProducts();
 
     /* Initial cart render */
-    deliveryInput.value = deliveryFee;
+    selectedProvince = provinceFeeMap[selectedProvince] ? selectedProvince : '';
+    deliveryFee = selectedProvince ? provinceFeeMap[selectedProvince] : 0;
+    deliveryInput.value = selectedProvince;
     renderCart();
 
     const savedTheme = localStorage.getItem('raven-theme') || 'light';
