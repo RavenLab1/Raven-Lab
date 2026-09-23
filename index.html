@@ -549,7 +549,14 @@
   
     /* Wholesale product options */
     .wholesale-box{margin:14px 0;padding:14px;border:1px solid var(--border-color);border-radius:14px;background:var(--bg-light);display:none}.wholesale-box.active{display:block}.wholesale-title{font-weight:800;margin-bottom:8px}.package-options{display:flex;flex-wrap:wrap;gap:8px}.package-option{border:1px solid var(--border-color);background:var(--bg-white);color:var(--text-dark);border-radius:12px;padding:9px 12px;cursor:pointer;font-weight:800}.package-option.active{border-color:var(--brand-green);background:rgba(174,211,73,.14);box-shadow:0 0 0 2px rgba(174,211,73,.12)}.color-options{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.color-option{border:1px solid var(--border-color);background:var(--bg-white);color:var(--text-dark);border-radius:999px;padding:7px 11px;cursor:pointer;font-weight:700}.color-option.active{border-color:var(--brand-green);background:var(--brand-green);color:#111}.wholesale-note{font-size:.84rem;color:var(--text-muted);margin-top:8px}.admin-packages{grid-column:1/-1;border:1px solid var(--border-color);border-radius:16px;padding:14px;background:var(--bg-light)}.admin-package-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-top:8px}.admin-package-row button{border:0;border-radius:10px;background:#ef4444;color:#fff;width:42px;cursor:pointer}.admin-inline-btn{border:1px solid var(--border-color);background:var(--bg-white);color:var(--text-dark);border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:800}.admin-colors-help{font-size:.82rem;color:var(--text-muted);margin-top:5px}@media(max-width:700px){.admin-package-row{grid-template-columns:1fr 1fr 40px}}
-  </style>
+  
+    .admin-options-box{grid-column:1/-1;border:1px solid var(--border-color);border-radius:16px;padding:14px;background:var(--bg-light)}
+    .admin-option-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-top:8px}
+    .admin-option-row button{border:0;border-radius:10px;background:#ef4444;color:#fff;width:42px;cursor:pointer}
+    .custom-options{margin-top:14px;display:grid;gap:12px}.custom-option-group{padding:12px;border:1px solid var(--border-color);border-radius:13px;background:var(--bg-light)}
+    .custom-option-title{font-weight:800;margin-bottom:8px}.custom-option-values{display:flex;flex-wrap:wrap;gap:8px}.custom-option-btn{border:1px solid var(--border-color);background:var(--bg-white);color:var(--text-dark);border-radius:11px;padding:8px 11px;cursor:pointer;font-weight:700}.custom-option-btn.active{border-color:var(--brand-green);background:rgba(174,211,73,.16);box-shadow:0 0 0 2px rgba(174,211,73,.12)}
+    @media(max-width:700px){.admin-option-row{grid-template-columns:1fr 1fr}.admin-option-row button{width:100%}}
+</style>
 </head>
 <body>
   <nav id="navbar" aria-label="التنقل الرئيسي" data-i18n-aria-label="navAria">
@@ -670,7 +677,7 @@
           <div class="modal-label" data-i18n="modalLabel">تفاصيل المنتج</div>
           <h2 id="mTitle"></h2>
           <p id="mDesc"></p>
-          <div id="mPriceContainer" class="price-container modal-price"></div>
+          <div id="customOptions" class="custom-options"></div><div id="mPriceContainer" class="price-container modal-price"></div>
           <div class="wholesale-box" id="wholesaleBox"><div class="wholesale-title">اختر الكمية</div><div class="package-options" id="packageOptions"></div><div id="colorSection" style="display:none"><div class="wholesale-title" style="margin-top:13px">اختر الألوان <span style="font-weight:500;color:var(--text-muted)">(اختياري)</span></div><div class="color-options" id="colorOptions"></div><div class="wholesale-note" id="colorLimitNote"></div></div></div>
           <button id="mAddCart" class="btn-cart-modal" type="button"><i class="fa-solid fa-cart-plus"></i> <span data-i18n="addToCart">أضف إلى السلة</span></button>
           <a href="#" id="waLink" class="btn-whatsapp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span data-i18n="orderNow">اطلب الآن عبر واتساب</span></a>
@@ -779,6 +786,7 @@
             <label><input id="pWholesale" type="checkbox"> منتج جملة / يحتوي على باقات</label>
             <div class="admin-packages" id="pPackagesBox" style="display:none"><strong>باقات الكمية والسعر</strong><div class="admin-auto-note">مثال: 100 قطعة = 65,000 د.ع. يمكنك إضافة أي عدد من الباقات.</div><div id="pPackageRows"></div><button class="admin-inline-btn" id="pAddPackage" type="button" style="margin-top:9px"><i class="fa-solid fa-plus"></i> إضافة باقة</button></div>
             <label class="full" id="pColorsWrap" style="display:none">الألوان المتاحة<input id="pColors" placeholder="أسود، أبيض، أحمر، أزرق"><div class="admin-colors-help">اختياري. افصل الألوان بفاصلة. يسمح للزبون باختيار 4 ألوان كحد أقصى لكل 100 قطعة.</div></label>
+            <div class="admin-options-box"><strong>تصنيفات وخيارات إضافية</strong><div class="admin-auto-note">اختياري: مثل الحجم، الطول، النوع. اكتب اسم التصنيف والقيمة والسعر النهائي لهذا الاختيار. يمكنك إضافة أي عدد.</div><div id="pOptionRows"></div><button class="admin-inline-btn" id="pAddOption" type="button" style="margin-top:9px"><i class="fa-solid fa-plus"></i> إضافة اختيار</button></div>
             <div class="admin-dropzone" id="pDropzone" tabindex="0" role="button" aria-label="إضافة صور المنتج">
               <i class="fa-solid fa-images"></i>
               <strong>أضف صور المنتج</strong>
@@ -1451,6 +1459,7 @@
         packages: Array.isArray(p.packages) ? p.packages : [],
         colors: Array.isArray(p.colors) ? p.colors : [],
         maxColorsPer100: Number(p.max_colors_per_100 || 4),
+        customOptions: Array.isArray(p.custom_options) ? p.custom_options : [],
         _db: true
       };
     }
@@ -1850,6 +1859,12 @@
       const renderColorButtons = () => {
         colorOptions.innerHTML = colors.map(c=>`<button type="button" class="color-option ${selectedColors.includes(c)?'active':''}" data-color="${c.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">${c}</button>`).join('');
       };
+      const customOptionsEl = document.getElementById('customOptions');
+      customOptionsEl.innerHTML='';
+      const optionGroups={};
+      (Array.isArray(item.customOptions)?item.customOptions:[]).forEach(o=>{(optionGroups[o.group]??=[]).push(o);});
+      Object.entries(optionGroups).forEach(([group,opts])=>{const box=document.createElement('div');box.className='custom-option-group';box.innerHTML=`<div class="custom-option-title">${group}</div><div class="custom-option-values">${opts.map((o,i)=>`<button type="button" class="custom-option-btn ${i===0?'active':''}" data-opt-price="${Number(o.price||0)}">${o.value}</button>`).join('')}</div>`;box.onclick=e=>{const b=e.target.closest('.custom-option-btn');if(!b)return;box.querySelectorAll('.custom-option-btn').forEach(x=>x.classList.toggle('active',x===b));const price=Number(b.dataset.optPrice||0);if(price>0){selectedPackage=null;mPriceContainer.innerHTML=priceHtml(price,null,0);}};customOptionsEl.appendChild(box);});
+
       if (item.wholesale && packages.length) {
         wholesaleBox.classList.add('active');
         packageOptions.innerHTML = packages.map((p,i)=>`<button type="button" class="package-option ${i===0?'active':''}" data-package-index="${i}">${Number(p.qty).toLocaleString(currentLang==='en'?'en-US':'ar-IQ')} قطعة · ${formatPrice(p.price)}</button>`).join('');
@@ -2100,12 +2115,15 @@
 
     function resetAdminForm(){
       ['adminProductId','pNameAr','pNameEn','pNameCkb','pPrice','pOldPrice','pDiscount','pDescAr','pDescEn','pDescCkb'].forEach(id=>field(id).value='');
-      field('pOrder').value=0;field('pBadge').value='new';field('pAvailable').checked=true;field('pVisible').checked=true;field('pFeatured').checked=false;field('pWholesale').checked=false;field('pColors').value='';field('pPackageRows').innerHTML='';setWholesaleAdminUI();field('pImages').value='';pendingImageFiles=[];existingAdminImages=[];renderAdminImagePreview();saveStatus.textContent='';
+      field('pOrder').value=0;field('pBadge').value='new';field('pAvailable').checked=true;field('pVisible').checked=true;field('pFeatured').checked=false;field('pWholesale').checked=false;field('pColors').value='';field('pPackageRows').innerHTML='';field('pOptionRows').innerHTML='';setWholesaleAdminUI();field('pImages').value='';pendingImageFiles=[];existingAdminImages=[];renderAdminImagePreview();saveStatus.textContent='';
     }
     function getAdminPackages(){ return [...document.querySelectorAll('.admin-package-row')].map(r=>({qty:Number(r.querySelector('[data-pkg-qty]').value||0),price:Number(r.querySelector('[data-pkg-price]').value||0)})).filter(x=>x.qty>0&&x.price>=0).sort((a,b)=>a.qty-b.qty); }
     function addAdminPackageRow(pkg={qty:'',price:''}){ const wrap=field('pPackageRows'); const row=document.createElement('div'); row.className='admin-package-row'; row.innerHTML=`<input type="number" min="1" data-pkg-qty placeholder="الكمية" value="${pkg.qty??''}"><input type="number" min="0" data-pkg-price placeholder="سعر الباقة IQD" value="${pkg.price??''}"><button type="button" title="حذف الباقة"><i class="fa-solid fa-trash"></i></button>`; row.querySelector('button').onclick=()=>row.remove(); wrap.appendChild(row); }
     function setWholesaleAdminUI(){ const on=field('pWholesale').checked; field('pPackagesBox').style.display=on?'block':'none'; field('pColorsWrap').style.display=on?'block':'none'; if(on&&!field('pPackageRows').children.length)addAdminPackageRow({qty:100,price:''}); }
     field('pWholesale').addEventListener('change',setWholesaleAdminUI); field('pAddPackage').onclick=()=>addAdminPackageRow();
+    function addAdminOptionRow(opt={group:'',value:'',price:''}){const wrap=field('pOptionRows');const row=document.createElement('div');row.className='admin-option-row';row.innerHTML=`<input data-opt-group placeholder="التصنيف: الحجم / النوع" value="${opt.group??''}"><input data-opt-value placeholder="الاختيار: كبير / وجهين" value="${opt.value??''}"><input type="number" min="0" data-opt-price placeholder="السعر IQD" value="${opt.price??''}"><button type="button" title="حذف"><i class="fa-solid fa-trash"></i></button>`;row.querySelector('button').onclick=()=>row.remove();wrap.appendChild(row);}
+    function getAdminOptions(){return [...document.querySelectorAll('.admin-option-row')].map(r=>({group:r.querySelector('[data-opt-group]').value.trim(),value:r.querySelector('[data-opt-value]').value.trim(),price:Number(r.querySelector('[data-opt-price]').value||0)})).filter(x=>x.group&&x.value);}
+    field('pAddOption').onclick=()=>addAdminOptionRow();
     function openAdminEditor(mode='add'){field('adminListView').classList.add('hidden');field('adminEditor').classList.add('active');field('adminEditorHeading').textContent=mode==='edit'?'تعديل المنتج':'إضافة منتج';field('adminEditor').scrollIntoView({block:'start'});renderAdminImagePreview();}
     function closeAdminEditor(){field('adminEditor').classList.remove('active');field('adminListView').classList.remove('hidden');resetAdminForm();}
     field('pReset').onclick=resetAdminForm;field('pAddTop').onclick=()=>{resetAdminForm();openAdminEditor('add');setTimeout(()=>field('pNameAr').focus(),100);};field('pCancel').onclick=closeAdminEditor;
@@ -2150,7 +2168,12 @@
           price:Number(field('pPrice').value),old_price:field('pOldPrice').value?Number(field('pOldPrice').value):null,
           discount:Number(field('pDiscount').value||0),badge:field('pBadge').value||null,
           is_available:field('pAvailable').checked,is_visible:field('pVisible').checked,is_featured:field('pFeatured').checked,
-          images,display_order:Number(field('pOrder').value||0)
+          images,display_order:Number(field('pOrder').value||0),
+          wholesale_enabled:field('pWholesale').checked,
+          packages:field('pWholesale').checked?getAdminPackages():[],
+          colors:field('pWholesale').checked?field('pColors').value.split(/[،,]/).map(x=>x.trim()).filter(Boolean):[],
+          max_colors_per_100:4,
+          custom_options:getAdminOptions()
         };
         const q=id?sb.from('products').update(payload).eq('id',id):sb.from('products').insert(payload);
         const {error}=await q;if(error)throw error;
@@ -2169,7 +2192,7 @@
     function editAdminProduct(p){
       field('adminProductId').value=p.id;field('pNameAr').value=p.name_ar||'';field('pNameCkb').value=p.name_ckb||'';field('pNameEn').value=p.name_en||'';
       field('pDescAr').value=p.description_ar||'';field('pDescCkb').value=p.description_ckb||'';field('pDescEn').value=p.description_en||'';
-      field('pPrice').value=p.price||'';field('pOldPrice').value=p.old_price||'';field('pDiscount').value=p.discount||0;field('pBadge').value=p.badge||'';field('pOrder').value=p.display_order||0;field('pWholesale').checked=!!p.wholesale_enabled;field('pColors').value=Array.isArray(p.colors)?p.colors.join('، '):'';field('pPackageRows').innerHTML='';(Array.isArray(p.packages)?p.packages:[]).forEach(addAdminPackageRow);setWholesaleAdminUI();
+      field('pPrice').value=p.price||'';field('pOldPrice').value=p.old_price||'';field('pDiscount').value=p.discount||0;field('pBadge').value=p.badge||'';field('pOrder').value=p.display_order||0;field('pWholesale').checked=!!p.wholesale_enabled;field('pColors').value=Array.isArray(p.colors)?p.colors.join('، '):'';field('pPackageRows').innerHTML='';(Array.isArray(p.packages)?p.packages:[]).forEach(addAdminPackageRow);field('pOptionRows').innerHTML='';(Array.isArray(p.custom_options)?p.custom_options:[]).forEach(addAdminOptionRow);setWholesaleAdminUI();
       field('pAvailable').checked=p.is_available;field('pVisible').checked=p.is_visible;field('pFeatured').checked=p.is_featured;
       existingAdminImages=Array.isArray(p.images)?[...p.images]:[];pendingImageFiles=[];renderAdminImagePreview();calcDiscount();saveStatus.textContent='تعديل المنتج رقم '+p.id;openAdminEditor('edit');
     }
