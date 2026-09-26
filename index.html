@@ -796,7 +796,7 @@
             <textarea id="pDescCkb" hidden></textarea>
             <label>الترتيب<input id="pOrder" type="number" value="0"></label>
             <label><input id="pWholesale" type="checkbox"> منتج جملة / يحتوي على باقات</label>
-            <div class="admin-packages" id="pPackagesBox" style="display:none"><strong>أسعار الكمية × النوع</strong><div class="admin-auto-note">أضف صفاً لكل تركيبة. مثال: 100 + وجه واحد = 65,000، ثم 100 + وجهين = 85,000. اترك النوع فارغاً للمنتجات التي تعتمد على الكمية فقط.</div><div id="pPackageRows"></div><button class="admin-inline-btn" id="pAddPackage" type="button" style="margin-top:9px"><i class="fa-solid fa-plus"></i> إضافة سعر</button></div>
+            <div class="admin-packages" id="pPackagesBox" style="display:none"><strong id="pPackagesTitle">أسعار الكمية</strong><div class="admin-auto-note" id="pPackagesNote">أضف الكمية وسعرها. خيار وجه واحد / وجهين يظهر فقط لمنتج ميداليات الجيم.</div><div id="pPackageRows"></div><button class="admin-inline-btn" id="pAddPackage" type="button" style="margin-top:9px"><i class="fa-solid fa-plus"></i> إضافة سعر</button></div>
             <div class="full" id="pColorsWrap" style="display:none"><strong>الألوان المتاحة</strong><div class="admin-colors-help">اختياري. حدد الألوان التي يمكن للزبون طلبها. الحد الأقصى 4 ألوان لكل 100 قطعة.</div><div id="pColorsGrid" class="admin-color-grid"></div></div>
             <div class="admin-options-box"><strong>تصنيفات وخيارات إضافية</strong><div class="admin-auto-note">اختياري: مثل الحجم، الطول، النوع. اكتب اسم التصنيف والقيمة والسعر النهائي لهذا الاختيار. يمكنك إضافة أي عدد.</div><div id="pOptionRows"></div><button class="admin-inline-btn" id="pAddOption" type="button" style="margin-top:9px"><i class="fa-solid fa-plus"></i> إضافة اختيار</button></div>
             <div class="admin-dropzone" id="pDropzone" tabindex="0" role="button" aria-label="إضافة صور المنتج">
@@ -1814,6 +1814,14 @@
       requestAnimationFrame(setupRevealObserver);
     }
 
+    function isGymMedalProduct(item) {
+      const names = [item?.name?.ar, item?.name?.ckb, item?.name?.en]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+      return /ميداليات?\s*(?:ال)?جيم|gym\s*(?:medals?|keychains?)|(?:medals?|keychains?)\s*gym|fitness\s*(?:medals?|keychains?)/i.test(names);
+    }
+
     function openModal(item, trigger) {
       const name = localized(item.name);
       lastFocusedElement = trigger || document.activeElement;
@@ -1860,12 +1868,19 @@
       const colorLimitNote = document.getElementById('colorLimitNote');
       const customOptionsEl = document.getElementById('customOptions');
       let selectedQty = null, selectedType = '', selectedPackage = null, selectedColors = [];
+      const allowPackageType = isGymMedalProduct(item);
       const packages = Array.isArray(item.packages) ? [...item.packages].map(p=>({...p,type:(p.type||'').trim()})).sort((a,b)=>Number(a.qty)-Number(b.qty)) : [];
       const colors = Array.isArray(item.colors) ? item.colors : [];
       const quantities=[...new Set(packages.map(p=>Number(p.qty)))].filter(Boolean);
       const getRowsForQty=q=>packages.filter(p=>Number(p.qty)===Number(q));
-      const getTypesForQty=q=>[...new Set(getRowsForQty(q).map(p=>p.type).filter(Boolean))];
-      const findPackage=()=>{const rows=getRowsForQty(selectedQty);return rows.find(p=>(p.type||'')===selectedType)||rows.find(p=>!(p.type||''))||rows[0]||null;};
+      const getTypesForQty=q=>allowPackageType ? [...new Set(getRowsForQty(q).map(p=>p.type).filter(Boolean))] : [];
+      const findPackage=()=>{
+        const rows=getRowsForQty(selectedQty);
+        if(allowPackageType && selectedType){
+          return rows.find(p=>(p.type||'')===selectedType)||rows.find(p=>!(p.type||''))||rows[0]||null;
+        }
+        return rows.find(p=>!(p.type||''))||rows[0]||null;
+      };
       const colorHex={'أسود':'#111111','أبيض':'#ffffff','أحمر':'#e53935','أخضر':'#43a047','أزرق':'#1e88e5','أصفر':'#fdd835','برتقالي':'#fb8c00','بنفسجي':'#8e24aa','سمائي':'#4fc3f7','وردي':'#ec6fa9','بني':'#795548','رمادي':'#9e9e9e','خشبي':'#b8895b'};
       function colorLimit(){return Math.max(1,Math.floor(Number(selectedQty||100)/100))*Number(item.maxColorsPer100||4);}
       function renderColors(){
@@ -1882,15 +1897,23 @@
         if(!item.wholesale||!packages.length)return;
         selectedQty=selectedQty||quantities[0];
         packageOptions.innerHTML=quantities.map(q=>`<button type="button" class="package-option ${Number(q)===Number(selectedQty)?'active':''}" data-qty="${q}">${Number(q).toLocaleString(currentLang==='en'?'en-US':'ar-IQ')} قطعة</button>`).join('');
-        const types=getTypesForQty(selectedQty); if(types.length&&!types.includes(selectedType))selectedType=types[0]; if(!types.length)selectedType='';
-        if(types.length){const box=document.createElement('div');box.className='custom-option-group';box.innerHTML=`<div class="custom-option-title">النوع</div><div class="custom-option-values">${types.map(t=>`<button type="button" class="custom-option-btn ${t===selectedType?'active':''}" data-type="${t.replace(/"/g,'&quot;')}">${t}</button>`).join('')}</div>`;box.onclick=e=>{const b=e.target.closest('[data-type]');if(!b)return;selectedType=b.dataset.type;box.querySelectorAll('[data-type]').forEach(x=>x.classList.toggle('active',x===b));updateVariantPrice();};customOptionsEl.appendChild(box);}
+        const types=getTypesForQty(selectedQty);
+        if(allowPackageType && types.length && !types.includes(selectedType)) selectedType=types[0];
+        if(!allowPackageType || !types.length) selectedType='';
+        if(allowPackageType && types.length){
+          const box=document.createElement('div');
+          box.className='custom-option-group';
+          box.innerHTML=`<div class="custom-option-title">النوع</div><div class="custom-option-values">${types.map(t=>`<button type="button" class="custom-option-btn ${t===selectedType?'active':''}" data-type="${t.replace(/"/g,'&quot;')}">${t}</button>`).join('')}</div>`;
+          box.onclick=e=>{const b=e.target.closest('[data-type]');if(!b)return;selectedType=b.dataset.type;box.querySelectorAll('[data-type]').forEach(x=>x.classList.toggle('active',x===b));updateVariantPrice();};
+          customOptionsEl.appendChild(box);
+        }
         updateVariantPrice();
       }
       if(item.wholesale&&packages.length){
         wholesaleBox.classList.add('active'); colorSection.style.display=colors.length?'block':'none'; renderVariantSelectors(); renderColors();
         packageOptions.onclick=e=>{const b=e.target.closest('[data-qty]');if(!b)return;selectedQty=Number(b.dataset.qty);selectedType='';renderVariantSelectors();};
         colorOptions.onchange=e=>{const cb=e.target.closest('[data-color]');if(!cb)return;const c=cb.dataset.color;if(cb.checked){if(selectedColors.length>=colorLimit()){cb.checked=false;colorLimitNote.textContent=`الحد الأقصى لهذه الباقة هو ${colorLimit()} ألوان.`;return;}selectedColors.push(c);}else selectedColors=selectedColors.filter(x=>x!==c);renderColors();};
-        mAddCart.onclick=()=>addToCart(item.id,1,{packageQty:Number(selectedQty),packagePrice:Number(selectedPackage.price),packageType:selectedType,colors:selectedColors});
+        mAddCart.onclick=()=>addToCart(item.id,1,{packageQty:Number(selectedQty),packagePrice:Number(selectedPackage.price),packageType:allowPackageType?selectedType:'',colors:selectedColors});
       }else{
         wholesaleBox.classList.remove('active');packageOptions.innerHTML='';colorOptions.innerHTML='';colorSection.style.display='none';
         const optionGroups={};(Array.isArray(item.customOptions)?item.customOptions:[]).forEach(o=>{(optionGroups[o.group]??=[]).push(o);});
@@ -2140,10 +2163,37 @@
     const COLOR_HEX={'أسود':'#111111','أبيض':'#ffffff','أحمر':'#e53935','أخضر':'#43a047','أزرق':'#1e88e5','أصفر':'#fdd835','برتقالي':'#fb8c00','بنفسجي':'#8e24aa','سمائي':'#4fc3f7','وردي':'#ec6fa9','بني':'#795548','رمادي':'#9e9e9e','خشبي':'#b8895b'};
     function renderAdminColorGrid(selected=[]){ const wrap=field('pColorsGrid'); if(!wrap)return; wrap.innerHTML=RAVEN_COLORS.map(c=>`<label class="admin-color-check"><input type="checkbox" data-admin-color value="${c}" ${selected.includes(c)?'checked':''}><span class="color-dot" style="background:${COLOR_HEX[c]}"></span>${c}</label>`).join(''); }
     function getAdminColors(){return [...document.querySelectorAll('[data-admin-color]:checked')].map(x=>x.value);}
-    function getAdminPackages(){ return [...document.querySelectorAll('.admin-package-row')].map(r=>({qty:Number(r.querySelector('[data-pkg-qty]').value||0),type:r.querySelector('[data-pkg-type]').value.trim(),price:Number(r.querySelector('[data-pkg-price]').value||0)})).filter(x=>x.qty>0&&x.price>=0).sort((a,b)=>a.qty-b.qty||a.type.localeCompare(b.type,'ar')); }
-    function addAdminPackageRow(pkg={qty:'',type:'',price:''}){ const wrap=field('pPackageRows'); const row=document.createElement('div'); row.className='admin-package-row'; row.innerHTML=`<input type="number" min="1" data-pkg-qty placeholder="الكمية: 100" value="${pkg.qty??''}"><input data-pkg-type placeholder="النوع: وجه واحد / وجهين" value="${(pkg.type??'').replace(/"/g,'&quot;')}"><input type="number" min="0" data-pkg-price placeholder="السعر IQD" value="${pkg.price??''}"><button type="button" title="حذف السعر"><i class="fa-solid fa-trash"></i></button>`; row.querySelector('button').onclick=()=>row.remove(); wrap.appendChild(row); }
-    function setWholesaleAdminUI(){ const on=field('pWholesale').checked; field('pPackagesBox').style.display=on?'block':'none'; field('pColorsWrap').style.display=on?'block':'none'; if(on&&!field('pPackageRows').children.length)addAdminPackageRow({qty:100,type:'',price:''}); if(on&&!field('pColorsGrid').children.length)renderAdminColorGrid([]); }
-    field('pWholesale').addEventListener('change',setWholesaleAdminUI); field('pAddPackage').onclick=()=>addAdminPackageRow();
+    function adminIsGymMedalProduct(){
+      const names=[field('pNameAr')?.value,field('pNameEn')?.value].filter(Boolean).join(' ').toLowerCase();
+      return /ميداليات?\s*(?:ال)?جيم|gym\s*(?:medals?|keychains?)|(?:medals?|keychains?)\s*gym|fitness\s*(?:medals?|keychains?)/i.test(names);
+    }
+    function syncAdminPackageTypeUI(){
+      const allowType=adminIsGymMedalProduct();
+      const title=field('pPackagesTitle'),note=field('pPackagesNote');
+      if(title) title.textContent=allowType?'أسعار الكمية × النوع':'أسعار الكمية';
+      if(note) note.textContent=allowType
+        ? 'لميداليات الجيم: أضف سعراً لكل كمية ولكل نوع (وجه واحد / وجهين).'
+        : 'أضف الكمية وسعرها. خيار وجه واحد / وجهين مخصص لميداليات الجيم فقط.';
+      document.querySelectorAll('[data-pkg-type]').forEach(input=>{
+        input.style.display=allowType?'':'none';
+        input.disabled=!allowType;
+        if(!allowType) input.value='';
+      });
+    }
+    function getAdminPackages(){
+      const allowType=adminIsGymMedalProduct();
+      return [...document.querySelectorAll('.admin-package-row')]
+        .map(r=>({
+          qty:Number(r.querySelector('[data-pkg-qty]').value||0),
+          type:allowType?r.querySelector('[data-pkg-type]').value.trim():'',
+          price:Number(r.querySelector('[data-pkg-price]').value||0)
+        }))
+        .filter(x=>x.qty>0&&x.price>=0)
+        .sort((a,b)=>a.qty-b.qty||a.type.localeCompare(b.type,'ar'));
+    }
+    function addAdminPackageRow(pkg={qty:'',type:'',price:''}){ const wrap=field('pPackageRows'); const row=document.createElement('div'); row.className='admin-package-row'; row.innerHTML=`<input type="number" min="1" data-pkg-qty placeholder="الكمية: 100" value="${pkg.qty??''}"><input data-pkg-type placeholder="النوع: وجه واحد / وجهين" value="${(pkg.type??'').replace(/"/g,'&quot;')}"><input type="number" min="0" data-pkg-price placeholder="السعر IQD" value="${pkg.price??''}"><button type="button" title="حذف السعر"><i class="fa-solid fa-trash"></i></button>`; row.querySelector('button').onclick=()=>row.remove(); wrap.appendChild(row); syncAdminPackageTypeUI(); }
+    function setWholesaleAdminUI(){ const on=field('pWholesale').checked; field('pPackagesBox').style.display=on?'block':'none'; field('pColorsWrap').style.display=on?'block':'none'; if(on&&!field('pPackageRows').children.length)addAdminPackageRow({qty:100,type:'',price:''}); if(on&&!field('pColorsGrid').children.length)renderAdminColorGrid([]); syncAdminPackageTypeUI(); }
+    field('pWholesale').addEventListener('change',setWholesaleAdminUI); field('pAddPackage').onclick=()=>addAdminPackageRow(); field('pNameAr').addEventListener('input',syncAdminPackageTypeUI); field('pNameEn').addEventListener('input',syncAdminPackageTypeUI);
     function addAdminOptionRow(opt={group:'',value:'',price:''}){const wrap=field('pOptionRows');const row=document.createElement('div');row.className='admin-option-row';row.innerHTML=`<input data-opt-group placeholder="التصنيف: الحجم / النوع" value="${opt.group??''}"><input data-opt-value placeholder="الاختيار: كبير / وجهين" value="${opt.value??''}"><input type="number" min="0" data-opt-price placeholder="السعر IQD" value="${opt.price??''}"><button type="button" title="حذف"><i class="fa-solid fa-trash"></i></button>`;row.querySelector('button').onclick=()=>row.remove();wrap.appendChild(row);}
     function getAdminOptions(){return [...document.querySelectorAll('.admin-option-row')].map(r=>({group:r.querySelector('[data-opt-group]').value.trim(),value:r.querySelector('[data-opt-value]').value.trim(),price:Number(r.querySelector('[data-opt-price]').value||0)})).filter(x=>x.group&&x.value);}
     field('pAddOption').onclick=()=>addAdminOptionRow();
