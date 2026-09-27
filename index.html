@@ -613,7 +613,7 @@
         <p data-i18n="heroText">نحوّل أفكارك إلى قطع فنية ملموسة بدقة الطباعة ثلاثية الأبعاد الاحترافية، بتفاصيل جميلة وجودة تستحق الاقتناء.</p>
         <div class="hero-actions">
           <a href="#products" class="btn-primary"><span data-i18n="browseProducts">تصفح المنتجات</span> <i class="fa-solid fa-arrow-down"></i></a>
-          <a href="https://wa.me/9647885817890" target="_blank" rel="noopener" class="btn-secondary"><i class="fab fa-whatsapp"></i> <span data-i18n="customIdea">لديك فكرة خاصة؟</span></a>
+          <a href="https://wa.me/9647773685433" target="_blank" rel="noopener" class="btn-secondary"><i class="fab fa-whatsapp"></i> <span data-i18n="customIdea">لديك فكرة خاصة؟</span></a>
         </div>
         <div class="hero-trust" aria-label="مميزات المتجر">
           <span><i class="fa-solid fa-circle-check"></i> <span data-i18n="trustPrint">طباعة عالية الدقة</span></span>
@@ -670,8 +670,7 @@
       <p data-i18n="footerDesc">تابعنا على منصات التواصل ليصلك كل جديد، أو راسلنا لطلب منتجك المخصص.</p>
       <div class="social-links">
         <a href="https://www.instagram.com/raven_lab1?igsh=MXI1anQ0cGpydWFsbg%3D%3D&utm_source=qr" target="_blank" rel="noopener" class="social-btn" aria-label="إنستغرام" data-i18n-aria-label="instagramLabel"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@raven.lab3?_r=1&_t=ZS-96Kw152p7qs" target="_blank" rel="noopener" class="social-btn" aria-label="تيك توك" data-i18n-aria-label="tiktokLabel"><i class="fab fa-tiktok"></i></a>
-        <a href="https://wa.me/9647885817890" target="_blank" rel="noopener" class="social-btn" aria-label="واتساب" data-i18n-aria-label="whatsappLabel"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/9647773685433" target="_blank" rel="noopener" class="social-btn" aria-label="واتساب" data-i18n-aria-label="whatsappLabel"><i class="fab fa-whatsapp"></i></a>
       </div>
       <p class="copyright">© <span id="year"></span> Raven Lab. <span data-i18n="copyright">جميع الحقوق محفوظة.</span></p>
     </div>
@@ -871,7 +870,6 @@
         detailsAriaPrefix: 'عرض تفاصيل',
         footerDesc: 'تابعنا على منصات التواصل ليصلك كل جديد، أو راسلنا لطلب منتجك المخصص.',
         instagramLabel: 'إنستغرام',
-        tiktokLabel: 'تيك توك',
         whatsappLabel: 'واتساب',
         copyright: 'جميع الحقوق محفوظة.',
         closeModal: 'إغلاق نافذة المنتج',
@@ -976,7 +974,6 @@
         detailsAriaPrefix: 'بینینی وردەکاری',
         footerDesc: 'لە سۆشیال میدیا شوێنمان بکەوە بۆ نوێترین شت، یان پەیوەندیمان پێوە بکە بۆ داواکاری بەرهەمی تایبەت.',
         instagramLabel: 'ئینستاگرام',
-        tiktokLabel: 'تیکتۆک',
         whatsappLabel: 'واتساپ',
         copyright: 'هەموو مافەکان پارێزراون.',
         closeModal: 'داخستنی پەنجەرەی بەرهەم',
@@ -1081,7 +1078,6 @@
         detailsAriaPrefix: 'View details for',
         footerDesc: 'Follow us on social media for updates, or message us to order your custom product.',
         instagramLabel: 'Instagram',
-        tiktokLabel: 'TikTok',
         whatsappLabel: 'WhatsApp',
         copyright: 'All rights reserved.',
         closeModal: 'Close product window',
@@ -1660,7 +1656,7 @@
       cartTotalEl.textContent = formatPrice(total);
 
       if (cart.length && selectedProvince) {
-        cartWhatsapp.href = `https://wa.me/9647885817890?text=${encodeURIComponent(buildInvoiceText())}`;
+        cartWhatsapp.href = `https://wa.me/9647773685433?text=${encodeURIComponent(buildInvoiceText())}`;
         cartWhatsapp.classList.remove('disabled');
         cartWhatsapp.removeAttribute('aria-disabled');
       } else {
@@ -1930,7 +1926,7 @@
         waText.textContent = t('unavailable');
       } else {
         const msg = encodeURIComponent(t('whatsappMsg')(name, formatPrice(item.priceValue)));
-        waLink.href = `https://wa.me/9647885817890?text=${msg}`;
+        waLink.href = `https://wa.me/9647773685433?text=${msg}`;
         waLink.classList.remove('disabled');
         waLink.removeAttribute('aria-disabled');
         waText.textContent = t('orderNow');
