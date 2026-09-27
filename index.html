@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#aed349">
   <meta name="description" content="Raven Lab — منتجات ومجسمات مطبوعة ثلاثية الأبعاد بدقة وجودة عالية.">
-  <title>Raven Lab Store V12</title>
+  <title>Raven Lab Store V13</title>
   <meta property="og:title" content="Raven Lab">
   <meta property="og:description" content="Raven Lab — منتجات ومجسمات مطبوعة ثلاثية الأبعاد بدقة وجودة عالية.">
   <meta property="og:type" content="website">
@@ -597,6 +597,84 @@
     .featured-ring{box-shadow:0 0 0 2px rgba(174,211,73,.22),var(--shadow-sm)}
     @media(max-width:700px){.product-status-chips{top:8px;right:8px;left:8px;gap:5px}.status-chip{font-size:.68rem;padding:5px 7px}.availability-float{right:8px;bottom:8px;font-size:.68rem;padding:6px 8px}.featured-sparkles{left:7px;top:45px;transform:scale(.86)}}
 
+
+    /* V13 admin: complete editor + collage drag ordering */
+    .admin-card{width:min(1120px,97vw)}
+    .admin-list-head{align-items:flex-start}
+    .admin-sort-hint{display:flex;align-items:center;gap:7px;margin-top:6px;color:var(--text-muted);font-size:.82rem}
+    .admin-sort-hint i{color:var(--brand-green-hover)}
+    .admin-products{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(245px,1fr));
+      gap:12px;
+      margin-top:18px;
+      align-items:stretch;
+    }
+    .admin-row{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      justify-content:space-between;
+      gap:12px;
+      min-height:142px;
+      padding:14px;
+      border:1px solid var(--border-color);
+      border-radius:16px;
+      background:var(--bg-light);
+      transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+    }
+    .admin-row:hover{border-color:color-mix(in srgb,var(--brand-green) 55%,var(--border-color));box-shadow:var(--shadow-sm)}
+    .admin-row-main{display:flex;align-items:center;gap:11px;padding-inline-start:34px;min-width:0}
+    .admin-thumb{width:70px;height:70px;flex:0 0 auto;border-radius:14px}
+    .admin-row-copy{min-width:0;flex:1}
+    .admin-row-copy strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .admin-row-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;border-top:1px solid var(--border-color);padding-top:10px}
+    .admin-drag-handle{
+      position:absolute;top:12px;inset-inline-start:12px;
+      width:31px;height:31px;border:1px solid var(--border-color);border-radius:10px;
+      display:grid;place-items:center;background:var(--bg-white);color:var(--text-muted);
+      cursor:grab;touch-action:none;z-index:3;
+    }
+    .admin-drag-handle:active{cursor:grabbing}
+    .admin-row.drag-ghost{opacity:.3;border:2px dashed var(--brand-green);transform:scale(.97)}
+    .admin-row.drag-chosen{box-shadow:0 18px 45px rgba(0,0,0,.25);border-color:var(--brand-green);transform:scale(1.015)}
+    .admin-row.drag-drag{opacity:.95}
+    .admin-section{
+      grid-column:1/-1;
+      border:1px solid var(--border-color);
+      background:var(--bg-light);
+      border-radius:17px;
+      padding:15px;
+      margin-top:4px;
+    }
+    .admin-section-title{font-weight:900;margin-bottom:3px;color:var(--text-dark)}
+    .admin-section-help{font-size:.8rem;color:var(--text-muted);margin-bottom:12px}
+    .admin-state-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+    .admin-check-card{display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-white);font-weight:800;cursor:pointer}
+    .admin-check-card input{width:18px!important;height:18px!important;min-height:0!important;accent-color:var(--brand-green)}
+    .admin-kurdish-note{font-size:.78rem;color:var(--text-muted);margin-top:5px}
+    .admin-order-note{display:flex;align-items:center;gap:8px;padding:11px 12px;border:1px dashed rgba(174,211,73,.45);border-radius:12px;background:rgba(174,211,73,.07);color:var(--text-muted)}
+    .admin-order-note i{color:var(--brand-green-hover)}
+    .admin-list-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 7px;border-radius:999px;background:var(--bg-white);border:1px solid var(--border-color);font-size:.69rem;font-weight:800;margin:3px 3px 0 0;color:var(--text-muted)}
+    .admin-list-badge.good{color:#547314;border-color:rgba(174,211,73,.55);background:rgba(174,211,73,.1)}
+    .admin-list-badge.bad{color:#b91c1c;border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.08)}
+    .admin-list-badge.featured{color:#8a6500;border-color:rgba(245,158,11,.38);background:rgba(245,158,11,.09)}
+    @media(max-width:700px){
+      .admin-card{width:100%;max-height:96vh;padding:15px;border-radius:20px}
+      .admin-list-head{display:grid;grid-template-columns:1fr;gap:10px}
+      .admin-list-tools{flex-wrap:wrap}
+      .admin-products{grid-template-columns:1fr 1fr;gap:9px}
+      .admin-row{min-height:160px;padding:10px}
+      .admin-row-main{display:grid;grid-template-columns:56px 1fr;padding-inline-start:28px;gap:8px;align-items:center}
+      .admin-thumb{width:56px;height:56px}
+      .admin-row-actions{justify-content:stretch}
+      .admin-row-actions .admin-icon-btn{flex:1}
+      .admin-drag-handle{top:8px;inset-inline-start:8px;width:28px;height:28px}
+      .admin-state-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:430px){.admin-products{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -787,7 +865,7 @@
   <button class="admin-fab" id="adminFab" type="button"><i class="fa-solid fa-lock"></i> إدارة</button>
   <div class="admin-panel" id="adminPanel" aria-hidden="true">
     <div class="admin-card">
-      <div class="admin-head"><div><h2>إدارة Raven Lab <span style="font-size:.72rem;background:#aed349;color:#111;padding:4px 8px;border-radius:999px;vertical-align:middle">V12</span></h2><div class="admin-status" id="adminStatus">سجّل الدخول لإدارة المنتجات</div></div><button class="admin-btn admin-secondary" id="adminClose">إغلاق</button></div>
+      <div class="admin-head"><div><h2>إدارة Raven Lab <span style="font-size:.72rem;background:#aed349;color:#111;padding:4px 8px;border-radius:999px;vertical-align:middle">V13</span></h2><div class="admin-status" id="adminStatus">سجّل الدخول لإدارة المنتجات</div></div><button class="admin-btn admin-secondary" id="adminClose">إغلاق</button></div>
       <div id="adminLogin">
         <div class="admin-grid"><label>البريد الإلكتروني<input id="adminEmail" type="email" autocomplete="username"></label><label>كلمة المرور<input id="adminPassword" type="password" autocomplete="current-password"></label></div>
         <div class="admin-actions"><button class="admin-btn admin-primary" id="adminLoginBtn">تسجيل الدخول</button></div>
@@ -795,7 +873,7 @@
       <div id="adminDashboard" hidden>
         <div class="admin-list-view" id="adminListView">
           <div class="admin-list-head">
-            <div><h3>كل المنتجات</h3><div class="admin-status">أضف أو عدّل أو أخفِ المنتجات من هنا.</div></div>
+            <div><h3>كل المنتجات</h3><div class="admin-status">أضف أو عدّل أو أخفِ المنتجات من هنا.</div><div class="admin-sort-hint"><i class="fa-solid fa-grip"></i> اسحب أي منتج من المقبض لتغيير مكانه، وستتحرك بقية المنتجات مثل الكولاج. الترتيب يُحفظ تلقائياً.</div></div>
             <div class="admin-list-tools">
               <button class="admin-icon-btn add" id="pAddTop" type="button" title="إضافة منتج" aria-label="إضافة منتج"><i class="fa-solid fa-plus"></i></button>
               <button class="admin-icon-btn" id="importLegacyBtn" type="button" title="استيراد المنتجات السابقة" aria-label="استيراد المنتجات السابقة"><i class="fa-solid fa-database"></i></button>
@@ -813,36 +891,51 @@
           </div>
           <input id="adminProductId" type="hidden">
           <div class="admin-grid">
-            <label>اسم المنتج بالعربي<input id="pNameAr"><div class="admin-auto-note">سيُنشأ الاسم الكردي (سوراني) تلقائياً عند الحفظ.</div></label>
-            <label>اسم المنتج بالإنجليزي<input id="pNameEn"></label>
-            <input id="pNameCkb" type="hidden">
+            <label>اسم المنتج بالعربي<input id="pNameAr"><div class="admin-auto-note">مطلوب.</div></label>
+            <label>اسم المنتج بالإنجليزي<input id="pNameEn"><div class="admin-auto-note">مطلوب.</div></label>
+            <label class="full">اسم المنتج بالكردي (سوراني)<input id="pNameCkb"><div class="admin-kurdish-note">اختياري: اتركه فارغاً ليتم توليده تلقائياً، أو عدّله يدوياً وسيتم الاحتفاظ بتعديلك.</div></label>
             <label>السعر الجديد (IQD)<input id="pPrice" type="number" min="0"></label>
             <label>السعر القديم (IQD)<input id="pOldPrice" type="number" min="0"></label>
             <label>نسبة التخفيض %<input id="pDiscount" type="number" min="0" max="100" readonly><div class="admin-auto-note">تُحسب تلقائياً من السعر القديم والجديد.</div></label>
-            <label>الشارة<select id="pBadge"><option value="new">جديد</option><option value="discount">تخفيض</option><option value="fewLeft3">باقي 3</option><option value="minecraft">Minecraft</option><option value="">بدون شارة</option></select><div class="admin-auto-note">التوفر يُحدد من خيار «متوفر للطلب»، والمنتج المميز من خيار «منتج مميز».</div></label>
-            <label class="full">الوصف العربي<textarea id="pDescAr"></textarea><div class="admin-auto-note">سيُنشأ الوصف الكردي (سوراني) تلقائياً عند الحفظ.</div></label>
+            <label>الشارة<select id="pBadge"><option value="new">جديد</option><option value="discount">تخفيض</option><option value="fewLeft3">باقي 3</option><option value="minecraft">Minecraft</option><option value="">بدون شارة</option></select><div class="admin-auto-note">اختر «جديد» أو أي شارة إضافية. شارة التخفيض تظهر تلقائياً أيضاً إذا كان السعر القديم أكبر من السعر الجديد. التوفر والتمييز لهما خيارات منفصلة.</div></label>
+            <label class="full">الوصف العربي<textarea id="pDescAr"></textarea></label>
             <label class="full">الوصف الإنجليزي<textarea id="pDescEn"></textarea></label>
-            <textarea id="pDescCkb" hidden></textarea>
-            <label>الترتيب<input id="pOrder" type="number" value="0"></label>
+            <label class="full">الوصف الكردي (سوراني)<textarea id="pDescCkb"></textarea><div class="admin-kurdish-note">اختياري: اتركه فارغاً للترجمة التلقائية، أو اكتب النص بنفسك.</div></label>
+            <input id="pOrder" type="hidden" value="0">
+            <div class="full admin-order-note"><i class="fa-solid fa-grip"></i><span>ترتيب المنتج في المتجر يتم الآن بالسحب من قائمة المنتجات، وليس بكتابة رقم ترتيب.</span></div>
             <label><input id="pWholesale" type="checkbox"> منتج جملة / يحتوي على باقات</label>
             <div class="admin-packages" id="pPackagesBox" style="display:none"><strong id="pPackagesTitle">أسعار الكمية</strong><div class="admin-auto-note" id="pPackagesNote">أضف الكمية وسعرها. خيار وجه واحد / وجهين يظهر فقط لمنتج ميداليات الجيم.</div><div id="pPackageRows"></div><button class="admin-inline-btn" id="pAddPackage" type="button" style="margin-top:9px"><i class="fa-solid fa-plus"></i> إضافة سعر</button></div>
-            <div class="full" id="pColorsWrap" style="display:none"><strong>الألوان المتاحة</strong><div class="admin-colors-help">اختياري. حدد الألوان التي يمكن للزبون طلبها. الحد الأقصى 4 ألوان لكل 100 قطعة.</div><div id="pColorsGrid" class="admin-color-grid"></div></div>
+            <div class="full admin-section" id="pColorsWrap" style="display:none">
+              <div class="admin-section-title">الألوان المتاحة</div>
+              <div class="admin-section-help">حدد الألوان التي يمكن للزبون طلبها، وحدد الحد الأقصى لهذا المنتج بشكل مستقل.</div>
+              <label style="display:grid;gap:6px;margin-bottom:10px">الحد الأقصى للألوان لكل 100 قطعة<input id="pMaxColorsPer100" type="number" min="1" max="20" step="1" value="4"><div class="admin-auto-note">مثال: 4 يعني باقة 100 تسمح بـ4 ألوان، وباقة 200 تسمح بـ8 ألوان.</div></label>
+              <div id="pColorsGrid" class="admin-color-grid"></div>
+            </div>
             <div class="admin-options-box"><strong>تصنيفات وخيارات إضافية</strong><div class="admin-auto-note">اختياري: مثل الحجم، الطول، النوع. اكتب اسم التصنيف والقيمة والسعر النهائي لهذا الاختيار. يمكنك إضافة أي عدد.</div><div id="pOptionRows"></div><button class="admin-inline-btn" id="pAddOption" type="button" style="margin-top:9px"><i class="fa-solid fa-plus"></i> إضافة اختيار</button></div>
             <div class="admin-dropzone" id="pDropzone" tabindex="0" role="button" aria-label="إضافة صور المنتج">
               <i class="fa-solid fa-images"></i>
               <strong>أضف صور المنتج</strong>
               <div>اسحب الصور وضعها هنا، أو الصقها بـ Ctrl+V، أو اضغط لاختيارها من الجهاز.</div>
-              <div class="admin-auto-note">يمكن إضافة أكثر من صورة دفعة واحدة.</div>
+              <div class="admin-auto-note">يمكن إضافة أكثر من صورة دفعة واحدة. أول صورة هي الصورة الرئيسية للمنتج.</div>
               <input id="pImages" type="file" accept="image/*" multiple hidden>
             </div>
             <div class="admin-image-preview" id="pImagePreview"></div>
-            <label><input id="pAvailable" type="checkbox" checked> متوفر للطلب</label><label><input id="pVisible" type="checkbox" checked> ظاهر في المتجر</label><label><input id="pFeatured" type="checkbox"> منتج مميز</label>
+            <div class="admin-section">
+              <div class="admin-section-title">حالة المنتج والعلامات</div>
+              <div class="admin-section-help">هذه الخيارات تتحكم مباشرة بشكل المنتج في المتجر.</div>
+              <div class="admin-state-grid">
+                <label class="admin-check-card"><input id="pAvailable" type="checkbox" checked> متوفر للطلب</label>
+                <label class="admin-check-card"><input id="pVisible" type="checkbox" checked> ظاهر في المتجر</label>
+                <label class="admin-check-card"><input id="pFeatured" type="checkbox"> منتج مميز / بريق</label>
+              </div>
+            </div>
           </div>
           <div class="admin-actions"><button class="admin-btn admin-primary" id="pSave">حفظ المنتج</button><button class="admin-btn admin-secondary" id="pReset">تفريغ الحقول</button></div>
         </div>
       </div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const SUPABASE_URL = 'https://xipavpawbsevwyylrezy.supabase.co';
@@ -1642,7 +1735,7 @@
     function cartSubtotal() {
       return cart.reduce((sum, line) => {
         const item = getItemById(line.id);
-        const unitPrice = line.packagePrice != null ? Number(line.packagePrice) : (item ? Number(item.priceValue) : 0);
+        const unitPrice = line.packagePrice != null ? Number(line.packagePrice) : (line.optionPrice != null ? Number(line.optionPrice) : (item ? Number(item.priceValue) : 0));
         return sum + (item ? unitPrice * Number(line.qty || 0) : 0);
       }, 0);
     }
@@ -1654,11 +1747,12 @@
           if (!item) return '';
           const name = localized(item.name);
           const qty = Number(line.qty || 0);
-          const unitPrice = line.packagePrice != null ? Number(line.packagePrice) : Number(item.priceValue);
+          const unitPrice = line.packagePrice != null ? Number(line.packagePrice) : (line.optionPrice != null ? Number(line.optionPrice) : Number(item.priceValue));
           const lineTotal = unitPrice * qty;
           const packageText = line.packageQty ? ` — باقة ${line.packageQty} قطعة${line.packageType ? ` (${line.packageType})` : ''}` : '';
           const colorsText = Array.isArray(line.colors) && line.colors.length ? ` — الألوان: ${line.colors.join('، ')}` : '';
-          return `${index + 1}. ${name}${packageText}${colorsText} × ${qty} — ${formatPrice(lineTotal)}`;
+          const optionsText = line.optionSelections && Object.keys(line.optionSelections).length ? ` — ${Object.entries(line.optionSelections).map(([group,value])=>`${group}: ${value}`).join('، ')}` : '';
+          return `${index + 1}. ${name}${packageText}${colorsText}${optionsText} × ${qty} — ${formatPrice(lineTotal)}`;
         })
         .filter(Boolean)
         .join('\n');
@@ -1689,11 +1783,11 @@
           const name = localized(item.name);
           const qty = Number(line.qty || 1);
           return `
-            <div class="cart-item" data-id="${item.id}">
-              <img src="${item.images[0]}" alt="${name}" onerror="this.onerror=null;this.src='${fallbackImage()}'">
+            <div class="cart-item" data-key="${encodeURIComponent(line.key || `${item.id}|||||`)}">
+              <img src="${item.images?.[0] || fallbackImage()}" alt="${name}" onerror="this.onerror=null;this.src='${fallbackImage()}'">
               <div>
                 <h3>${name}</h3>
-                <p>${line.packageQty ? `باقة ${line.packageQty} قطعة${line.packageType ? ` · ${line.packageType}` : ''} · ` : ''}${line.colors?.length ? `الألوان: ${line.colors.join('، ')} · ` : ''}${formatPrice(line.packagePrice ?? item.priceValue)} × ${qty} = ${formatPrice(Number(line.packagePrice ?? item.priceValue) * qty)}</p>
+                <p>${line.packageQty ? `باقة ${line.packageQty} قطعة${line.packageType ? ` · ${line.packageType}` : ''} · ` : ''}${line.colors?.length ? `الألوان: ${line.colors.join('، ')} · ` : ''}${line.optionSelections && Object.keys(line.optionSelections).length ? `${Object.entries(line.optionSelections).map(([g,v])=>`${g}: ${v}`).join('، ')} · ` : ''}${formatPrice(line.packagePrice != null ? line.packagePrice : (line.optionPrice != null ? line.optionPrice : item.priceValue))} × ${qty} = ${formatPrice(Number(line.packagePrice != null ? line.packagePrice : (line.optionPrice != null ? line.optionPrice : item.priceValue)) * qty)}</p>
               </div>
               <div class="cart-controls">
                 <div class="qty-control" aria-label="${t('cartQty')}">
@@ -1738,27 +1832,25 @@
       if (!item || isSoldOut(item)) { showCartToast(t('statusUnavailable')); return; }
       const packageQty = config?.packageQty || null;
       const packagePrice = config?.packagePrice ?? null;
+      const optionPrice = config?.optionPrice ?? null;
+      const optionSelections = config?.optionSelections && typeof config.optionSelections === 'object' ? { ...config.optionSelections } : {};
       const colors = Array.isArray(config?.colors) ? [...config.colors].sort() : [];
       const packageType = config?.packageType || '';
-      const key = `${item.id}|${packageQty || ''}|${packageType}|${colors.join(',')}`;
-      const line = cart.find(entry => (entry.key || `${entry.id}||`) === key);
+      const optionsKey = Object.entries(optionSelections).sort(([a],[b])=>a.localeCompare(b,'ar')).map(([g,v])=>`${g}:${v}`).join(';');
+      const key = `${item.id}|${packageQty || ''}|${packageType}|${colors.join(',')}|${optionsKey}|${optionPrice ?? ''}`;
+      const line = cart.find(entry => (entry.key || `${entry.id}|||||`) === key);
       if (line) line.qty = Number(line.qty || 0) + qty;
-      else cart.push({ id: item.id, qty, key, packageQty, packagePrice, packageType, colors });
+      else cart.push({ id: item.id, qty, key, packageQty, packagePrice, packageType, colors, optionPrice, optionSelections });
       renderCart();
-      cartFloat.classList.remove('cart-pop');
-      cartCount.classList.remove('count-pop');
-      void cartFloat.offsetWidth;
-      cartFloat.classList.add('cart-pop');
-      cartCount.classList.add('count-pop');
-      showCartToast();
+      cartFloat.classList.remove('cart-pop');cartCount.classList.remove('count-pop');void cartFloat.offsetWidth;cartFloat.classList.add('cart-pop');cartCount.classList.add('count-pop');showCartToast();
     }
 
-    function updateCartItem(id, action) {
-      const line = cart.find(entry => entry.id === Number(id));
+    function updateCartItem(key, action) {
+      const line = cart.find(entry => (entry.key || `${entry.id}|||||`) === key);
       if (!line) return;
       if (action === 'inc') line.qty = Number(line.qty || 1) + 1;
       if (action === 'dec') line.qty = Math.max(1, Number(line.qty || 1) - 1);
-      if (action === 'remove') cart = cart.filter(entry => entry.id !== Number(id));
+      if (action === 'remove') cart = cart.filter(entry => (entry.key || `${entry.id}|||||`) !== key);
       renderCart();
     }
 
@@ -1936,7 +2028,7 @@
         return rows.find(p=>!(p.type||''))||rows[0]||null;
       };
       const colorHex={'أسود':'#111111','أبيض':'#ffffff','أحمر':'#e53935','أخضر':'#43a047','أزرق':'#1e88e5','أصفر':'#fdd835','برتقالي':'#fb8c00','بنفسجي':'#8e24aa','سمائي':'#4fc3f7','وردي':'#ec6fa9','بني':'#795548','رمادي':'#9e9e9e','خشبي':'#b8895b'};
-      function colorLimit(){return Math.max(1,Math.floor(Number(selectedQty||100)/100))*Number(item.maxColorsPer100||4);}
+      function colorLimit(){return Math.max(1,Math.ceil(Number(selectedQty||100)/100))*Math.max(1,Number(item.maxColorsPer100||4));}
       function renderColors(){
         colorOptions.innerHTML=colors.map(c=>`<label class="color-check ${selectedColors.includes(c)?'active':''}"><input type="checkbox" data-color="${c}" ${selectedColors.includes(c)?'checked':''}><span class="color-dot" style="background:${colorHex[c]||'#ddd'}"></span><span>${c}</span></label>`).join('');
         colorLimitNote.textContent=colors.length?`يمكن اختيار حتى ${colorLimit()} ألوان (${item.maxColorsPer100||4} ألوان لكل 100 قطعة).`:'';
@@ -1970,9 +2062,11 @@
         mAddCart.onclick=()=>addToCart(item.id,1,{packageQty:Number(selectedQty),packagePrice:Number(selectedPackage.price),packageType:allowPackageType?selectedType:'',colors:selectedColors});
       }else{
         wholesaleBox.classList.remove('active');packageOptions.innerHTML='';colorOptions.innerHTML='';colorSection.style.display='none';
-        const optionGroups={};(Array.isArray(item.customOptions)?item.customOptions:[]).forEach(o=>{(optionGroups[o.group]??=[]).push(o);});
-        Object.entries(optionGroups).forEach(([group,opts])=>{const box=document.createElement('div');box.className='custom-option-group';box.innerHTML=`<div class="custom-option-title">${group}</div><div class="custom-option-values">${opts.map((o,i)=>`<button type="button" class="custom-option-btn ${i===0?'active':''}" data-opt-price="${Number(o.price||0)}">${o.value}</button>`).join('')}</div>`;box.onclick=e=>{const b=e.target.closest('.custom-option-btn');if(!b)return;box.querySelectorAll('.custom-option-btn').forEach(x=>x.classList.toggle('active',x===b));const price=Number(b.dataset.optPrice||0);if(price>0)mPriceContainer.innerHTML=priceHtml(price,null,0);};customOptionsEl.appendChild(box);});
-        mAddCart.onclick=()=>addToCart(item.id);
+        const optionGroups={};(Array.isArray(item.customOptions)?item.customOptions:[]).forEach(o=>{const g=String(o.group||'').trim(),v=String(o.value||'').trim();if(g&&v)(optionGroups[g]??=[]).push({group:g,value:v,price:Number(o.price||0)});});
+        const selectedOptions={}; let selectedOptionPrice=null;
+        Object.entries(optionGroups).forEach(([group,opts])=>{if(!opts.length)return;selectedOptions[group]=opts[0];if(selectedOptionPrice==null&&Number(opts[0].price||0)>0)selectedOptionPrice=Number(opts[0].price);const box=document.createElement('div');box.className='custom-option-group';box.innerHTML=`<div class="custom-option-title">${group}</div><div class="custom-option-values">${opts.map((o,i)=>`<button type="button" class="custom-option-btn ${i===0?'active':''}" data-opt-group="${group.replace(/"/g,'&quot;')}" data-opt-value="${o.value.replace(/"/g,'&quot;')}" data-opt-price="${Number(o.price||0)}">${o.value}${Number(o.price||0)>0?` · ${formatPrice(Number(o.price))}`:''}</button>`).join('')}</div>`;box.onclick=e=>{const b=e.target.closest('.custom-option-btn');if(!b)return;box.querySelectorAll('.custom-option-btn').forEach(x=>x.classList.toggle('active',x===b));selectedOptions[group]={group,value:b.dataset.optValue,price:Number(b.dataset.optPrice||0)};const priced=Object.values(selectedOptions).find(o=>Number(o.price||0)>0);selectedOptionPrice=priced?Number(priced.price):null;mPriceContainer.innerHTML=priceHtml(selectedOptionPrice!=null?selectedOptionPrice:item.priceValue,null,0);};customOptionsEl.appendChild(box);});
+        mPriceContainer.innerHTML=priceHtml(selectedOptionPrice!=null?selectedOptionPrice:item.priceValue,null,0);
+        mAddCart.onclick=()=>addToCart(item.id,1,{optionPrice:selectedOptionPrice,optionSelections:Object.fromEntries(Object.entries(selectedOptions).map(([g,o])=>[g,o.value]))});
       }
 
       const waLink = document.getElementById('waLink');
@@ -2074,7 +2168,7 @@
       const button = event.target.closest('[data-cart-action]');
       const row = event.target.closest('.cart-item');
       if (!button || !row) return;
-      updateCartItem(Number(row.dataset.id), button.dataset.cartAction);
+      updateCartItem(decodeURIComponent(row.dataset.key), button.dataset.cartAction);
     });
     deliveryInput.addEventListener('change', () => {
       selectedProvince = deliveryInput.value || '';
@@ -2111,6 +2205,8 @@
     const field=id=>document.getElementById(id);
     let pendingImageFiles=[];
     let existingAdminImages=[];
+    let adminSortable=null;
+    let adminProductsCache=[];
 
     adminFab.onclick=()=>{adminPanel.classList.add('active');adminPanel.setAttribute('aria-hidden','false');refreshAdminSession();};
     field('adminClose').onclick=()=>{adminPanel.classList.remove('active');adminPanel.setAttribute('aria-hidden','true');};
@@ -2120,7 +2216,6 @@
       const oldPrice=Number(field('pOldPrice').value||0),newPrice=Number(field('pPrice').value||0);
       const pct=oldPrice>0&&newPrice>=0&&newPrice<oldPrice?((oldPrice-newPrice)/oldPrice)*100:0;
       field('pDiscount').value=pct?Number(pct.toFixed(1)):0;
-      if(pct>0&&(!field('pBadge').value||field('pBadge').value==='new'))field('pBadge').value='discount';
     }
     field('pOldPrice').addEventListener('input',calcDiscount);
     field('pPrice').addEventListener('input',calcDiscount);
@@ -2225,7 +2320,7 @@
 
     function resetAdminForm(){
       ['adminProductId','pNameAr','pNameEn','pNameCkb','pPrice','pOldPrice','pDiscount','pDescAr','pDescEn','pDescCkb'].forEach(id=>field(id).value='');
-      field('pOrder').value=0;field('pBadge').value='new';field('pAvailable').checked=true;field('pVisible').checked=true;field('pFeatured').checked=false;field('pWholesale').checked=false;field('pPackageRows').innerHTML='';renderAdminColorGrid([]);field('pOptionRows').innerHTML='';setWholesaleAdminUI();field('pImages').value='';pendingImageFiles=[];existingAdminImages=[];renderAdminImagePreview();saveStatus.textContent='';
+      field('pOrder').value=(adminProductsCache.length+1)*10;field('pBadge').value='new';field('pAvailable').checked=true;field('pVisible').checked=true;field('pFeatured').checked=false;field('pWholesale').checked=false;field('pMaxColorsPer100').value=4;field('pPackageRows').innerHTML='';renderAdminColorGrid([]);field('pOptionRows').innerHTML='';setWholesaleAdminUI();field('pImages').value='';pendingImageFiles=[];existingAdminImages=[];renderAdminImagePreview();saveStatus.textContent='';
     }
     const RAVEN_COLORS=['أسود','أبيض','أحمر','أخضر','أزرق','أصفر','برتقالي','بنفسجي','سمائي','وردي','بني','رمادي','خشبي'];
     const COLOR_HEX={'أسود':'#111111','أبيض':'#ffffff','أحمر':'#e53935','أخضر':'#43a047','أزرق':'#1e88e5','أصفر':'#fdd835','برتقالي':'#fb8c00','بنفسجي':'#8e24aa','سمائي':'#4fc3f7','وردي':'#ec6fa9','بني':'#795548','رمادي':'#9e9e9e','خشبي':'#b8895b'};
@@ -2265,7 +2360,7 @@
     function addAdminOptionRow(opt={group:'',value:'',price:''}){const wrap=field('pOptionRows');const row=document.createElement('div');row.className='admin-option-row';row.innerHTML=`<input data-opt-group placeholder="التصنيف: الحجم / النوع" value="${opt.group??''}"><input data-opt-value placeholder="الاختيار: كبير / وجهين" value="${opt.value??''}"><input type="number" min="0" data-opt-price placeholder="السعر IQD" value="${opt.price??''}"><button type="button" title="حذف"><i class="fa-solid fa-trash"></i></button>`;row.querySelector('button').onclick=()=>row.remove();wrap.appendChild(row);}
     function getAdminOptions(){return [...document.querySelectorAll('.admin-option-row')].map(r=>({group:r.querySelector('[data-opt-group]').value.trim(),value:r.querySelector('[data-opt-value]').value.trim(),price:Number(r.querySelector('[data-opt-price]').value||0)})).filter(x=>x.group&&x.value);}
     field('pAddOption').onclick=()=>addAdminOptionRow();
-    function openAdminEditor(mode='add'){field('adminListView').classList.add('hidden');field('adminEditor').classList.add('active');field('adminEditorHeading').textContent=mode==='edit'?'تعديل المنتج':'إضافة منتج';field('adminEditor').scrollIntoView({block:'start'});renderAdminImagePreview();}
+    function openAdminEditor(mode='add'){field('adminListView').classList.add('hidden');field('adminEditor').classList.add('active');field('adminEditorHeading').textContent=mode==='edit'?'تعديل كل تفاصيل المنتج':'إضافة منتج جديد';field('adminEditor').scrollIntoView({block:'start'});renderAdminImagePreview();}
     function closeAdminEditor(){field('adminEditor').classList.remove('active');field('adminListView').classList.remove('hidden');resetAdminForm();}
     field('pReset').onclick=resetAdminForm;field('pAddTop').onclick=()=>{resetAdminForm();openAdminEditor('add');setTimeout(()=>field('pNameAr').focus(),100);};field('pCancel').onclick=closeAdminEditor;
 
@@ -2290,9 +2385,9 @@
         saveStatus.textContent='جاري تجهيز المنتج...';
         let nameCkb=field('pNameCkb').value.trim(),descCkb=field('pDescCkb').value.trim();
         try{
-          nameCkb=await translateToSorani(nameAr,'ar') || nameCkb || nameAr;
-          if(field('pDescAr').value.trim())descCkb=await translateToSorani(field('pDescAr').value.trim(),'ar') || descCkb || field('pDescAr').value.trim();
-          else if(field('pDescEn').value.trim())descCkb=await translateToSorani(field('pDescEn').value.trim(),'en') || descCkb || field('pDescEn').value.trim();
+          if(!nameCkb) nameCkb=await translateToSorani(nameAr,'ar') || nameAr;
+          if(!descCkb && field('pDescAr').value.trim()) descCkb=await translateToSorani(field('pDescAr').value.trim(),'ar') || field('pDescAr').value.trim();
+          else if(!descCkb && field('pDescEn').value.trim()) descCkb=await translateToSorani(field('pDescEn').value.trim(),'en') || field('pDescEn').value.trim();
         }catch(translationError){
           nameCkb=nameCkb || nameAr;
           descCkb=descCkb || field('pDescAr').value.trim() || field('pDescEn').value.trim();
@@ -2314,7 +2409,7 @@
           wholesale_enabled:field('pWholesale').checked,
           packages:field('pWholesale').checked?getAdminPackages():[],
           colors:field('pWholesale').checked?getAdminColors():[],
-          max_colors_per_100:4,
+          max_colors_per_100:Math.max(1,Number(field('pMaxColorsPer100').value||4)),
           custom_options:getAdminOptions()
         };
         const q=id?sb.from('products').update(payload).eq('id',id).select('id,name_ar').single():sb.from('products').insert(payload).select('id,name_ar').single();
@@ -2323,20 +2418,82 @@
       }catch(e){saveStatus.textContent='خطأ: '+e.message;}
     };
 
+    function adminStatusBadges(p){
+      const parts=[];
+      parts.push(`<span class="admin-list-badge ${p.is_available?'good':'bad'}"><i class="fa-solid ${p.is_available?'fa-circle-check':'fa-ban'}"></i>${p.is_available?'متوفر':'غير متوفر'}</span>`);
+      if(p.is_featured) parts.push('<span class="admin-list-badge featured"><i class="fa-solid fa-sparkles"></i>مميز</span>');
+      if(p.badge==='new') parts.push('<span class="admin-list-badge"><i class="fa-solid fa-bolt"></i>جديد</span>');
+      if(Number(p.discount||0)>0) parts.push(`<span class="admin-list-badge bad"><i class="fa-solid fa-tags"></i>خصم ${Number(p.discount).toFixed(1).replace('.0','')}%</span>`);
+      if(!p.is_visible) parts.push('<span class="admin-list-badge"><i class="fa-solid fa-eye-slash"></i>مخفي</span>');
+      if(p.wholesale_enabled) parts.push('<span class="admin-list-badge"><i class="fa-solid fa-boxes-stacked"></i>جملة</span>');
+      return parts.join('');
+    }
+
+    async function persistAdminProductOrder(){
+      const cards=[...field('adminProducts').querySelectorAll('[data-product-id]')];
+      if(!cards.length)return;
+      adminStatus.textContent='جاري حفظ ترتيب المنتجات...';
+      const results=await Promise.all(cards.map((card,index)=>
+        sb.from('products').update({display_order:(index+1)*10}).eq('id',card.dataset.productId).select('id')
+      ));
+      const failed=results.find(r=>r.error||!r.data?.length);
+      if(failed){
+        adminStatus.textContent='تعذر حفظ الترتيب: '+(failed.error?.message||'تحقق من صلاحية UPDATE في Supabase.');
+        await loadAdminProducts();
+        return;
+      }
+      cards.forEach((card,index)=>{
+        const p=adminProductsCache.find(x=>String(x.id)===String(card.dataset.productId));
+        if(p)p.display_order=(index+1)*10;
+      });
+      adminStatus.textContent='تم حفظ ترتيب المنتجات تلقائياً.';
+      await loadSupabaseProducts();
+    }
+
+    function initAdminProductSorting(){
+      if(adminSortable){adminSortable.destroy();adminSortable=null;}
+      const host=field('adminProducts');
+      if(!host||typeof Sortable==='undefined')return;
+      adminSortable=Sortable.create(host,{
+        animation:190,
+        easing:'cubic-bezier(.2,.8,.2,1)',
+        handle:'.admin-drag-handle',
+        ghostClass:'drag-ghost',
+        chosenClass:'drag-chosen',
+        dragClass:'drag-drag',
+        forceFallback:false,
+        delay:0,
+        onEnd:()=>persistAdminProductOrder()
+      });
+    }
+
     async function loadAdminProducts(){
       const {data,error}=await sb.from('products').select('*').order('display_order',{ascending:true}).order('updated_at',{ascending:false}).order('created_at',{ascending:false});
       if(error){field('adminProducts').innerHTML='<div class="admin-status">'+error.message+'</div>';return;}
       const raw=data||[],seen=new Set();
       const unique=raw.filter(p=>{const key=normalizeProductName(p.name_ar||p.name_en||'')||`id:${p.id}`;if(seen.has(key))return false;seen.add(key);return true;});
-      field('adminProducts').innerHTML=unique.map(p=>`<div class="admin-row"><div class="admin-row-main">${p.images?.[0]?`<img class="admin-thumb" src="${p.images[0]}" alt="">`:''}<div><strong>${p.name_ar}</strong><div class="admin-status">${Number(p.price).toLocaleString()} IQD${Number(p.discount||0)>0?` · خصم ${Number(p.discount).toFixed(1).replace('.0','')}%`:''} · ${p.is_available?'متوفر':'غير متوفر'} · ${p.is_featured?'مميز · ':''}${p.is_visible?'ظاهر':'مخفي'}</div></div></div><div class="admin-row-actions"><button class="admin-icon-btn" data-edit="${p.id}" type="button" title="تعديل" aria-label="تعديل"><i class="fa-solid fa-pen"></i></button><button class="admin-icon-btn visibility ${p.is_visible?'':'off'}" data-visibility="${p.id}" data-visible="${p.is_visible}" type="button" title="${p.is_visible?'إخفاء':'إظهار'}" aria-label="${p.is_visible?'إخفاء':'إظهار'}"><i class="fa-solid ${p.is_visible?'fa-eye':'fa-eye-slash'}"></i></button><button class="admin-icon-btn delete" data-delete="${p.id}" type="button" title="حذف" aria-label="حذف"><i class="fa-solid fa-trash"></i></button></div></div>`).join('')||'<div class="admin-status">لا توجد منتجات في قاعدة البيانات بعد. اضغط + لإضافة أول منتج.</div>';
+      adminProductsCache=unique;
+      field('adminProducts').innerHTML=unique.map(p=>`<div class="admin-row" data-product-id="${p.id}">
+        <button class="admin-drag-handle" type="button" title="اسحب لتغيير الترتيب" aria-label="اسحب لتغيير الترتيب"><i class="fa-solid fa-grip-vertical"></i></button>
+        <div class="admin-row-main">
+          ${p.images?.[0]?`<img class="admin-thumb" src="${p.images[0]}" alt="">`:`<div class="admin-thumb" style="display:grid;place-items:center"><i class="fa-solid fa-image"></i></div>`}
+          <div class="admin-row-copy"><strong>${p.name_ar||p.name_en||'بدون اسم'}</strong><div class="admin-status">${Number(p.price||0).toLocaleString()} IQD · ترتيب ${Number(p.display_order||0)}</div><div>${adminStatusBadges(p)}</div></div>
+        </div>
+        <div class="admin-row-actions">
+          <button class="admin-icon-btn" data-edit="${p.id}" type="button" title="تعديل كل تفاصيل المنتج" aria-label="تعديل"><i class="fa-solid fa-pen"></i></button>
+          <button class="admin-icon-btn visibility ${p.is_visible?'':'off'}" data-visibility="${p.id}" data-visible="${p.is_visible}" type="button" title="${p.is_visible?'إخفاء':'إظهار'}" aria-label="${p.is_visible?'إخفاء':'إظهار'}"><i class="fa-solid ${p.is_visible?'fa-eye':'fa-eye-slash'}"></i></button>
+          <button class="admin-icon-btn delete" data-delete="${p.id}" type="button" title="حذف" aria-label="حذف"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>`).join('')||'<div class="admin-status">لا توجد منتجات في قاعدة البيانات بعد. اضغط + لإضافة أول منتج.</div>';
       field('adminProducts').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editAdminProduct(unique.find(p=>String(p.id)===b.dataset.edit)));
       field('adminProducts').querySelectorAll('[data-visibility]').forEach(b=>b.onclick=()=>toggleAdminVisibility(b.dataset.visibility,b.dataset.visible==='true'));
       field('adminProducts').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteAdminProduct(b.dataset.delete));
+      initAdminProductSorting();
     }
     function editAdminProduct(p){
       field('adminProductId').value=p.id;field('pNameAr').value=p.name_ar||'';field('pNameCkb').value=p.name_ckb||'';field('pNameEn').value=p.name_en||'';
       field('pDescAr').value=p.description_ar||'';field('pDescCkb').value=p.description_ckb||'';field('pDescEn').value=p.description_en||'';
-      field('pPrice').value=p.price||'';field('pOldPrice').value=p.old_price||'';field('pDiscount').value=p.discount||0;field('pBadge').value=p.badge||'';field('pOrder').value=p.display_order||0;field('pWholesale').checked=!!p.wholesale_enabled;renderAdminColorGrid(Array.isArray(p.colors)?p.colors:[]);field('pPackageRows').innerHTML='';(Array.isArray(p.packages)?p.packages:[]).forEach(addAdminPackageRow);field('pOptionRows').innerHTML='';(Array.isArray(p.custom_options)?p.custom_options:[]).forEach(addAdminOptionRow);setWholesaleAdminUI();
+      field('pPrice').value=p.price||'';field('pOldPrice').value=p.old_price||'';field('pDiscount').value=p.discount||0;field('pBadge').value=p.badge||'';field('pOrder').value=p.display_order||0;field('pWholesale').checked=!!p.wholesale_enabled;field('pMaxColorsPer100').value=Math.max(1,Number(p.max_colors_per_100||4));renderAdminColorGrid(Array.isArray(p.colors)?p.colors:[]);field('pPackageRows').innerHTML='';(Array.isArray(p.packages)?p.packages:[]).forEach(addAdminPackageRow);field('pOptionRows').innerHTML='';(Array.isArray(p.custom_options)?p.custom_options:[]).forEach(addAdminOptionRow);setWholesaleAdminUI();
       field('pAvailable').checked=p.is_available;field('pVisible').checked=p.is_visible;field('pFeatured').checked=p.is_featured;
       existingAdminImages=Array.isArray(p.images)?[...p.images]:[];pendingImageFiles=[];renderAdminImagePreview();calcDiscount();saveStatus.textContent='تعديل المنتج رقم '+p.id;openAdminEditor('edit');
     }
