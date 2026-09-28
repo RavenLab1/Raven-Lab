@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#aed349">
   <meta name="description" content="Raven Lab — منتجات ومجسمات مطبوعة ثلاثية الأبعاد بدقة وجودة عالية.">
-  <title>Raven Lab Store V13</title>
+  <title>Raven Lab Store V14</title>
   <meta property="og:title" content="Raven Lab">
   <meta property="og:description" content="Raven Lab — منتجات ومجسمات مطبوعة ثلاثية الأبعاد بدقة وجودة عالية.">
   <meta property="og:type" content="website">
@@ -675,6 +675,19 @@
     }
     @media(max-width:430px){.admin-products{grid-template-columns:1fr}}
 
+
+    /* V14 admin quick stock status */
+    .admin-icon-btn.stock-on{
+      background:rgba(174,211,73,.16);
+      color:var(--brand-green-hover);
+      border-color:rgba(174,211,73,.38);
+    }
+    .admin-icon-btn.stock-off{
+      background:rgba(239,68,68,.1);
+      color:#ef4444;
+      border-color:rgba(239,68,68,.32);
+    }
+
 </style>
 </head>
 <body>
@@ -865,7 +878,7 @@
   <button class="admin-fab" id="adminFab" type="button"><i class="fa-solid fa-lock"></i> إدارة</button>
   <div class="admin-panel" id="adminPanel" aria-hidden="true">
     <div class="admin-card">
-      <div class="admin-head"><div><h2>إدارة Raven Lab <span style="font-size:.72rem;background:#aed349;color:#111;padding:4px 8px;border-radius:999px;vertical-align:middle">V13</span></h2><div class="admin-status" id="adminStatus">سجّل الدخول لإدارة المنتجات</div></div><button class="admin-btn admin-secondary" id="adminClose">إغلاق</button></div>
+      <div class="admin-head"><div><h2>إدارة Raven Lab <span style="font-size:.72rem;background:#aed349;color:#111;padding:4px 8px;border-radius:999px;vertical-align:middle">V14</span></h2><div class="admin-status" id="adminStatus">سجّل الدخول لإدارة المنتجات</div></div><button class="admin-btn admin-secondary" id="adminClose">إغلاق</button></div>
       <div id="adminLogin">
         <div class="admin-grid"><label>البريد الإلكتروني<input id="adminEmail" type="email" autocomplete="username"></label><label>كلمة المرور<input id="adminPassword" type="password" autocomplete="current-password"></label></div>
         <div class="admin-actions"><button class="admin-btn admin-primary" id="adminLoginBtn">تسجيل الدخول</button></div>
@@ -924,7 +937,7 @@
               <div class="admin-section-title">حالة المنتج والعلامات</div>
               <div class="admin-section-help">هذه الخيارات تتحكم مباشرة بشكل المنتج في المتجر.</div>
               <div class="admin-state-grid">
-                <label class="admin-check-card"><input id="pAvailable" type="checkbox" checked> متوفر للطلب</label>
+                <label class="admin-check-card"><input id="pAvailable" type="checkbox" checked> <span><strong>متوفر للطلب</strong><small style="display:block;color:var(--text-muted);font-weight:600;margin-top:3px">ألغِ التحديد إذا نفذت الكمية.</small></span></label>
                 <label class="admin-check-card"><input id="pVisible" type="checkbox" checked> ظاهر في المتجر</label>
                 <label class="admin-check-card"><input id="pFeatured" type="checkbox"> منتج مميز / بريق</label>
               </div>
@@ -1584,7 +1597,7 @@
 
     function dbProductToItem(p) {
       return {
-        id: Number(p.id),
+        id: p.id,
         name: { ar: p.name_ar || '', ckb: p.name_ckb || p.name_ar || '', en: p.name_en || p.name_ar || '' },
         desc: { ar: p.description_ar || '', ckb: p.description_ckb || p.description_ar || '', en: p.description_en || p.description_ar || '' },
         priceValue: Number(p.price || 0),
@@ -1718,7 +1731,7 @@
 
 
     function getItemById(id) {
-      return items.find(item => item.id === Number(id));
+      return items.find(item => String(item.id) === String(id));
     }
 
     function saveCart() {
@@ -1969,6 +1982,7 @@
     }
 
     function openModal(item, trigger) {
+      if(!item) return;
       const name = localized(item.name);
       lastFocusedElement = trigger || document.activeElement;
       document.getElementById('mTitle').textContent = name;
@@ -2140,14 +2154,14 @@
         return;
       }
       const card = event.target.closest('.product-card');
-      if (card) openModal(items.find(item => item.id === Number(card.dataset.id)), card);
+      if (card) { const item=getItemById(card.dataset.id); if(item) openModal(item, card); }
     });
     grid.addEventListener('keydown', event => {
       if (event.target.closest('[data-add-cart]')) return;
       const card = event.target.closest('.product-card');
       if (card && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault();
-        openModal(items.find(item => item.id === Number(card.dataset.id)), card);
+        const item=getItemById(card.dataset.id); if(item) openModal(item, card);
       }
     });
 
@@ -2412,9 +2426,15 @@
           max_colors_per_100:Math.max(1,Number(field('pMaxColorsPer100').value||4)),
           custom_options:getAdminOptions()
         };
-        const q=id?sb.from('products').update(payload).eq('id',id).select('id,name_ar').single():sb.from('products').insert(payload).select('id,name_ar').single();
-        const {data:savedRow,error}=await q;if(error)throw error;if(!savedRow?.id)throw new Error('لم يتم حفظ أي صف. تحقق من صلاحيات UPDATE/INSERT في Supabase.');
-        saveStatus.textContent=id?'تم تعديل المنتج بنجاح':'تمت إضافة المنتج بنجاح';await loadAdminProducts();await loadSupabaseProducts();setTimeout(closeAdminEditor,500);
+        const q=id
+          ? sb.from('products').update(payload).eq('id',id).select('id,name_ar,is_available')
+          : sb.from('products').insert(payload).select('id,name_ar,is_available');
+        const {data:savedRows,error}=await q;
+        if(error)throw error;
+        const savedRow=Array.isArray(savedRows)?savedRows[0]:savedRows;
+        if(!savedRow?.id)throw new Error('لم يتم حفظ أي صف. تحقق من صلاحيات UPDATE/INSERT في Supabase.');
+        saveStatus.textContent=id?'تم تعديل المنتج بنجاح':'تمت إضافة المنتج بنجاح';
+        await loadAdminProducts();await loadSupabaseProducts();setTimeout(closeAdminEditor,500);
       }catch(e){saveStatus.textContent='خطأ: '+e.message;}
     };
 
@@ -2481,11 +2501,13 @@
         </div>
         <div class="admin-row-actions">
           <button class="admin-icon-btn" data-edit="${p.id}" type="button" title="تعديل كل تفاصيل المنتج" aria-label="تعديل"><i class="fa-solid fa-pen"></i></button>
+          <button class="admin-icon-btn ${p.is_available?'stock-on':'stock-off'}" data-availability="${p.id}" data-available="${p.is_available}" type="button" title="${p.is_available?'متوفر — اضغط لتعيينه نفذت الكمية':'نفذت الكمية — اضغط لجعله متوفراً'}" aria-label="${p.is_available?'متوفر للطلب':'نفذت الكمية'}"><i class="fa-solid ${p.is_available?'fa-circle-check':'fa-ban'}"></i></button>
           <button class="admin-icon-btn visibility ${p.is_visible?'':'off'}" data-visibility="${p.id}" data-visible="${p.is_visible}" type="button" title="${p.is_visible?'إخفاء':'إظهار'}" aria-label="${p.is_visible?'إخفاء':'إظهار'}"><i class="fa-solid ${p.is_visible?'fa-eye':'fa-eye-slash'}"></i></button>
           <button class="admin-icon-btn delete" data-delete="${p.id}" type="button" title="حذف" aria-label="حذف"><i class="fa-solid fa-trash"></i></button>
         </div>
       </div>`).join('')||'<div class="admin-status">لا توجد منتجات في قاعدة البيانات بعد. اضغط + لإضافة أول منتج.</div>';
-      field('adminProducts').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editAdminProduct(unique.find(p=>String(p.id)===b.dataset.edit)));
+      field('adminProducts').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editAdminProduct(unique.find(p=>String(p.id)===String(b.dataset.edit))));
+      field('adminProducts').querySelectorAll('[data-availability]').forEach(b=>b.onclick=()=>toggleAdminAvailability(b.dataset.availability,b.dataset.available==='true'));
       field('adminProducts').querySelectorAll('[data-visibility]').forEach(b=>b.onclick=()=>toggleAdminVisibility(b.dataset.visibility,b.dataset.visible==='true'));
       field('adminProducts').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteAdminProduct(b.dataset.delete));
       initAdminProductSorting();
@@ -2497,10 +2519,18 @@
       field('pAvailable').checked=p.is_available;field('pVisible').checked=p.is_visible;field('pFeatured').checked=p.is_featured;
       existingAdminImages=Array.isArray(p.images)?[...p.images]:[];pendingImageFiles=[];renderAdminImagePreview();calcDiscount();saveStatus.textContent='تعديل المنتج رقم '+p.id;openAdminEditor('edit');
     }
+    async function toggleAdminAvailability(id,current){
+      saveStatus.textContent=current?'جاري تعيين نفذت الكمية...':'جاري جعل المنتج متوفراً...';
+      const {data,error}=await sb.from('products').update({is_available:!current}).eq('id',id).select('id,is_available');
+      if(error||!data?.length){saveStatus.textContent='خطأ في تغيير التوفر: '+(error?.message||'لم يتم تحديث المنتج. تحقق من صلاحية UPDATE.');return;}
+      saveStatus.textContent=!current?'المنتج متوفر للطلب الآن':'تم تعيين المنتج: نفذت الكمية';
+      await loadAdminProducts();await loadSupabaseProducts();
+    }
+
     async function toggleAdminVisibility(id,current){
       saveStatus.textContent=current?'جاري إخفاء المنتج...':'جاري إظهار المنتج...';
-      const {data,error}=await sb.from('products').update({is_visible:!current}).eq('id',id).select('id').single();
-      if(error||!data?.id){saveStatus.textContent='خطأ: '+(error?.message||'لم يتم تحديث المنتج. تحقق من صلاحية UPDATE.');return;}
+      const {data,error}=await sb.from('products').update({is_visible:!current}).eq('id',id).select('id,is_visible');
+      if(error||!data?.length){saveStatus.textContent='خطأ: '+(error?.message||'لم يتم تحديث المنتج. تحقق من صلاحية UPDATE.');return;}
       saveStatus.textContent=!current?'تم إظهار المنتج':'تم إخفاء المنتج';await loadAdminProducts();await loadSupabaseProducts();
     }
     async function deleteAdminProduct(id){
