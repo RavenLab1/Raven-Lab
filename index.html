@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#aed349">
   <meta name="description" content="Raven Lab — منتجات ومجسمات مطبوعة ثلاثية الأبعاد بدقة وجودة عالية.">
-  <title>Raven Lab Store V14</title>
+  <title>Raven Lab Store V14 — Details Fix</title>
   <meta property="og:title" content="Raven Lab">
   <meta property="og:description" content="Raven Lab — منتجات ومجسمات مطبوعة ثلاثية الأبعاد بدقة وجودة عالية.">
   <meta property="og:type" content="website">
@@ -1970,6 +1970,27 @@
           </article>
         `;
       }).join('');
+
+      // FIX: bind each rendered card directly to its exact product object.
+      // This avoids failures caused by ID conversion/lookup mismatches.
+      grid.querySelectorAll('.product-card').forEach((card, index) => {
+        const item = filtered[index];
+        if (!item) return;
+
+        card.addEventListener('click', event => {
+          if (event.target.closest('[data-add-cart]')) return;
+          openModal(item, card);
+        });
+
+        card.addEventListener('keydown', event => {
+          if (event.target.closest('[data-add-cart]')) return;
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openModal(item, card);
+          }
+        });
+      });
+
       requestAnimationFrame(setupRevealObserver);
     }
 
@@ -2029,7 +2050,13 @@
       const customOptionsEl = document.getElementById('customOptions');
       let selectedQty = null, selectedType = '', selectedPackage = null, selectedColors = [];
       const allowPackageType = isGymMedalProduct(item);
-      const packages = Array.isArray(item.packages) ? [...item.packages].map(p=>({...p,type:(p.type||'').trim()})).sort((a,b)=>Number(a.qty)-Number(b.qty)) : [];
+      const packages = Array.isArray(item.packages)
+        ? item.packages
+            .filter(p => p && typeof p === 'object')
+            .map(p => ({...p, type:String(p.type || '').trim()}))
+            .filter(p => Number(p.qty) > 0 && Number.isFinite(Number(p.price)))
+            .sort((a,b)=>Number(a.qty)-Number(b.qty))
+        : [];
       const colors = Array.isArray(item.colors) ? item.colors : [];
       const quantities=[...new Set(packages.map(p=>Number(p.qty)))].filter(Boolean);
       const getRowsForQty=q=>packages.filter(p=>Number(p.qty)===Number(q));
@@ -2150,18 +2177,7 @@
       if (addButton) {
         event.preventDefault();
         event.stopPropagation();
-        addToCart(Number(addButton.dataset.addCart));
-        return;
-      }
-      const card = event.target.closest('.product-card');
-      if (card) { const item=getItemById(card.dataset.id); if(item) openModal(item, card); }
-    });
-    grid.addEventListener('keydown', event => {
-      if (event.target.closest('[data-add-cart]')) return;
-      const card = event.target.closest('.product-card');
-      if (card && (event.key === 'Enter' || event.key === ' ')) {
-        event.preventDefault();
-        const item=getItemById(card.dataset.id); if(item) openModal(item, card);
+        addToCart(addButton.dataset.addCart);
       }
     });
 
