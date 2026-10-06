@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#aed349">
   <meta name="description" content="Raven Lab — منتجات ومجسمات مطبوعة ثلاثية الأبعاد بدقة وجودة عالية.">
-  <title>Raven Lab Store V14 — Details Fix</title>
+  <title>Raven Lab Store V14 — Details & Scroll Fix</title>
   <meta property="og:title" content="Raven Lab">
   <meta property="og:description" content="Raven Lab — منتجات ومجسمات مطبوعة ثلاثية الأبعاد بدقة وجودة عالية.">
   <meta property="og:type" content="website">
@@ -688,6 +688,40 @@
       border-color:rgba(239,68,68,.32);
     }
 
+
+
+/* ===== V14.2 robust product details + full modal scrolling ===== */
+.modal{
+  overflow-y:auto !important;
+  overscroll-behavior:contain;
+  align-items:flex-start !important;
+  padding-top:max(18px,3vh) !important;
+  padding-bottom:max(18px,3vh) !important;
+}
+.modal-content{
+  max-height:none !important;
+  min-height:0 !important;
+  overflow:visible !important;
+  margin:auto !important;
+}
+.modal-grid{
+  min-height:0 !important;
+  align-items:start;
+}
+.modal-info{
+  overflow:visible !important;
+  min-height:0 !important;
+}
+@media (min-width:701px){
+  .modal-content{max-width:920px !important;}
+  .modal-media{position:sticky;top:0;align-self:start;}
+}
+@media (max-width:700px){
+  .modal{align-items:flex-start !important;padding:10px 0 24px !important;}
+  .modal-content{width:100% !important;border-radius:24px !important;margin:0 !important;}
+  .close{position:sticky !important;top:10px !important;float:left;margin:10px 10px -52px 0;z-index:20;}
+  html[dir="ltr"] .close{float:right;margin:10px 0 -52px 10px;}
+}
 </style>
 </head>
 <body>
@@ -2041,6 +2075,13 @@
         thumbs.appendChild(thumb);
       });
 
+      // Show the details window before processing optional product configuration.
+      // If a malformed option/package exists, the customer still gets the product details.
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+
+      try {
       // V9 wholesale: quantity × type determines the final price
       const wholesaleBox = document.getElementById('wholesaleBox');
       const packageOptions = document.getElementById('packageOptions');
@@ -2103,11 +2144,27 @@
         mAddCart.onclick=()=>addToCart(item.id,1,{packageQty:Number(selectedQty),packagePrice:Number(selectedPackage.price),packageType:allowPackageType?selectedType:'',colors:selectedColors});
       }else{
         wholesaleBox.classList.remove('active');packageOptions.innerHTML='';colorOptions.innerHTML='';colorSection.style.display='none';
-        const optionGroups={};(Array.isArray(item.customOptions)?item.customOptions:[]).forEach(o=>{const g=String(o.group||'').trim(),v=String(o.value||'').trim();if(g&&v)(optionGroups[g]??=[]).push({group:g,value:v,price:Number(o.price||0)});});
+        const optionGroups={};(Array.isArray(item.customOptions)?item.customOptions:[]).filter(o=>o&&typeof o==='object').forEach(o=>{const g=String(o.group||'').trim(),v=String(o.value||'').trim();if(g&&v)(optionGroups[g]??=[]).push({group:g,value:v,price:Number(o.price||0)});});
         const selectedOptions={}; let selectedOptionPrice=null;
         Object.entries(optionGroups).forEach(([group,opts])=>{if(!opts.length)return;selectedOptions[group]=opts[0];if(selectedOptionPrice==null&&Number(opts[0].price||0)>0)selectedOptionPrice=Number(opts[0].price);const box=document.createElement('div');box.className='custom-option-group';box.innerHTML=`<div class="custom-option-title">${group}</div><div class="custom-option-values">${opts.map((o,i)=>`<button type="button" class="custom-option-btn ${i===0?'active':''}" data-opt-group="${group.replace(/"/g,'&quot;')}" data-opt-value="${o.value.replace(/"/g,'&quot;')}" data-opt-price="${Number(o.price||0)}">${o.value}${Number(o.price||0)>0?` · ${formatPrice(Number(o.price))}`:''}</button>`).join('')}</div>`;box.onclick=e=>{const b=e.target.closest('.custom-option-btn');if(!b)return;box.querySelectorAll('.custom-option-btn').forEach(x=>x.classList.toggle('active',x===b));selectedOptions[group]={group,value:b.dataset.optValue,price:Number(b.dataset.optPrice||0)};const priced=Object.values(selectedOptions).find(o=>Number(o.price||0)>0);selectedOptionPrice=priced?Number(priced.price):null;mPriceContainer.innerHTML=priceHtml(selectedOptionPrice!=null?selectedOptionPrice:item.priceValue,null,0);};customOptionsEl.appendChild(box);});
         mPriceContainer.innerHTML=priceHtml(selectedOptionPrice!=null?selectedOptionPrice:item.priceValue,null,0);
         mAddCart.onclick=()=>addToCart(item.id,1,{optionPrice:selectedOptionPrice,optionSelections:Object.fromEntries(Object.entries(selectedOptions).map(([g,o])=>[g,o.value]))});
+      }
+
+      } catch (detailsOptionError) {
+        console.error('RavenLab product options error:', detailsOptionError, item);
+        const wholesaleBoxSafe=document.getElementById('wholesaleBox');
+        const packageOptionsSafe=document.getElementById('packageOptions');
+        const colorOptionsSafe=document.getElementById('colorOptions');
+        const colorSectionSafe=document.getElementById('colorSection');
+        const customOptionsSafe=document.getElementById('customOptions');
+        if(wholesaleBoxSafe) wholesaleBoxSafe.classList.remove('active');
+        if(packageOptionsSafe) packageOptionsSafe.innerHTML='';
+        if(colorOptionsSafe) colorOptionsSafe.innerHTML='';
+        if(colorSectionSafe) colorSectionSafe.style.display='none';
+        if(customOptionsSafe) customOptionsSafe.innerHTML='';
+        mPriceContainer.innerHTML=priceMarkup(item);
+        mAddCart.onclick=()=>addToCart(item.id,1);
       }
 
       const waLink = document.getElementById('waLink');
@@ -2130,9 +2187,6 @@
       mAddCart.disabled = isSoldOut(item);
       mAddCart.querySelector('span').textContent = isSoldOut(item) ? t('statusUnavailable') : t('addToCart');
 
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
       closeModalBtn.focus();
     }
 
